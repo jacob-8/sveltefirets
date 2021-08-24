@@ -14,7 +14,7 @@ Jeff Delaney gets most of the credit for SvelteFireTS. I started with https://gi
 
 
 ## Todo
-I'm using this in production and will shortly share an axample application using SvelteFireTS.
+I'm using this in production and will shortly implement this in the included SvelteKit application as an example.
 
 ## Firebase 9 Usage Examples
 
