@@ -2,7 +2,8 @@
 
 - SvelteKit 
 - Typescript
-- Firebase 9 beta 
+- Firebase 9 beta
+- *includes FirebaseUI web + Firebase 8 brought in via CDN only when login modal is opened - FirebaseUI web allows for easy authentication in dozens of languages and many providers without you need to manage the authentication forms - this will be upgraded to use Firebase 9 once it goes GA*
 
 ## Inspiration: Fireship.io
 
