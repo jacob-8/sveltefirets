@@ -12,10 +12,9 @@
 
 Jeff Delaney gets most of the credit for SvelteFireTS. I started with https://github.com/codediodeio/sveltefire then added Typescript and borrowed some convenient helpers from [Firestore Advanced Usage Angularfire](https://fireship.io/lessons/firestore-advanced-usage-angularfire/). Please sign up at [Fireship.io](https://fireship.io/) and subscribe to the [Fireship Youtube Channel](https://www.youtube.com/channel/UCsBjURrPoezykLs9EqgamOA) for some great tutorials.
 
+## Usage Examples
+- You can see an example of these components and utilities as a whole being used by the [Living Dictionaries](https://github.com/livingtongues/living-dictionaries) web app, a SvelteKit production app. Search the repo for imports from the `$sveltefire` directory.
 
-## Todo
-I'm using this in production and will shortly implement this in the included SvelteKit application as an example.
+- Though things have changed, the above mentioned Sveltefire repo where this library was written in Javascript is still useful to get up and running.  
 
-## Firebase 9 Usage Examples
-
-See https://modularfirebase.web.app/common-use-cases/firestore/ for good docs on Firebase 9 use cases (though it's documentation for the Alpha and is possibly out-dated now, it's much more useful than the main Firebase docs for quickly finding use cases)
+- A setup guide and individual use cases will be detailed out next, but in the meantime you can visit https://modularfirebase.web.app/common-use-cases/firestore/ for good docs on common Firebase 9 use cases (though it's documentation for the Alpha and is possibly out-dated now, it's much more useful than the main Firebase docs for quickly finding use cases)
