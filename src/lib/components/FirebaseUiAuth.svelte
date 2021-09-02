@@ -14,8 +14,8 @@
   import { loadScriptOnce, loadStylesOnce } from '../helpers/loader';
   import { firebaseConfig } from '../config';
 
-  export let tosUrl: firebaseui.auth.Config['tosUrl'];
-  export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl']; // 
+  export let tosUrl: firebaseui.auth.Config['tosUrl']; // '.../terms' | () => window.location.assign("your-terms-url");
+  export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl']; 
 
   const dispatch = createEventDispatcher<{
     close: string | null;
@@ -73,9 +73,10 @@
         // firebase.auth.PhoneAuthProvider.PROVIDER_ID // add Flag CSS back if using phone auth
         // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
       ],
-      tosUrl,
-      privacyPolicyUrl,
     };
+
+    if (tosUrl) uiConfig.tosUrl = tosUrl;
+    if (privacyPolicyUrl) uiConfig.privacyPolicyUrl = privacyPolicyUrl;
 
     if (ui) {
       ui.reset();
