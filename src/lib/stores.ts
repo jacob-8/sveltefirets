@@ -124,7 +124,7 @@ export function collectionStore<T>(
     ...opts,
   };
 
-  if (!browser) {
+  if (typeof window === 'undefined') {
     const store = writable(startWith);
     const { subscribe } = store;
     return {
