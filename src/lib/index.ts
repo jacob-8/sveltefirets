@@ -12,6 +12,7 @@ class FB {
 
   private constructor() {
     if (typeof window !== 'undefined') {
+      console.log('initing firebase');
       if (getApps().length) {
         this._firebaseApp = getApp();
       } else {
