@@ -1,6 +1,6 @@
 // Inspired by https://fireship.io/lessons/firestore-advanced-usage-angularfire/
 import { get } from 'svelte/store';
-import { user } from '$sveltefire/user';
+import { user } from './user';
 import {
   addDoc,
   collection,
