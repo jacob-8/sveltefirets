@@ -1,26 +1,10 @@
-const firebaseConfigDev = {
-  apiKey: '...',
-  authDomain: '<dev-projectid>.firebaseapp.com',
-  databaseURL: 'https://<dev-projectid>.firebaseio.com',
-  projectId: '<dev-projectid>',
-  storageBucket: '<dev-projectid>.appspot.com',
-  messagingSenderId: '...',
-  appId: '...',
-  measurementId: '...',
+export const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FB_apiKey as string,
+  authDomain: `${import.meta.env.VITE_FB_projectId}.firebaseapp.com`,
+  databaseURL: `https://${import.meta.env.VITE_FB_projectId}.firebaseio.com`,
+  projectId: import.meta.env.VITE_FB_projectId as string,
+  storageBucket: `${import.meta.env.VITE_FB_projectId}.appspot.com`,
+  messagingSenderId: import.meta.env.VITE_FB_messagingSenderId as string,
+  appId: import.meta.env.VITE_FB_appId as string,
+  measurementId: import.meta.env.VITE_FB_measurementId as string,
 };
-
-const firebaseConfigProd = {
-  apiKey: '...',
-  authDomain: '<prod-projectid>.firebaseapp.com',
-  databaseURL: 'https://<prod-projectid>.firebaseio.com',
-  projectId: '<prod-projectid>',
-  storageBucket: '<prod-projectid>.appspot.com',
-  messagingSenderId: '...',
-  appId: '...',
-  measurementId: '...',
-};
-
-export const firebaseConfig =
-  import.meta.env.VITE_project === '<prod-projectid>'
-    ? firebaseConfigProd
-    : firebaseConfigDev;
