@@ -14,8 +14,8 @@
   import { loadScriptOnce, loadStylesOnce } from '../helpers/loader';
   import { firebaseConfig } from '../config';
 
-  export let tosUrl: firebaseui.auth.Config['tosUrl']; // '.../terms' | () => window.location.assign("your-terms-url");
-  export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl']; 
+  export let tosUrl: firebaseui.auth.Config['tosUrl'] = undefined; // '.../terms' | () => window.location.assign("your-terms-url");
+  export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl'] = undefined; 
 
   const dispatch = createEventDispatcher<{
     close: string | null;
@@ -60,7 +60,7 @@
           // occurs. Check below for more details on this.
           return handleUIError(error);
         },
-        uiShown: () => loading = false,
+        uiShown: () => (loading = false),
       },
       credentialHelper: firebaseui.auth.CredentialHelper.NONE, // disabling for moment if it makes harder with redirect (is ok if works through popup)
       signInFlow: 'popup',
