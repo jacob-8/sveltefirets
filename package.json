@@ -35,6 +35,9 @@
 		"tslib": "^2.0.0",
 		"typescript": "^4.0.0"
 	},
+	"peerDependencies": {
+		"firebase": "^9.0.0-beta.8"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/jacobbowdoin/sveltefire-ts.git"
