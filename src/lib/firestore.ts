@@ -46,22 +46,26 @@ export async function getDocument<T>(ref: DocPredicate<T>): Promise<T> {
 export function add<T>(
   ref: CollectionPredicate<T>,
   data: T,
-  abbreviateMetadata = false
+  opts: {
+    abbreviateMetadata?: boolean;
+  } = {}
 ): Promise<DocumentReference<T>> {
   return addDoc(colRef(ref), {
     ...data,
-    [abbreviateMetadata ? 'ua' : 'updatedAt']: serverTimestamp(),
-    [abbreviateMetadata ? 'ua' : 'updatedAt']: serverTimestamp(),
-    [abbreviateMetadata ? 'ua' : 'updatedAt']: getUid(),
-    [abbreviateMetadata ? 'ua' : 'updatedAt']: getUid(),
+    [opts.abbreviateMetadata ? 'ua' : 'updatedAt']: serverTimestamp(),
+    [opts.abbreviateMetadata ? 'ca' : 'createdAt']: serverTimestamp(),
+    [opts.abbreviateMetadata ? 'ub' : 'updatedBy']: getUid(),
+    [opts.abbreviateMetadata ? 'cb' : 'createdBy']: getUid(),
   });
 }
 
 export async function set<T>(
   ref: DocPredicate<T>,
   data: T,
-  abbreviateMetadata = false,
-  merge = false
+  opts: {
+    abbreviateMetadata?: boolean;
+    merge?: boolean;
+  } = {}
 ): Promise<void> {
   const snap = await getDocument(ref);
   return await (snap
@@ -70,24 +74,26 @@ export async function set<T>(
         docRef(ref),
         {
           ...data,
-          [abbreviateMetadata ? 'ua' : 'updatedAt']: serverTimestamp(),
-          [abbreviateMetadata ? 'ca' : 'createdAt']: serverTimestamp(),
-          [abbreviateMetadata ? 'ub' : 'updatedBy']: getUid(),
-          [abbreviateMetadata ? 'cb' : 'createdBy']: getUid(),
+          [opts.abbreviateMetadata ? 'ua' : 'updatedAt']: serverTimestamp(),
+          [opts.abbreviateMetadata ? 'ca' : 'createdAt']: serverTimestamp(),
+          [opts.abbreviateMetadata ? 'ub' : 'updatedBy']: getUid(),
+          [opts.abbreviateMetadata ? 'cb' : 'createdBy']: getUid(),
         },
-        { merge }
+        { merge: opts.merge }
       ));
 } // could split apart into set and upsert if desired, https://stackoverflow.com/questions/46597327/difference-between-set-with-merge-true-and-update
 
 export function update<T>(
   ref: DocPredicate<T>,
   data: Partial<T>,
-  abbreviateMetadata = false
+  opts: {
+    abbreviateMetadata?: boolean;
+  } = {}
 ): Promise<void> {
   return updateDoc(docRef(ref), {
     ...data,
-    [abbreviateMetadata ? 'ua' : 'updatedAt']: serverTimestamp(),
-    [abbreviateMetadata ? 'ub' : 'updatedBy']: getUid(),
+    [opts.abbreviateMetadata ? 'ua' : 'updatedAt']: serverTimestamp(),
+    [opts.abbreviateMetadata ? 'ub' : 'updatedBy']: getUid(),
   }).catch((err) => {
     alert(err);
   });
