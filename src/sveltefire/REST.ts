@@ -12,7 +12,10 @@ function firestoreRESTUrl(path: string): string {
   return `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/${path}`;
 }
 
-export async function fetchDoc<T>(collection: string, id: string): Promise<T> {
+export async function fetchDoc<T>(path: string): Promise<T> {
+  const pathParts = path.split('/');
+  const id = pathParts.pop();
+  const collection = pathParts.join('/');
   const url = firestoreRESTUrl(`${collection}/${id}`);
   const res = await fetch(url);
   const json = await res.json();

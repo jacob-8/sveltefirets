@@ -15,7 +15,7 @@
   import { firebaseConfig } from '../config';
 
   export let tosUrl: firebaseui.auth.Config['tosUrl'] = undefined; // '.../terms' | () => window.location.assign("your-terms-url");
-  export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl'] = undefined; 
+  export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl'] = undefined;
 
   const dispatch = createEventDispatcher<{
     close: string | null;
