@@ -1,4 +1,3 @@
-import { browser } from '$app/env';
 import { initializeApp, getApp, getApps } from 'firebase/app';
 import type { FirebaseApp } from 'firebase/app';
 import { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore';
@@ -12,7 +11,7 @@ class FB {
   private _db: Firestore;
 
   private constructor() {
-    if (browser) {
+    if (typeof window !== 'undefined') {
       if (getApps().length) {
         this._firebaseApp = getApp();
       } else {

@@ -1,6 +1,5 @@
 import { writable } from 'svelte/store';
 import type { Unsubscriber } from 'svelte/store';
-import { browser } from '$app/env';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 
@@ -16,7 +15,7 @@ function createUserStore() {
   const { subscribe, set } = writable<IUser>(null);
   let unsub: Unsubscriber;
 
-  if (browser) {
+  if (typeof window !== 'undefined') {
     const auth = getAuth(firebaseApp);
     let cached = null;
     cached = JSON.parse(localStorage.getItem(userKey));

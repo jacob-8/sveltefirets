@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount, createEventDispatcher } from 'svelte';
   import type { Unsubscriber } from 'svelte/store';
-  import { browser } from '$app/env';
   import type { CollectionReference, QueryConstraint } from 'firebase/firestore';
   import { collectionStore } from '../stores';
 
@@ -33,7 +32,7 @@
 
   // Props changed
   $: {
-    if (browser) {
+    if (typeof window !== 'undefined') {
       if (unsub) {
         unsub();
         store = collectionStore(path, queryConstraints, opts);

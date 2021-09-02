@@ -1,5 +1,4 @@
 import { writable } from 'svelte/store';
-import { browser } from '$app/env';
 import { onSnapshot, query } from 'firebase/firestore';
 import type { CollectionReference, DocumentReference, QueryConstraint } from 'firebase/firestore';
 
@@ -13,7 +12,7 @@ export function docStore<T>(
 ) {
   const { startWith, log, traceId, maxWait, once } = opts;
 
-  if (!browser) {
+  if (typeof window === 'undefined') {
     const store = writable<T>(startWith);
     const { subscribe } = store;
     return {
