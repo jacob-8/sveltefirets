@@ -3,7 +3,7 @@ import type { Unsubscriber } from 'svelte/store';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 
-import type { IUser } from '$lib/interfaces';
+import type { IUser } from './interfaces';
 import { db, firebaseApp } from '.';
 import { setCookie } from './helpers/cookies';
 import { docStore } from './stores';

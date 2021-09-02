@@ -1,4 +1,4 @@
-import type { IUser } from '$lib/interfaces';
+import type { IUser } from '../interfaces';
 import type { User } from 'firebase/auth';
 import { serverTimestamp, setDoc } from 'firebase/firestore';
 import { docRef } from '../firestore';

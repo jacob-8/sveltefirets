@@ -13,7 +13,7 @@ import {
 } from 'firebase/firestore';
 import type { CollectionReference, DocumentReference } from 'firebase/firestore';
 import { db } from '.';
-import type { IUser } from '$lib/interfaces';
+import type { IUser } from './interfaces';
 
 export const getUid = () => {
   const u = get(user) as IUser;
