@@ -1,34 +1,36 @@
 {
-  "name": "sveltefire-ts",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
-    "preview": "svelte-kit preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "prettier --ignore-path .gitignore  --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
-    "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
-    "test": "jest"
-  },
-  "devDependencies": {
-    "@sveltejs/kit": "^1.0.0-next.156",
-    "@types/jest": "^27.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.29.3",
-    "@typescript-eslint/parser": "^4.29.3",
-    "eslint": "^7.22.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-svelte3": "^3.2.0",
-    "firebase": "^9.0.0-beta.8",
-    "jest": "^27.0.6",
-    "prettier": "^2.3.2",
-    "prettier-plugin-svelte": "^2.2.0",
-    "svelte": "^3.42.3",
-    "svelte-check": "^2.2.5",
-    "svelte-preprocess": "^4.8.0",
-    "ts-jest": "^27.0.5",
-    "tslib": "^2.0.0",
-    "typescript": "^4.0.0"
-  },
-  "type": "module"
+	"name": "sveltefire-ts",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "svelte-kit dev",
+		"build": "svelte-kit build",
+		"preview": "svelte-kit preview",
+		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --ignore-path .gitignore  --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
+		"test": "jest",
+		"package": "svelte-kit package"
+	},
+	"devDependencies": {
+		"@sveltejs/kit": "^1.0.0-next.156",
+		"@types/jest": "^27.0.1",
+		"@typescript-eslint/eslint-plugin": "^4.29.3",
+		"@typescript-eslint/parser": "^4.29.3",
+		"eslint": "^7.22.0",
+		"eslint-config-prettier": "^8.1.0",
+		"eslint-plugin-svelte3": "^3.2.0",
+		"firebase": "^9.0.0-beta.8",
+		"jest": "^27.0.6",
+		"prettier": "^2.3.2",
+		"prettier-plugin-svelte": "^2.2.0",
+		"svelte": "^3.42.3",
+		"svelte-check": "^2.2.5",
+		"svelte-preprocess": "^4.8.0",
+		"svelte2tsx": "^0.4.5",
+		"ts-jest": "^27.0.5",
+		"tslib": "^2.0.0",
+		"typescript": "^4.0.0"
+	},
+	"type": "module"
 }

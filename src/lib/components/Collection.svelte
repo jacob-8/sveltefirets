@@ -1,17 +1,18 @@
 <script lang="ts">
-  import { browser } from '$app/env';
-  import type { DocumentReference } from 'firebase/firestore';
-  export let path: DocumentReference<T> | string;
-  export let log = false;
-  export let traceId = '';
-  type T = $$Generic;
-  export let startWith: T = undefined; // Why? Firestore returns null for docs that don't exist, predictible loading state.
-  export let maxWait = 10000;
-  export let once = false;
-
   import { onDestroy, onMount, createEventDispatcher } from 'svelte';
   import type { Unsubscriber } from 'svelte/store';
-  import { docStore } from './stores';
+  import { browser } from '$app/env';
+  import type { CollectionReference, QueryConstraint } from 'firebase/firestore';
+  import { collectionStore } from '../stores';
+
+  export let path: CollectionReference<T> | string;
+  export let queryConstraints: QueryConstraint[] = []; // usage example: [where('role', '==', 'contributor'), orderBy("name")];
+  export let traceId = '';
+  export let log = false;
+  type T = $$Generic;
+  export let startWith: T[] = undefined;
+  export let maxWait = 10000;
+  export let once = false;
 
   const opts = {
     startWith,
@@ -21,11 +22,11 @@
     once,
   };
 
-  let store = docStore(path, opts);
+  let store = collectionStore<T>(path, queryConstraints, opts);
 
   const dispatch = createEventDispatcher<{
-    ref: { ref: DocumentReference<T> };
-    data: { data: T };
+    ref: { ref: CollectionReference<T> };
+    data: { data: T[] };
   }>();
 
   let unsub: Unsubscriber;
@@ -34,9 +35,8 @@
   $: {
     if (browser) {
       if (unsub) {
-        // Unsub and create new store
         unsub();
-        store = docStore(path, opts);
+        store = collectionStore(path, queryConstraints, opts);
         dispatch('ref', { ref: store.ref });
       }
 
@@ -56,7 +56,12 @@
 <slot name="before" />
 
 {#if $store}
-  <slot data={$store} ref={store.ref} error={store.error} />
+  <slot
+    data={$store}
+    ref={store.ref}
+    error={store.error}
+    first={store.meta.first}
+    last={store.meta.last} />
 {:else if store.loading}
   <slot name="loading" />
 {:else}

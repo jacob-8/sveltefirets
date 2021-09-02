@@ -9,15 +9,18 @@
 </script>
 
 <script lang="ts">
-  import Modal from '$lib/components/ui/Modal.svelte';
-  import { onMount } from 'svelte';
-  import { loadScriptOnce, loadStylesOnce } from './helpers/loader';
-  import { firebaseConfig } from '$sveltefire/config';
-  import { updateUserData } from '$sveltefire/helpers/updateUserData';
-  import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
-  export let context: 'force' = undefined;
+  import type { User } from 'firebase/auth';
+  import { onMount, createEventDispatcher } from 'svelte';
+  import { loadScriptOnce, loadStylesOnce } from '../helpers/loader';
+  import { firebaseConfig } from '../config';
 
+  export let tosUrl: firebaseui.auth.Config['tosUrl'];
+  export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl']; // 
+
+  const dispatch = createEventDispatcher<{
+    close: string | null;
+    updateuserdata: { user: User; isNewUser: boolean };
+  }>();
   let loading = true;
   let container: HTMLDivElement;
 
@@ -36,15 +39,13 @@
     const uiConfig: firebaseui.auth.Config = {
       callbacks: {
         signInSuccessWithAuthResult: function (authResult) {
-          const user = authResult.user;
+          const user = authResult.user as User;
           // var credential = authResult.credential;
           const isNewUser = authResult.additionalUserInfo.isNewUser;
           // const providerId = authResult.additionalUserInfo.providerId; // password or google.com
           // var operationType = authResult.operationType; //signIn
-          updateUserData(user, isNewUser);
-          dispatch('close', {
-            text: 'auth success',
-          });
+          dispatch('updateuserdata', { user, isNewUser });
+          dispatch('close', 'auth success');
 
           // Do something with the returned AuthResult.
           // Return type determines whether we continue the redirect automatically
@@ -59,10 +60,7 @@
           // occurs. Check below for more details on this.
           return handleUIError(error);
         },
-        uiShown: function () {
-          // The widget is rendered.
-          loading = false;
-        },
+        uiShown: () => loading = false,
       },
       credentialHelper: firebaseui.auth.CredentialHelper.NONE, // disabling for moment if it makes harder with redirect (is ok if works through popup)
       signInFlow: 'popup',
@@ -75,12 +73,8 @@
         // firebase.auth.PhoneAuthProvider.PROVIDER_ID // add Flag CSS back if using phone auth
         // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
       ],
-      // tosUrl and privacyPolicyUrl accept either url string or a callback
-      // function.
-      // tosUrl: '.../terms',
-      // privacyPolicyUrl: function() {
-      //   window.location.assign("your-privacy-policy-url");
-      // }
+      tosUrl,
+      privacyPolicyUrl,
     };
 
     if (ui) {
@@ -98,14 +92,7 @@
   }
 </script>
 
-<Modal on:close>
-  <span slot="heading">Sign In</span>
-  {#if context === 'force'}
-    <h4 class="text-lg text-center">Please create an account to continue.</h4>
-  {/if}
-
-  {#if loading}
-    <div>Loading...</div>
-  {/if}
-  <div bind:this={container} />
-</Modal>
+{#if loading}
+  <div>Loading...</div>
+{/if}
+<div bind:this={container} />
