@@ -9,7 +9,6 @@ import { setCookie } from './helpers/cookies';
 import { docStore } from './stores';
 
 const userKey = 'firebase_user';
-let denotedVisit = false;
 
 function createUserStore() {
   const { subscribe, set } = writable<IUser>(null);
@@ -25,12 +24,13 @@ function createUserStore() {
       auth,
       (u) => {
         if (u) {
+          unsub && unsub();
           const userStore = docStore<IUser>(`users/${u.uid}`, { log: true });
           unsub = userStore.subscribe((user) => {
             if (user) {
               set(user);
               cacheUser(user);
-              !denotedVisit && denoteVisit(user);
+              denoteVisitOnce(user.uid);
             }
           });
         } else {
@@ -73,11 +73,27 @@ function removeCachedUser() {
   setCookie('user', null, { expires: yesterday });
 }
 
-async function denoteVisit(user: IUser) {
-  try {
-    await updateDoc(doc(db, 'users', user.uid), { lastVisit: serverTimestamp() });
-    denotedVisit = true;
-  } catch (err) {
-    console.error(err);
-  }
-}
+const denoteVisitOnce = (() => {
+  let denoted = false;
+  return async function (uid: string) {
+    if (!denoted) {
+      denoted = true;
+      try {
+        await updateDoc(doc(db, 'users', uid), { lastVisit: serverTimestamp() });
+      } catch (err) {
+        console.error(err);
+      }
+      return true;
+    } else {
+      return true;
+    }
+  };
+})();
+
+// OLD
+// unsub = onSnapshot(doc(db, 'users', u.uid), (snapshot) => {
+//   const user = snapshot.data() as IUser;
+//   if (user) {
+//     console.log('retrieved: ', user);
+//   }
+// });
