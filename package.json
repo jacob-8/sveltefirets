@@ -1,6 +1,6 @@
 {
-	"name": "sveltefire-ts",
-	"version": "0.0.6",
+	"name": "sveltefirets",
+	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
 		"dev": "svelte-kit dev",
