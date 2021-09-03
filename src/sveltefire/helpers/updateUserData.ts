@@ -28,6 +28,7 @@ export async function updateUserData(user: User, isNewUser: boolean) {
   }
 
   try {
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // wait for authentication to complete for new users before trying to save to the database
     await setDoc(docRef(`users/${user.uid}`), data, { merge: true });
   } catch (err) {
     console.error(err);
