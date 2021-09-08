@@ -3,15 +3,16 @@ import type { Unsubscriber } from 'svelte/store';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 
-import type { IUser } from './interfaces';
+import type { IBaseUser } from './interfaces';
 import { db, firebaseApp } from '.';
 import { setCookie } from './helpers/cookies';
 import { docStore } from './stores';
+import { firebaseConfig } from './config';
 
-const userKey = 'firebase_user';
+const userKey = `${firebaseConfig.projectId}_firebase_user`;
 
 function createUserStore() {
-  const { subscribe, set } = writable<IUser>(null);
+  const { subscribe, set } = writable<IBaseUser>(null);
   let unsub: Unsubscriber;
 
   if (typeof window !== 'undefined') {
@@ -25,7 +26,7 @@ function createUserStore() {
       (u) => {
         if (u) {
           unsub && unsub();
-          const userStore = docStore<IUser>(`users/${u.uid}`, { log: true });
+          const userStore = docStore<IBaseUser>(`users/${u.uid}`, { log: true });
           unsub = userStore.subscribe((user) => {
             if (user) {
               set(user);
@@ -56,9 +57,9 @@ function createUserStore() {
 
 export const user = createUserStore();
 
-function cacheUser(user: IUser) {
+function cacheUser(user: IBaseUser) {
   localStorage.setItem(userKey, JSON.stringify(user));
-  const minimalUser: Partial<IUser> = {
+  const minimalUser: Partial<IBaseUser> = {
     displayName: user.displayName,
     email: user.email,
     photoURL: user.photoURL || null,
@@ -92,7 +93,7 @@ const denoteVisitOnce = (() => {
 
 // OLD
 // unsub = onSnapshot(doc(db, 'users', u.uid), (snapshot) => {
-//   const user = snapshot.data() as IUser;
+//   const user = snapshot.data() as IBaseUser;
 //   if (user) {
 //     console.log('retrieved: ', user);
 //   }

@@ -13,10 +13,10 @@ import {
 } from 'firebase/firestore';
 import type { CollectionReference, DocumentReference } from 'firebase/firestore';
 import { db } from '.';
-import type { IUser } from './interfaces';
+import type { IBaseUser } from './interfaces';
 
 export const getUid = () => {
-  const u = get(user) as IUser;
+  const u = get(user) as IBaseUser;
   return (u && u.uid) || 'anonymous'; // useful if allowing support messages to be saved by non-logged-in users
 };
 

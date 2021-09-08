@@ -1,6 +1,5 @@
 const loadScript = (url: string) =>
   new Promise<Event>((resolve, reject) => {
-    console.log({ url });
     const script = document.createElement('script');
     script.src = url;
     script.async = true;
@@ -24,7 +23,6 @@ export const loadScriptOnce = (() => {
 
 const loadStyles = (url: string) =>
   new Promise<Event>((resolve, reject) => {
-    console.log({ url });
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = url;
