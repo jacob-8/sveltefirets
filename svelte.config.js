@@ -5,9 +5,19 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
-	}
+		package: {
+			dir: './package',
+		},
+		vite: {
+			optimizeDeps: {
+				exclude: ['sveltefirets']
+			},
+			ssr: {
+				noExternal: ['sveltefirets']
+			}
+		}
+	},
 };
 
 export default config;

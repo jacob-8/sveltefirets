@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 import { onSnapshot, query } from 'firebase/firestore';
 import type { CollectionReference, DocumentReference, QueryConstraint } from 'firebase/firestore';
 
-import { db } from '.';
+import { db } from './init';
 import { colRef, docRef } from './firestore';
 import { startTrace, stopTrace } from './perf';
 

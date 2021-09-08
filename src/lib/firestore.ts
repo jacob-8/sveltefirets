@@ -12,7 +12,7 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import type { CollectionReference, DocumentReference } from 'firebase/firestore';
-import { db } from '.';
+import { db } from './init';
 import type { IBaseUser } from './interfaces';
 
 export const getUid = () => {

@@ -1,7 +1,6 @@
 {
 	"name": "sveltefirets",
 	"version": "0.0.1",
-	"type": "module",
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
@@ -31,12 +30,19 @@
 		"svelte-check": "^2.2.5",
 		"svelte-preprocess": "^4.8.0",
 		"svelte2tsx": "^0.4.5",
+		"sveltefirets": "file:./package",
 		"ts-jest": "^27.0.5",
 		"tslib": "^2.0.0",
 		"typescript": "^4.0.0"
 	},
 	"peerDependencies": {
 		"firebase": "^9.0.0-beta.8"
+	},
+	"type": "module",
+	"main": "./index-server.js",
+	"browser": "./index-client.js",
+	"exports": {
+		".": "./index-client.js"
 	},
 	"repository": {
 		"type": "git",

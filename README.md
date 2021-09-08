@@ -16,3 +16,7 @@ Read the initial draft of documentation for this library at **[sveed.dev/docs/sv
 
 Jeff Delaney gets most of the credit for SvelteFireTS. I started with [SvelteFire](https://github.com/codediodeio/sveltefire) then added Typescript and borrowed some convenient helpers from Jeff's [Firestore Advanced Usage Angularfire](https://fireship.io/lessons/firestore-advanced-usage-angularfire/). If you like what you see here, you should sign up at [Fireship.io](https://fireship.io/) and subscribe to the [Fireship Youtube Channel](https://www.youtube.com/channel/UCsBjURrPoezykLs9EqgamOA) for great tutorials.
 
+## Developing
+- `npm i`
+- `npm run package`
+- `npm run dev`
