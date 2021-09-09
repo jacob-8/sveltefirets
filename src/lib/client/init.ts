@@ -2,7 +2,7 @@ import { initializeApp, getApp, getApps } from 'firebase/app';
 import type { FirebaseApp } from 'firebase/app';
 import { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore';
 import type { Firestore } from 'firebase/firestore';
-import { firebaseConfig } from './config';
+import { firebaseConfig } from '../config';
 
 class FB {
   private static instance: FB;

@@ -11,8 +11,8 @@
 <script lang="ts">
   import type { User } from 'firebase/auth';
   import { onMount, createEventDispatcher } from 'svelte';
-  import { loadScriptOnce, loadStylesOnce } from '../helpers/loader';
-  import { firebaseConfig } from '../config';
+  import { loadScriptOnce, loadStylesOnce } from '../loader';
+  import { firebaseConfig } from '../../config';
 
   export let tosUrl: firebaseui.auth.Config['tosUrl'] = undefined; // '.../terms' | () => window.location.assign("your-terms-url");
   export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl'] = undefined;

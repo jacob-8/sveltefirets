@@ -3,11 +3,11 @@ import type { Unsubscriber } from 'svelte/store';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 
-import type { IBaseUser } from './interfaces';
+import type { IBaseUser } from '../interfaces';
 import { db, firebaseApp } from './init';
-import { setCookie } from './helpers/cookies';
+import { setCookie } from '../helpers/cookies';
 import { docStore } from './stores';
-import { firebaseConfig } from './config';
+import { firebaseConfig } from '../config';
 
 const userKey = `${firebaseConfig.projectId}_firebase_user`;
 
