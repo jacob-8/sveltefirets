@@ -10,9 +10,9 @@ const config = {
 			dir: './package',
 		},
 		vite: {
-			optimizeDeps: {
-				exclude: ['sveltefirets']
-			},
+			// optimizeDeps: {
+			// 	exclude: ['sveltefirets']
+			// },
 			ssr: {
 				noExternal: ['sveltefirets']
 			}

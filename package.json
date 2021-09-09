@@ -39,10 +39,15 @@
 		"firebase": "^9.0.0-beta.8"
 	},
 	"type": "module",
-	"main": "./index-server.js",
-	"browser": "./index-client.js",
 	"exports": {
-		".": "./index-client.js"
+		".": {
+			"node": {
+				"default": "./index-server.js"
+			},
+      "browser": {
+        "default": "./index-client.js"
+      }
+    }
 	},
 	"repository": {
 		"type": "git",
