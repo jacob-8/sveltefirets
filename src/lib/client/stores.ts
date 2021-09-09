@@ -124,25 +124,6 @@ export function collectionStore<T>(
     ...opts,
   };
 
-  if (typeof window === 'undefined') {
-    const store = writable(startWith);
-    const { subscribe } = store;
-    return {
-      subscribe,
-      db: undefined,
-      ref: undefined,
-      get loading() {
-        return false;
-      },
-      get error() {
-        return false;
-      },
-      get meta() {
-        return { first: null, last: null };
-      },
-    };
-  }
-
   const ref = typeof path === 'string' ? colRef<T>(path) : path;
   const q = query(ref, ...queryConstraints);
   const trace = traceId && startTrace(traceId);
