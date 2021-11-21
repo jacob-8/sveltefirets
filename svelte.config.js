@@ -10,6 +10,11 @@ const config = {
 			dir: './package',
 		},
 		vite: {
+			server: {
+				fs: {
+					allow: ['..'] // Allow serving files from one level up to the project root
+				}
+			},
 			// optimizeDeps: {
 			// 	exclude: ['sveltefirets']
 			// },
