@@ -5,5 +5,15 @@ export const hello = (name: string) => {
 
 // export { default as Collection } from './server/components/Collection.svelte';
 
+function noop() {
+  return new Promise((resolve) => resolve(null));
+}
+
 import Collection from './server/components/Collection.svelte';
-export { Collection };
+import Doc from './server/components/Doc.svelte';
+const db = null,
+  firebaseApp = null,
+  getDocument = noop;
+
+
+export { Collection, Doc, db, firebaseApp, getDocument };

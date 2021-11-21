@@ -32,20 +32,18 @@
 
   // Props changed
   $: {
-    if (typeof window !== 'undefined') {
-      if (unsub) {
-        unsub();
-        store = collectionStore(path, queryConstraints, opts);
-        dispatch('ref', { ref: store.ref });
-      }
-
-      unsub = store.subscribe((data) => {
-        dispatch('data', {
-          data,
-        });
-      });
-      // use emitted data with on:data={(e) => console.log(e.detail.data)}
+    if (unsub) {
+      unsub();
+      store = collectionStore(path, queryConstraints, opts);
+      dispatch('ref', { ref: store.ref });
     }
+
+    unsub = store.subscribe((data) => {
+      dispatch('data', {
+        data,
+      });
+    });
+    // use emitted data with on:data={(e) => console.log(e.detail.data)}
   }
 
   onMount(() => dispatch('ref', { ref: store.ref }));

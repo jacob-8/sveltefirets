@@ -1,13 +1,20 @@
 <script lang="ts">
-  import { Collection, hello } from 'sveltefirets';
+  import { Collection, Doc, getDocument, hello } from 'sveltefirets';
+
+  getDocument('templates/CrJauqXJ249p7r0OxE53').then((template) => {
+    console.log({ template }); // will be null on server
+  });
 </script>
 
-<h1>Welcome to {hello('Dan')}</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1>{hello('Dan')}</h1>
 
-<Collection path="templates" startWith={[{ name: 'Bob' }, { name: 'Betty' }]} let:data={people}>
+<Doc path={`templates/CrJauqXJ249p7r0OxE53`} startWith={{ name: 'Bill' }} log let:data={template}>
+  <pre>{JSON.stringify(template, null, 2)}</pre>
+</Doc>
+
+<Collection path="templates" startWith={[{ name: 'Bob' }, { name: 'Betty' }]} let:data={people} log>
   {#each people as person}
-    <pre>{JSON.stringify(person, null, 2)}</pre>
+    <pre>{JSON.stringify(person.name, null, 2)}</pre>
   {/each}
 </Collection>
 

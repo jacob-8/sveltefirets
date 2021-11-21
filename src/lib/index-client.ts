@@ -6,4 +6,7 @@ export const hello = (name: string) => {
 // export { default as Collection } from './client/components/Collection.svelte';
 
 import Collection from './client/components/Collection.svelte';
-export { Collection };
+import Doc from './client/components/Doc.svelte';
+import { getDocument } from './client/firestore';
+import { db, firebaseApp } from './client/init';
+export { Collection, Doc, db, firebaseApp, getDocument };
