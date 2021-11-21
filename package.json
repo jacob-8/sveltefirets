@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "svelte-kit dev",
-		"build": "svelte-kit build",
+		"build": "npm run package && svelte-kit build",
 		"preview": "svelte-kit preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
@@ -15,6 +15,7 @@
 		"postversion": "git push && git push --tags && npm run release"
 	},
 	"devDependencies": {
+		"@sveltejs/adapter-vercel": "^1.0.0-next.31",
 		"@sveltejs/kit": "^1.0.0-next.196",
 		"@types/jest": "^27.0.3",
 		"@typescript-eslint/eslint-plugin": "^4.29.3",
