@@ -3,10 +3,7 @@ export const hello = (name: string) => {
   return `Hello, ${name}, from client!`;
 };
 
-// export { default as Collection } from './client/components/Collection.svelte';
-
-import Collection from './client/components/Collection.svelte';
-import Doc from './client/components/Doc.svelte';
-import { getDocument } from './client/firestore';
-import { db, firebaseApp } from './client/init';
-export { Collection, Doc, db, firebaseApp, getDocument };
+export { default as Collection } from './client/components/Collection.svelte';
+export { default as Doc } from './client/components/Doc.svelte';
+export { getDocument } from './client/firestore';
+export { db, firebaseApp } from './client/init';
