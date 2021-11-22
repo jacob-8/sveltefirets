@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getAuth, signInAnonymously } from '@firebase/auth';
-  import { createUserStore, logOut } from 'sveltefirets';
+  import { logOut } from 'sveltefirets';
   import { user } from './user';
 </script>
 
@@ -17,12 +17,3 @@
       signInAnonymously(auth);
     }}>Log In Anonymously</button>
 {/if}
-
-<button
-  type="button"
-  on:click={() => {
-    const u = createUserStore('key');
-    u.subscribe((user) => {
-      console.log(user);
-    });
-  }}>Create user store</button>
