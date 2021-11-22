@@ -7,8 +7,10 @@
 
 ## How to use
 
+Note that this is very much in progress still but here's how you can get started:
+
 - `npm install -D sveltefirets`
-- Refer to the demo app on the https://github.com/jacobbowdoin/sveltefirets/tree/separate-server-and-client-entry-points branch until I finish making this package fully ready.
+- Refer to the demo app in `/src` until I add docs.
 
 ## Inspiration: [Fireship.io](https://fireship.io/)
 
