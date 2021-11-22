@@ -11,7 +11,7 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
 		"test": "jest",
 		"package": "svelte-kit package",
-		"release": "npm run package && npm publish package",
+		"release": "npm run package && npm publish",
 		"postversion": "git push && git push --tags && npm run release"
 	},
 	"devDependencies": {
