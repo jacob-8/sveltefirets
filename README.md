@@ -10,8 +10,8 @@
 Note that this is very much in progress and only works on the client but prepares the stage to work also on the server. Still here's how you can get started:
 
 - `npm install -D sveltefirets`
-- add to your `svelte.config.js` file:
-```
+- configure the package to play nice with Vite in your `svelte.config.js` file:
+```js
 kit: { 
 	vite: {
 		ssr: {
@@ -20,17 +20,18 @@ kit: {
 	}
 }
 ```
-- initFirebase in your root layout.svelte:
-```
+- run the initFirebase in your root __layout.svelte:
+```html
 <script context="module" lang="ts">
   import { initFirebase } from 'sveltefirets';
-  import { firebaseConfig } from './firebaseConfig';
+  import { firebaseConfig } from '$lib/firebaseConfig';
   import type { Load } from '@sveltejs/kit';
   export const load: Load = async () => {
     initFirebase(firebaseConfig);
     return {};
   };
 </script>
+<slot />
 ``` 
 - Refer to the demo app in `/src` for further implementation until I add docs.
 

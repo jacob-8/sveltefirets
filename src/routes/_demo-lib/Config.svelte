@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { firebaseConfig } from '../firebaseConfig';
+  import { firebaseConfig } from './firebaseConfig';
 </script>
 
 <h3>Firebase Config:</h3>
