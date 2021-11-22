@@ -12,13 +12,15 @@
   export let startWith: T[] = undefined;
   export let maxWait = 10000;
   export let once = false;
+  export let refField: string = undefined;
 
-  const opts = {
+  $: opts = {
     startWith,
     traceId,
     log,
     maxWait,
     once,
+    refField,
   };
 
   let store = collectionStore<T>(path, queryConstraints, opts);
@@ -32,20 +34,18 @@
 
   // Props changed
   $: {
-    if (typeof window !== 'undefined') {
-      if (unsub) {
-        unsub();
-        store = collectionStore(path, queryConstraints, opts);
-        dispatch('ref', { ref: store.ref });
-      }
-
-      unsub = store.subscribe((data) => {
-        dispatch('data', {
-          data,
-        });
-      });
-      // use emitted data with on:data={(e) => console.log(e.detail.data)}
+    if (unsub) {
+      unsub();
+      store = collectionStore(path, queryConstraints, opts);
+      dispatch('ref', { ref: store.ref });
     }
+
+    unsub = store.subscribe((data) => {
+      dispatch('data', {
+        data,
+      });
+    });
+    // use emitted data with on:data={(e) => console.log(e.detail.data)}
   }
 
   onMount(() => dispatch('ref', { ref: store.ref }));

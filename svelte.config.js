@@ -1,13 +1,30 @@
 import preprocess from 'svelte-preprocess';
+import vercel from '@sveltejs/adapter-vercel';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		// hydrate the <div id="svelte"> element in src/app.html
+		adapter: vercel(),
 		target: '#svelte',
-	}
+		package: {
+			dir: './package',
+		},
+		vite: {
+			server: {
+				fs: {
+					allow: ['..'] // Allow serving files from one level up to the project root
+				}
+			},
+			// optimizeDeps: {
+			// 	exclude: ['sveltefirets']
+			// },
+			ssr: {
+				noExternal: ['sveltefirets']
+			}
+		}
+	},
 };
 
 export default config;

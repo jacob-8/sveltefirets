@@ -1,7 +1,7 @@
 import type { IBaseUser } from '../interfaces';
 import type { User } from 'firebase/auth';
 import { serverTimestamp, setDoc } from 'firebase/firestore';
-import { docRef } from '../firestore';
+import { docRef } from './firestore';
 
 export async function updateUserData(user: User, isNewUser: boolean) {
   const data: IBaseUser = {

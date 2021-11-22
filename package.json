@@ -1,10 +1,9 @@
 {
 	"name": "sveltefirets",
-	"version": "0.0.1",
-	"type": "module",
+	"version": "0.0.2",
 	"scripts": {
 		"dev": "svelte-kit dev",
-		"build": "svelte-kit build",
+		"build": "npm run package && svelte-kit build",
 		"preview": "svelte-kit preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
@@ -16,33 +15,50 @@
 		"postversion": "git push && git push --tags && npm run release"
 	},
 	"devDependencies": {
-		"@sveltejs/kit": "^1.0.0-next.156",
-		"@types/jest": "^27.0.1",
+		"@sveltejs/adapter-vercel": "^1.0.0-next.31",
+		"@sveltejs/kit": "^1.0.0-next.196",
+		"@types/jest": "^27.0.3",
 		"@typescript-eslint/eslint-plugin": "^4.29.3",
 		"@typescript-eslint/parser": "^4.29.3",
 		"eslint": "^7.22.0",
 		"eslint-config-prettier": "^8.1.0",
-		"eslint-plugin-svelte3": "^3.2.0",
-		"firebase": "^9.0.0-beta.8",
-		"jest": "^27.0.6",
-		"prettier": "^2.3.2",
-		"prettier-plugin-svelte": "^2.2.0",
-		"svelte": "^3.42.3",
-		"svelte-check": "^2.2.5",
-		"svelte-preprocess": "^4.8.0",
-		"svelte2tsx": "^0.4.5",
-		"ts-jest": "^27.0.5",
+		"eslint-plugin-svelte3": "^3.2.1",
+		"firebase": "^9.5.0",
+		"jest": "^27.3.1",
+		"prettier": "^2.4.1",
+		"prettier-plugin-svelte": "^2.5.0",
+		"svelte": "^3.44.2",
+		"svelte-check": "^2.2.10",
+		"svelte-preprocess": "^4.9.8",
+		"svelte2tsx": "^0.4.10",
+		"sveltefirets": "file:./package",
+		"ts-jest": "^27.0.7",
 		"tslib": "^2.0.0",
-		"typescript": "^4.0.0"
+		"typescript": "^4.5.2"
 	},
 	"peerDependencies": {
 		"firebase": "^9.0.0-beta.8"
+	},
+	"type": "module",
+	"main": "./index-client.js",
+	"exports": {
+		".": {
+			"node": "./index-server.js",
+			"browser": "./index-client.js"
+		},
+		"./package.json": "./package.json"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/jacobbowdoin/sveltefire-ts.git"
 	},
-	"keywords": ["Svelte", "SvelteKit", "Firebase", "ESM", "Typescript"],
+	"keywords": [
+		"Svelte",
+		"SvelteKit",
+		"Firebase",
+		"ESM",
+		"Typescript"
+	],
 	"author": "Jacob Bowdoin",
 	"license": "MIT",
 	"bugs": {

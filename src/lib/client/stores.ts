@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 import { onSnapshot, query } from 'firebase/firestore';
 import type { CollectionReference, DocumentReference, QueryConstraint } from 'firebase/firestore';
 
-import { db } from '.';
+import { db } from './init';
 import { colRef, docRef } from './firestore';
 import { startTrace, stopTrace } from './perf';
 
@@ -11,22 +11,6 @@ export function docStore<T>(
   opts: { log?: boolean; traceId?: string; startWith?: T; maxWait?: number; once?: boolean } = {}
 ) {
   const { startWith, log, traceId, maxWait, once } = opts;
-
-  if (typeof window === 'undefined') {
-    const store = writable<T>(startWith);
-    const { subscribe } = store;
-    return {
-      subscribe,
-      db: undefined,
-      ref: undefined,
-      get loading() {
-        return false;
-      },
-      get error() {
-        return false;
-      },
-    };
-  }
 
   const ref = typeof path === 'string' ? docRef<T>(path) : path;
   const trace = traceId && startTrace(traceId);
@@ -114,34 +98,14 @@ export function docStore<T>(
 export function collectionStore<T>(
   path: CollectionReference<T> | string,
   queryConstraints: QueryConstraint[] = [],
-  opts: { log?: boolean; traceId?: string; startWith?: T[]; maxWait?: number; once?: boolean } = {
+  opts: { log?: boolean; traceId?: string; startWith?: T[]; maxWait?: number; once?: boolean, refField?: string } = {
     maxWait: 10000,
   }
 ) {
   const { startWith, log, traceId, maxWait, once, idField, refField } = {
     idField: 'id',
-    refField: 'ref',
     ...opts,
   };
-
-  if (typeof window === 'undefined') {
-    const store = writable(startWith);
-    const { subscribe } = store;
-    return {
-      subscribe,
-      db: undefined,
-      ref: undefined,
-      get loading() {
-        return false;
-      },
-      get error() {
-        return false;
-      },
-      get meta() {
-        return { first: null, last: null };
-      },
-    };
-  }
 
   const ref = typeof path === 'string' ? colRef<T>(path) : path;
   const q = query(ref, ...queryConstraints);
