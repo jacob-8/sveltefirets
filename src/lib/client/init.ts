@@ -1,24 +1,22 @@
-import { initializeApp, getApp, getApps } from 'firebase/app';
+import { initializeApp, getApp, getApps, FirebaseOptions } from 'firebase/app';
 import type { FirebaseApp } from 'firebase/app';
 import { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore';
-import type { Firestore } from 'firebase/firestore';
-import { firebaseConfig } from '../config';
+import { Writable, writable } from 'svelte/store';
 
-class FB {
-  private static instance: FB;
+export const firebaseAppStore: Writable<FirebaseApp> = writable(null);
 
-  private _firebaseApp: FirebaseApp;
-  private _db: Firestore;
+export function initFirebase(config: FirebaseOptions) {
+  let firebaseApp: FirebaseApp = null;
+  console.log('initing firebase');
+  if (getApps().length) {
+    firebaseApp = getApp();
+    console.log('firebase previously initialized');
+  } else {
+    firebaseApp = initializeApp(config);
+    console.log('firebase initialized');
 
-  private constructor() {
-    console.log('initing firebase');
-    if (getApps().length) {
-      this._firebaseApp = getApp();
-    } else {
-      this._firebaseApp = initializeApp(firebaseConfig);
-    }
-    this._db = getFirestore();
-    enableIndexedDbPersistence(this._db).catch((err) => {
+    const db = getFirestore();
+    enableIndexedDbPersistence(db).catch((err) => {
       if (err.code == 'failed-precondition') {
         console.warn(
           'When multiple tabs open, Firestore persistence can only be enabled in one tab at a time.'
@@ -30,22 +28,6 @@ class FB {
       }
     });
   }
-
-  static getInstance() {
-    if (!FB.instance) {
-      FB.instance = new FB();
-    }
-    return FB.instance;
-  }
-
-  public get firebaseApp() {
-    return this._firebaseApp;
-  }
-  public get db() {
-    return this._db;
-  }
+  firebaseAppStore.set(firebaseApp);
+  return firebaseApp;
 }
-// Singleton model from https://dev.to/daviddalbusco/angular-services-without-angular-thank-you-typescript-5ghn
-
-export const firebaseApp = FB.getInstance().firebaseApp;
-export const db = FB.getInstance().db;

@@ -1,6 +1,6 @@
 {
 	"name": "sveltefirets",
-	"version": "0.0.3",
+	"version": "0.0.5",
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "npm run package && svelte-kit build",
@@ -11,7 +11,7 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
 		"test": "jest",
 		"package": "svelte-kit package",
-		"release": "npm run package && npm publish",
+		"release": "npm run package && cd package && npm publish",
 		"postversion": "git push && git push --tags && npm run release"
 	},
 	"devDependencies": {

@@ -1,13 +1,10 @@
 export const platform = 'server';
 export * from './interfaces';
-export { firebaseConfig } from './config';
 
-// Helpers
 function noop() {
   return new Promise((resolve) => resolve(null));
 }
-const db = null,
-  firebaseApp = null,
+const initFirebase = () => console.log('does not init on server yet'),
   getUid = () => null,
   colRef = null,
   docRef = null,
@@ -21,10 +18,10 @@ const db = null,
   addOnline = noop,
   setOnline = noop,
   updateOnline = noop,
-  deleteDocumentOnline = noop;
+  deleteDocumentOnline = noop,
+  user = null;
 export {
-  db,
-  firebaseApp,
+  initFirebase,
   getUid,
   colRef,
   docRef,
@@ -39,6 +36,7 @@ export {
   setOnline,
   updateOnline,
   deleteDocumentOnline,
+  user
 };
 
 // Components

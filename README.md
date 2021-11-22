@@ -7,10 +7,32 @@
 
 ## How to use
 
-Note that this is very much in progress still but here's how you can get started:
+Note that this is very much in progress and only works on the client but prepares the stage to work also on the server. Still here's how you can get started:
 
 - `npm install -D sveltefirets`
-- Refer to the demo app in `/src` until I add docs.
+- add to your `svelte.config.js` file:
+```
+kit: { 
+	vite: {
+		ssr: {
+			noExternal: ['sveltefirets']
+		}
+	}
+}
+```
+- initFirebase in your root layout.svelte:
+```
+<script context="module" lang="ts">
+  import { initFirebase } from 'sveltefirets';
+  import { firebaseConfig } from './firebaseConfig';
+  import type { Load } from '@sveltejs/kit';
+  export const load: Load = async () => {
+    initFirebase(firebaseConfig);
+    return {};
+  };
+</script>
+``` 
+- Refer to the demo app in `/src` for further implementation until I add docs.
 
 ## Inspiration: [Fireship.io](https://fireship.io/)
 

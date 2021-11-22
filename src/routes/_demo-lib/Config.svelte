@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { firebaseConfig } from 'sveltefirets';
+  import { firebaseConfig } from '../firebaseConfig';
 </script>
 
 <h3>Firebase Config:</h3>
@@ -8,5 +8,5 @@
 {:else}
   You need to create a
   <a href="https://firebase.google.com/">Firebase Project</a>
-  and paste your web config into a <code>.env</code> in your project root.
+  and run initFirebase with your config on client initialization (done in __layout.svelte load in SvelteKit).
 {/if}

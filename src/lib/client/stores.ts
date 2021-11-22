@@ -2,7 +2,6 @@ import { writable } from 'svelte/store';
 import { onSnapshot, query } from 'firebase/firestore';
 import type { CollectionReference, DocumentReference, QueryConstraint } from 'firebase/firestore';
 
-import { db } from './init';
 import { colRef, docRef } from './firestore';
 import { startTrace, stopTrace } from './perf';
 
@@ -84,7 +83,6 @@ export function docStore<T>(
 
   return {
     subscribe,
-    db,
     ref,
     get loading() {
       return _loading;
@@ -177,7 +175,6 @@ export function collectionStore<T>(
 
   return {
     subscribe,
-    db,
     ref,
     get loading() {
       return _loading;

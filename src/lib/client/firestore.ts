@@ -1,5 +1,6 @@
 // Inspired by https://fireship.io/lessons/firestore-advanced-usage-angularfire/
 import {
+  getFirestore,
   CollectionReference,
   DocumentReference,
   QueryConstraint,
@@ -14,7 +15,6 @@ import {
   updateDoc,
   serverTimestamp,
 } from 'firebase/firestore';
-import { db } from './init';
 
 import { get } from 'svelte/store';
 import { user } from './user';
@@ -29,6 +29,7 @@ type CollectionPredicate<T> = string | CollectionReference<T>;
 type DocPredicate<T> = string | DocumentReference<T>;
 
 export function colRef<T>(ref: CollectionPredicate<T>): CollectionReference<T> {
+  const db = getFirestore();
   return typeof ref === 'string' ? (collection(db, ref) as CollectionReference<T>) : ref;
 }
 

@@ -1,7 +1,6 @@
 export const platform = 'client';
 export * from './interfaces';
-export { firebaseConfig } from './config';
-export { db, firebaseApp } from './client/init';
+export { initFirebase } from './client/init';
 
 // Helpers
 export {
@@ -21,3 +20,6 @@ export { addOnline, setOnline, updateOnline, deleteDocumentOnline } from './clie
 // Components
 export { default as Collection } from './client/components/Collection.svelte';
 export { default as Doc } from './client/components/Doc.svelte';
+
+// Stores
+export { user } from './client/user';

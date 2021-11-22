@@ -1,60 +1,57 @@
-import { writable } from 'svelte/store';
+import { derived, Writable } from 'svelte/store';
 import type { Unsubscriber } from 'svelte/store';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { doc, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
+import type { FirebaseApp } from 'firebase/app';
 
-import type { IBaseUser } from '../interfaces';
-import { db, firebaseApp } from './init';
-import { setCookie } from '../helpers/cookies';
+import { firebaseAppStore } from './init';
 import { docStore } from './stores';
-import { firebaseConfig } from '../config';
+import type { IBaseUser } from '../interfaces';
+import { setCookie } from '../helpers/cookies';
 
-const userKey = `${firebaseConfig.projectId}_firebase_user`;
+const userKey = `firebase_user`;
 
-function createUserStore() {
-  const { subscribe, set } = writable<IBaseUser>(null);
-  let unsub: Unsubscriber;
+export const user = derived<Writable<FirebaseApp>, IBaseUser>(
+  firebaseAppStore,
+  ($firebaseApp, set) => {
+    console.log($firebaseApp);
+    if ($firebaseApp.options) {
+      console.log('initing user store');
 
-  const auth = getAuth(firebaseApp);
-  let cached = null;
-  cached = JSON.parse(localStorage.getItem(userKey));
-  set(cached);
-
-  onAuthStateChanged(
-    auth,
-    (u) => {
-      if (u) {
-        unsub && unsub();
-        const userStore = docStore<IBaseUser>(`users/${u.uid}`, { log: true });
-        unsub = userStore.subscribe((user) => {
-          if (user) {
-            set(user);
-            cacheUser(user);
-            denoteVisitOnce(user.uid);
+      let unsub: Unsubscriber;
+      const auth = getAuth();
+      onAuthStateChanged(
+        auth,
+        (u) => {
+          console.log('user changed', u); // will this print on sign out?
+          if (u) {
+            unsub && unsub();
+            const userStore = docStore<IBaseUser>(`users/${u.uid}`, { log: true });
+            unsub = userStore.subscribe((user) => {
+              if (user) {
+                set(user);
+                cacheUser(user, userKey);
+                denoteVisitOnce(user.uid);
+              }
+            });
+          } else {
+            set(null);
+            removeCachedUser(userKey);
           }
-        });
-      } else {
-        set(null);
-        removeCachedUser();
-      }
-    },
-    (err) => console.error(err.message)
-  );
+        },
+        (err) => console.error(err.message)
+      );
+    }
+  },
+  JSON.parse(localStorage.getItem(userKey)) || null
+);
 
-  const signOutFn = async () => {
-    unsub && unsub();
-    await signOut(auth);
-  };
+export const logOut = async () => {
+  const auth = getAuth();
+  await signOut(auth);
+};
 
-  return {
-    subscribe,
-    signOut: signOutFn,
-  };
-}
-
-export const user = createUserStore();
-
-function cacheUser(user: IBaseUser) {
+function cacheUser(user: IBaseUser, userKey: string) {
   localStorage.setItem(userKey, JSON.stringify(user));
   const minimalUser: Partial<IBaseUser> = {
     displayName: user.displayName,
@@ -64,7 +61,7 @@ function cacheUser(user: IBaseUser) {
   setCookie('user', JSON.stringify(minimalUser), { 'max-age': 31536000 });
 }
 
-function removeCachedUser() {
+function removeCachedUser(userKey: string) {
   localStorage.removeItem(userKey);
   const yesterday = new Date(new Date());
   yesterday.setDate(yesterday.getDate() - 1);
@@ -77,6 +74,7 @@ const denoteVisitOnce = (() => {
     if (!denoted) {
       denoted = true;
       try {
+        const db = getFirestore();
         await updateDoc(doc(db, 'users', uid), { lastVisit: serverTimestamp() });
       } catch (err) {
         console.error(err);

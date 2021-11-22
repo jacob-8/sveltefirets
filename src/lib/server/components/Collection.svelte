@@ -11,7 +11,6 @@
     const { subscribe } = writable(startWith);
     return {
       subscribe,
-      db: undefined,
       ref: undefined,
       get loading() {
         return false;
