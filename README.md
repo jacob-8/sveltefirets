@@ -7,7 +7,7 @@
 
 ## How to use
 
-Read the initial draft of documentation for this library at **[sveed.dev/docs/sveltefirets](https://sveed.dev/docs/sveltefirets)**.
+Read the initial draft of documentation for this library at **[sveed.dev/docs/sveltefirets](https://sveed.dev/docs/sveltefirets)**. I'm working on getting this library published shortly.
 
 ## Inspiration: [Fireship.io](https://fireship.io/)
 
