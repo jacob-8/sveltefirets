@@ -1,4 +1,6 @@
 <script lang="ts">
+import { limit, orderBy } from 'firebase/firestore';
+
   import { Collection, deleteDocument, update } from 'sveltefirets';
   import type { IMessage } from './message.interface';
 
@@ -24,7 +26,8 @@ justify-content: space-between;">
 
   <input type="text" bind:value={refField} maxlength="5" placeholder="Optional ref field" />
 </div>
-<Collection path="messages" startWith={preloadedMessages} let:data={messages} {refField} log>
+<Collection path="messages" queryConstraints={[limit(5), orderBy('updatedAt', 'desc')]} startWith={preloadedMessages} let:data={messages} {refField} log>
+  <!-- where('createdBy', '==', $user.uid) -->
   {#each messages as message}
     <b>{message.text}</b>, sent on {message.updatedAt && message.updatedAt.toDate()}
     <pre style="font-size: 70%;">{JSON.stringify(message, null, 2)}</pre>
@@ -34,4 +37,3 @@ justify-content: space-between;">
   {/each}
 </Collection>
 
-<!-- queryConstraints={[where('createdBy', '==', $user.uid), orderBy('updatedAt', 'desc')]}> -->
