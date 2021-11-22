@@ -1,25 +1,27 @@
 export const platform = 'server';
 export * from './interfaces';
 
-function noop() {
-  return new Promise((resolve) => resolve(null));
-}
+const noopPromise = () => new Promise((resolve) => resolve(null));
+const noop = () => null;
+
 const initFirebase = () => console.log('does not init on server yet'),
-  getUid = () => null,
+  getUid = noop,
   colRef = null,
   docRef = null,
-  getCollection = noop,
-  getDocument = noop,
-  add = noop,
-  set = noop,
-  update = noop,
-  deleteDocument = noop,
-  docExists = noop,
-  addOnline = noop,
-  setOnline = noop,
-  updateOnline = noop,
-  deleteDocumentOnline = noop,
-  user = null;
+  getCollection = noopPromise,
+  getDocument = noopPromise,
+  add = noopPromise,
+  set = noopPromise,
+  update = noopPromise,
+  deleteDocument = noopPromise,
+  docExists = noopPromise,
+  addOnline = noopPromise,
+  setOnline = noopPromise,
+  updateOnline = noopPromise,
+  deleteDocumentOnline = noopPromise,
+  authState = null, 
+  createUserStore = noop,
+  logOut = noop;
 export {
   initFirebase,
   getUid,
@@ -36,7 +38,9 @@ export {
   setOnline,
   updateOnline,
   deleteDocumentOnline,
-  user
+  authState, 
+  createUserStore,
+  logOut,
 };
 
 // Components

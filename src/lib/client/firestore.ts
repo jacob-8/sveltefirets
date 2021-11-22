@@ -17,11 +17,10 @@ import {
 } from 'firebase/firestore';
 
 import { get } from 'svelte/store';
-import { user } from './user';
-import type { IBaseUser } from '../interfaces';
+import { authState } from './user';
 
 export const getUid = () => {
-  const u = get(user) as IBaseUser;
+  const u = get(authState);
   return (u && u.uid) || 'anonymous'; // 'anonymous' allows support messages to be saved by non-logged-in users
 };
 

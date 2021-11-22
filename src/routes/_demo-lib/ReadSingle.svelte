@@ -7,7 +7,7 @@
 
 <input style="margin-bottom: 10px;" type="text" bind:value={id} placeholder="Enter document id" />
 
-<Doc path={`messages/${id}`} log let:data={message}>
+<Doc path={`messages/${id}`} let:data={message}>
   <pre>{JSON.stringify(message, null, 2)}</pre>
   <div slot="fallback">
     No document found with this id. Choose one from the above list of greetings (add a greeting

@@ -1,6 +1,6 @@
-import { derived, Writable } from 'svelte/store';
+import { derived, Readable, Writable } from 'svelte/store';
 import type { Unsubscriber } from 'svelte/store';
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { doc, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
 import type { FirebaseApp } from 'firebase/app';
 
@@ -9,42 +9,52 @@ import { docStore } from './stores';
 import type { IBaseUser } from '../interfaces';
 import { setCookie } from '../helpers/cookies';
 
-const userKey = `firebase_user`;
+// const userKey = 'firebase_user';
 
-export const user = derived<Writable<FirebaseApp>, IBaseUser>(
+export const authState = derived<Writable<FirebaseApp>, User>(
   firebaseAppStore,
   ($firebaseApp, set) => {
-    console.log($firebaseApp);
     if ($firebaseApp.options) {
-      console.log('initing user store');
-
-      let unsub: Unsubscriber;
+      console.log($firebaseApp.options);
       const auth = getAuth();
       onAuthStateChanged(
         auth,
         (u) => {
-          console.log('user changed', u); // will this print on sign out?
-          if (u) {
-            unsub && unsub();
-            const userStore = docStore<IBaseUser>(`users/${u.uid}`, { log: true });
-            unsub = userStore.subscribe((user) => {
-              if (user) {
-                set(user);
-                cacheUser(user, userKey);
-                denoteVisitOnce(user.uid);
-              }
-            });
-          } else {
-            set(null);
-            removeCachedUser(userKey);
-          }
+          console.log({ u });
+          set(u);
         },
         (err) => console.error(err.message)
       );
     }
   },
-  JSON.parse(localStorage.getItem(userKey)) || null
+  null
 );
+
+export function createUserStore<T>(userKey: string) {
+  return derived<Readable<User>, User>(
+    authState,
+    ($authState, set) => {
+      console.log('subscribing to user');
+      // let unsub: Unsubscriber;
+      if ($authState) {
+        set($authState);
+        // unsub && unsub();
+        // const userStore = docStore<T>(`users/${$authState.uid}`, { log: true });
+        // unsub = userStore.subscribe((user) => {
+        //   if (user) {
+        //     set(user);
+        //     cacheUser(user, userKey);
+        //     denoteVisitOnce(user.uid);
+        //   }
+        // });
+      } else {
+        set(null);
+        // removeCachedUser(userKey);
+      }
+    },
+    JSON.parse(localStorage.getItem(userKey)) || null
+  );
+}
 
 export const logOut = async () => {
   const auth = getAuth();
@@ -85,11 +95,3 @@ const denoteVisitOnce = (() => {
     }
   };
 })();
-
-// OLD
-// unsub = onSnapshot(doc(db, 'users', u.uid), (snapshot) => {
-//   const user = snapshot.data() as IBaseUser;
-//   if (user) {
-//     console.log('retrieved: ', user);
-//   }
-// });

@@ -4,9 +4,13 @@ import { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore';
 import { Writable, writable } from 'svelte/store';
 
 export const firebaseAppStore: Writable<FirebaseApp> = writable(null);
+let firebaseApp: FirebaseApp = null;
 
 export function initFirebase(config: FirebaseOptions) {
-  let firebaseApp: FirebaseApp = null;
+  if (firebaseApp) {
+    return firebaseApp;
+  }
+
   console.log('initing firebase');
   if (getApps().length) {
     firebaseApp = getApp();

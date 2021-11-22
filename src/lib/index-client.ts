@@ -22,4 +22,4 @@ export { default as Collection } from './client/components/Collection.svelte';
 export { default as Doc } from './client/components/Doc.svelte';
 
 // Stores
-export { user } from './client/user';
+export { authState, createUserStore, logOut } from './client/user';
