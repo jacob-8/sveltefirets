@@ -12,13 +12,15 @@
   export let startWith: T[] = undefined;
   export let maxWait = 10000;
   export let once = false;
+  export let refField: string = undefined;
 
-  const opts = {
+  $: opts = {
     startWith,
     traceId,
     log,
     maxWait,
     once,
+    refField,
   };
 
   let store = collectionStore<T>(path, queryConstraints, opts);

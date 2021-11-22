@@ -98,13 +98,12 @@ export function docStore<T>(
 export function collectionStore<T>(
   path: CollectionReference<T> | string,
   queryConstraints: QueryConstraint[] = [],
-  opts: { log?: boolean; traceId?: string; startWith?: T[]; maxWait?: number; once?: boolean } = {
+  opts: { log?: boolean; traceId?: string; startWith?: T[]; maxWait?: number; once?: boolean, refField?: string } = {
     maxWait: 10000,
   }
 ) {
   const { startWith, log, traceId, maxWait, once, idField, refField } = {
     idField: 'id',
-    refField: 'ref',
     ...opts,
   };
 
