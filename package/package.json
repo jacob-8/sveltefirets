@@ -1,0 +1,78 @@
+{
+  "name": "sveltefirets",
+  "version": "0.0.2",
+  "devDependencies": {
+    "@sveltejs/adapter-vercel": "^1.0.0-next.31",
+    "@sveltejs/kit": "^1.0.0-next.196",
+    "@types/jest": "^27.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-svelte3": "^3.2.1",
+    "firebase": "^9.5.0",
+    "jest": "^27.3.1",
+    "prettier": "^2.4.1",
+    "prettier-plugin-svelte": "^2.5.0",
+    "svelte": "^3.44.2",
+    "svelte-check": "^2.2.10",
+    "svelte-preprocess": "^4.9.8",
+    "svelte2tsx": "^0.4.10",
+    "sveltefirets": "file:./package",
+    "ts-jest": "^27.0.7",
+    "tslib": "^2.0.0",
+    "typescript": "^4.5.2"
+  },
+  "peerDependencies": {
+    "firebase": "^9.0.0-beta.8"
+  },
+  "type": "module",
+  "main": "./index-client.js",
+  "exports": {
+    "./package.json": "./package.json",
+    "./client/components/Collection.svelte": "./client/components/Collection.svelte",
+    "./client/components/Doc.svelte": "./client/components/Doc.svelte",
+    "./client/components/FirebaseUiAuth.svelte": "./client/components/FirebaseUiAuth.svelte",
+    "./client/firestore-lite": "./client/firestore-lite.js",
+    "./client/firestore": "./client/firestore.js",
+    "./client/init": "./client/init.js",
+    "./client/loader": "./client/loader.js",
+    "./client/perf": "./client/perf.js",
+    "./client/stores": "./client/stores.js",
+    "./client/updateUserData": "./client/updateUserData.js",
+    "./client/user": "./client/user.js",
+    "./config": "./config.js",
+    "./helpers/cookies": "./helpers/cookies.js",
+    "./index-client": "./index-client.js",
+    "./index-server": "./index-server.js",
+    "./interfaces/firestore-metadata.interface": "./interfaces/firestore-metadata.interface.js",
+    "./interfaces": "./interfaces/index.js",
+    "./interfaces/user.interface": "./interfaces/user.interface.js",
+    "./REST": "./REST.js",
+    "./RESTParser.test": "./RESTParser.test.js",
+    "./RESTParser": "./RESTParser.js",
+    "./server/components/Collection.svelte": "./server/components/Collection.svelte",
+    "./server/components/Doc.svelte": "./server/components/Doc.svelte",
+    ".": {
+      "node": "./index-server.js",
+      "browser": "./index-client.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacobbowdoin/sveltefire-ts.git"
+  },
+  "keywords": [
+    "Svelte",
+    "SvelteKit",
+    "Firebase",
+    "ESM",
+    "Typescript"
+  ],
+  "author": "Jacob Bowdoin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jacobbowdoin/sveltefire-ts/issues"
+  },
+  "homepage": "https://github.com/jacobbowdoin/sveltefire-ts#readme"
+}
