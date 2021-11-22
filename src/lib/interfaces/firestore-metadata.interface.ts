@@ -7,3 +7,11 @@ export interface IFirestoreMetaData {
   createdAt?: Timestamp & FieldValue;
   updatedAt?: Timestamp & FieldValue;
 }
+
+export interface IFirestoreMetaDataAbbreviated {
+  id?: string;
+  cb?: string;
+  ub?: string;
+  ca?: Timestamp & FieldValue;
+  ua?: Timestamp & FieldValue;
+}

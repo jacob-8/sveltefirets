@@ -1,10 +1,5 @@
-export const hello = (name: string) => {
-  console.log('client hello');
-  return `Hello, ${name}, from client!`;
-};
-
-//////////////
-
+export const platform = 'client';
+export * from './interfaces';
 export { firebaseConfig } from './config';
 export { db, firebaseApp } from './client/init';
 
