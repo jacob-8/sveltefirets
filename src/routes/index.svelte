@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Collection, Doc, getDocument, hello } from 'sveltefirets';
+import Config from './_Config.svelte';
 
   getDocument('messages/CrJauqXJ249p7r0OxE53').then((message) => {
     console.log({ message }); // will be null on server
@@ -19,3 +20,5 @@
 </Collection>
 
 <!-- queryConstraints={[where('createdBy', '==', $user.uid), orderBy('updatedAt', 'desc')]}> -->
+
+<Config />

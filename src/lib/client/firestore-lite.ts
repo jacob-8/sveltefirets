@@ -1,26 +1,24 @@
-// Inspired by https://fireship.io/lessons/firestore-advanced-usage-angularfire/
+// Use when wanting to receive back promises that will resolve or error when internet is flaky, unlike regular firestore methods which won't resolve right away in these situations. See notes in Readme.md for more info.
+// NOTE: Be sure to import your firestore methods such as serverTimestamp() from firebase/firestore/lite otherwise you will receive errors
 import {
+  getFirestore,
   CollectionReference,
   DocumentReference,
-  QueryConstraint,
   collection,
   doc,
-  getDocs,
   getDoc,
-  query,
   addDoc,
   setDoc,
   deleteDoc,
   updateDoc,
   serverTimestamp,
-} from 'firebase/firestore';
-import { db } from './init';
+} from 'firebase/firestore/lite';
 
 import { get } from 'svelte/store';
 import { user } from './user';
 import type { IBaseUser } from '../interfaces';
 
-export const getUid = () => {
+const getUid = () => {
   const u = get(user) as IBaseUser;
   return (u && u.uid) || 'anonymous'; // 'anonymous' allows support messages to be saved by non-logged-in users
 };
@@ -28,11 +26,12 @@ export const getUid = () => {
 type CollectionPredicate<T> = string | CollectionReference<T>;
 type DocPredicate<T> = string | DocumentReference<T>;
 
-export function colRef<T>(ref: CollectionPredicate<T>): CollectionReference<T> {
+function colRef<T>(ref: CollectionPredicate<T>): CollectionReference<T> {
+  const db = getFirestore();
   return typeof ref === 'string' ? (collection(db, ref) as CollectionReference<T>) : ref;
 }
 
-export function docRef<T>(ref: DocPredicate<T>): DocumentReference<T> {
+function docRef<T>(ref: DocPredicate<T>): DocumentReference<T> {
   if (typeof ref === 'string') {
     const pathParts = ref.split('/');
     const documentId = pathParts.pop();
@@ -43,25 +42,12 @@ export function docRef<T>(ref: DocPredicate<T>): DocumentReference<T> {
   }
 }
 
-export async function getCollection<T>(
-  path: CollectionPredicate<T>,
-  queryConstraints: QueryConstraint[] = []
-): Promise<T[]> {
-  const ref = typeof path === 'string' ? colRef<T>(path) : path;
-  const q = query(ref, ...queryConstraints);
-  const collectionSnap = await getDocs(q);
-  return collectionSnap.docs.map((docSnap) => ({
-    ...docSnap.data(),
-    id: docSnap.id,
-  }));
-}
-
-export async function getDocument<T>(ref: DocPredicate<T>): Promise<T> {
+async function getDocument<T>(ref: DocPredicate<T>): Promise<T> {
   const docSnap = await getDoc(docRef(ref));
   return docSnap.exists() ? { ...(docSnap.data() as T), id: docSnap.id } : null;
 }
 
-export function add<T>(
+export function addOnline<T>(
   ref: CollectionPredicate<T>,
   data: T,
   opts: {
@@ -77,7 +63,7 @@ export function add<T>(
   });
 }
 
-export async function set<T>(
+export async function setOnline<T>(
   ref: DocPredicate<T>,
   data: T,
   opts: {
@@ -87,7 +73,7 @@ export async function set<T>(
 ): Promise<void> {
   const snap = await getDocument(ref);
   return await (snap
-    ? update(ref, data)
+    ? updateOnline(ref, data)
     : setDoc(
         docRef(ref),
         {
@@ -101,7 +87,7 @@ export async function set<T>(
       ));
 } // could split apart into set and upsert if desired, https://stackoverflow.com/questions/46597327/difference-between-set-with-merge-true-and-update
 
-export async function update<T>(
+export async function updateOnline<T>(
   ref: DocPredicate<T>,
   data: Partial<T>,
   opts: {
@@ -116,10 +102,6 @@ export async function update<T>(
   });
 }
 
-export function deleteDocument<T>(ref: DocPredicate<T>): Promise<void> {
+export function deleteDocumentOnline<T>(ref: DocPredicate<T>): Promise<void> {
   return deleteDoc(docRef(ref));
-}
-
-export async function docExists<T>(ref: DocPredicate<T>): Promise<boolean> {
-  return (await getDoc(docRef(ref))).exists();
 }
