@@ -7,7 +7,8 @@
 
 ## How to use
 
-Read the initial draft of documentation for this library at **[sveed.dev/docs/sveltefirets](https://sveed.dev/docs/sveltefirets)**. I'm working on getting this library published shortly.
+- `npm install -D sveltefirets`
+- Refer to the demo app on the https://github.com/jacobbowdoin/sveltefirets/tree/separate-server-and-client-entry-points branch until I finish making this package fully ready.
 
 ## Inspiration: [Fireship.io](https://fireship.io/)
 
