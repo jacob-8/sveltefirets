@@ -12,8 +12,6 @@
 </script>
 
 <h1>SvelteFire TS</h1>
-<a href="/foo">foo</a>
-<a href="/baz">baz</a>
 
 {#if platform === 'client'}
   <p>
