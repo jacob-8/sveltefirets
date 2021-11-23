@@ -33,14 +33,14 @@ kit: {
 </script>
 <slot />
 ``` 
-- Refer to the demo app in `/src` for further implementation until I add docs.
+- Refer to the demo app in `/src` (try it out at https://sveltefirets.vercel.app) for further implementation until I add docs.
 
 ## Inspiration: [Fireship.io](https://fireship.io/)
 
 <img src="static/fireship.png" alt="Firship.io" width="150"/>
 <!-- ![Fireship.io](/static/fireship.png) -->
 
-Jeff Delaney gets the credit much of SvelteFireTS. I started with [SvelteFire](https://github.com/codediodeio/sveltefire) then added Typescript, borrowed some convenient helpers from Jeff's [Firestore Advanced Usage Angularfire](https://fireship.io/lessons/firestore-advanced-usage-angularfire/), and made it work with SvelteKit's SSR + Client situation. If you like what you see here, you should sign up at [Fireship.io](https://fireship.io/) and subscribe to the [Fireship Youtube Channel](https://www.youtube.com/channel/UCsBjURrPoezykLs9EqgamOA) for great tutorials.
+Jeff Delaney gets credit for much of SvelteFireTS. I started with [SvelteFire](https://github.com/codediodeio/sveltefire) then added Typescript, borrowed some convenient helpers from Jeff's [Firestore Advanced Usage Angularfire](https://fireship.io/lessons/firestore-advanced-usage-angularfire/), and made it work with SvelteKit's SSR + Client situation. If you like what you see here, you should sign up at [Fireship.io](https://fireship.io/) and subscribe to the [Fireship Youtube Channel](https://www.youtube.com/channel/UCsBjURrPoezykLs9EqgamOA) for great tutorials.
 
 ## Developing
 - `npm i`
@@ -49,7 +49,7 @@ Jeff Delaney gets the credit much of SvelteFireTS. I started with [SvelteFire](h
 
 ## Offline Persistence Considerations
 
-By design addDoc(), setDoc(), updateDoc(), and deleteDoc() return promises that are only resolved once changes are written to the server. If poor internet or no internet exists, these promises won't resolve. So in a use case where a user creates a new item and you await the addition of the item to the database before navigating to a page where that item can be edited further, nothing will happen and users will be left wondering what is broken with the site.
+By design Firebases' `addDoc`, `setDoc`, `updateDoc`, and `deleteDoc` methods return promises that resolve only once changes are written to the server and NOT the cache. If poor internet or no internet exists, these promises won't resolve. So in a use case where a user with weak internet creates a new item and you write your code to await the addition of the item to the database before navigating to a page where that item can be edited further, nothing will happen and users will be left wondering what is broken with the site. You won't discover this in development because you have great internet! But it could plague you if you are unaware. This is why I've set up this library to also include the equivalent Firestore Lite helpers methods as seen in https://github.com/jacobbowdoin/sveltefirets/blob/main/src/lib/client/firestore-lite.ts#L49 - 'addOnline', 'setOnline', 'updateOnline', and 'deleteOnline'.
 
 Further information and useful tips on how to handle online/offline writes:
 https://stackoverflow.com/questions/47674341/firestore-offline-promise-handling/47676754
