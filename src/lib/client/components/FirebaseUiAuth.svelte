@@ -13,12 +13,14 @@
   import { onMount, createEventDispatcher } from 'svelte';
   import { firebaseAppStore } from '../init';
   import { loadScriptOnce, loadStylesOnce } from '../loader';
+  import type { LanguageCodes } from './languageCodes.type';
 
+  export let languageCode: LanguageCodes = 'en';
   export let tosUrl: firebaseui.auth.Config['tosUrl'] = undefined; // '.../terms' | () => window.location.assign("your-terms-url");
   export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl'] = undefined;
 
   const dispatch = createEventDispatcher<{
-    close: string | null;
+    success: string | null;
     updateuserdata: { user: User; isNewUser: boolean };
   }>();
   let loading = true;
@@ -30,8 +32,14 @@
     if (window && window.firebase && window.firebase.apps && window.firebase.apps.length === 0) {
       window.firebase.initializeApp($firebaseAppStore.options);
     }
-    await loadStylesOnce('https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.css');
-    await loadScriptOnce('https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.js');
+    if (languageCode === 'iw' || languageCode === 'ar') {
+      await loadStylesOnce('https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth-rtl.css');
+    } else {
+      await loadStylesOnce('https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.css');
+    }
+    await loadScriptOnce(
+      `https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth__${languageCode}.js`
+    );
     initAuthUi();
   });
 
@@ -45,7 +53,7 @@
           // const providerId = authResult.additionalUserInfo.providerId; // password or google.com
           // var operationType = authResult.operationType; //signIn
           dispatch('updateuserdata', { user, isNewUser });
-          dispatch('close', 'auth success');
+          dispatch('success', 'auth success');
 
           // Do something with the returned AuthResult.
           // Return type determines whether we continue the redirect automatically
@@ -99,6 +107,8 @@
 </script>
 
 {#if loading}
-  <div>Loading...</div>
+  <slot>
+    <div>Loading...</div>
+  </slot>
 {/if}
 <div bind:this={container} />
