@@ -1,8 +1,8 @@
 # SvelteFireTS
 
-- SvelteKit 
+- SvelteKit (tested on 1.0.0-next.196)
 - Typescript
-- Firebase 9
+- Firebase 9.5
 - *includes an optional FirebaseAuthUi component that brings in [FirebaseUI web](https://github.com/firebase/firebaseui-web) + Firebase 9 compat via CDN only when component shown - FirebaseUI web allows for easy authentication in dozens of languages and many providers without you needing to manage the authentication forms*
 
 ## How to use
@@ -49,7 +49,7 @@ Jeff Delaney gets credit for much of SvelteFireTS. I started with [SvelteFire](h
 
 ## Offline Persistence Considerations
 
-By design Firebases' `addDoc`, `setDoc`, `updateDoc`, and `deleteDoc` methods return promises that resolve only once changes are written to the server and NOT the cache. If poor internet or no internet exists, these promises won't resolve. So in a use case where a user with weak internet creates a new item and you write your code to await the addition of the item to the database before navigating to a page where that item can be edited further, nothing will happen and users will be left wondering what is broken with the site. You won't discover this in development because you have great internet! But it could plague you if you are unaware. This is why I've set up this library to also include the equivalent Firestore Lite helpers methods as seen in https://github.com/jacobbowdoin/sveltefirets/blob/main/src/lib/client/firestore-lite.ts#L49 - 'addOnline', 'setOnline', 'updateOnline', and 'deleteOnline'.
+By design Firebases' `addDoc`, `setDoc`, `updateDoc`, and `deleteDoc` methods return promises that resolve only once changes are written to the server and NOT the cache. If poor internet or no internet exists, these promises won't resolve. So in a use case where a user with weak internet creates a new item and you write your code to await the addition of the item to the database before navigating to a page where that item can be edited further, nothing will happen and users will be left wondering what is broken with the site. You won't discover this in development because you have great internet! But it could plague you if you are unaware. This is why I've set up this library to also include the equivalent Firestore Lite helpers methods as seen in https://github.com/jacobbowdoin/sveltefirets/blob/main/src/lib/client/firestore-lite.ts#L49 - `addOnline`, `setOnline`, `updateOnline`, and `deleteOnline`.
 
 Further information and useful tips on how to handle online/offline writes:
 https://stackoverflow.com/questions/47674341/firestore-offline-promise-handling/47676754
