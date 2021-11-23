@@ -1,6 +1,6 @@
 {
 	"name": "sveltefirets",
-	"version": "0.0.5",
+	"version": "0.0.7",
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "npm run package && svelte-kit build",

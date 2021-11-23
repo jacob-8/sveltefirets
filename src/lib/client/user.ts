@@ -16,10 +16,7 @@ export const authState = derived<Writable<FirebaseApp>, User>(
       const auth = getAuth();
       onAuthStateChanged(
         auth,
-        (u) => {
-          console.log({ u });
-          set(u);
-        },
+        (u) => set(u),
         (err) => console.error(err.message)
       );
     }
@@ -36,7 +33,6 @@ export function createUserStore<T>(userKey = 'firebase_user') {
   set(cached);
 
   authState.subscribe((u) => {
-    console.log('authState changed: ', u);
     if (u) {
       unsub && unsub();
       const userStore = docStore<T>(`users/${u.uid}`, { log: true });

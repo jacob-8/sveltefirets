@@ -21,7 +21,8 @@ const initFirebase = () => console.log('does not init on server yet'),
   deleteDocumentOnline = noopPromise,
   authState = null, 
   createUserStore = noop,
-  logOut = noop;
+  logOut = noop,
+  updateUserData = noopPromise;
 export {
   initFirebase,
   getUid,
@@ -41,8 +42,10 @@ export {
   authState, 
   createUserStore,
   logOut,
+  updateUserData,
 };
 
 // Components
 export { default as Collection } from './server/components/Collection.svelte';
 export { default as Doc } from './server/components/Doc.svelte';
+export { default as FirebaseUiAuth } from './client/components/FirebaseUiAuth.svelte';

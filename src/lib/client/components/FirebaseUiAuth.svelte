@@ -25,13 +25,13 @@
   let container: HTMLDivElement;
 
   onMount(async () => {
-    await loadScriptOnce('https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js');
-    await loadScriptOnce('https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js');
+    await loadScriptOnce('https://www.gstatic.com/firebasejs/9.5.0/firebase-app-compat.js');
+    await loadScriptOnce('https://www.gstatic.com/firebasejs/9.5.0/firebase-auth-compat.js');
     if (window && window.firebase && window.firebase.apps && window.firebase.apps.length === 0) {
       window.firebase.initializeApp($firebaseAppStore.options);
     }
-    await loadStylesOnce('https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css');
-    await loadScriptOnce('https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js');
+    await loadStylesOnce('https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.css');
+    await loadScriptOnce('https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.js');
     initAuthUi();
   });
 
@@ -67,11 +67,16 @@
       // signInSuccessUrl: "<url-to-redirect-to-on-success>",
       signInOptions: [
         window.firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-        window.firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        // firebase.auth.PhoneAuthProvider.PROVIDER_ID // add Flag CSS back if using phone auth
-        // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+        // window.firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        // window.firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+        // window.firebase.auth.GithubAuthProvider.PROVIDER_ID,
+        {
+          provider: window.firebase.auth.EmailAuthProvider.PROVIDER_ID,
+          signInMethod: window.firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
+          forceSameDevice: false,
+        },
+        // window.firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+        firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
       ],
     };
 

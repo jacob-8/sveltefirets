@@ -3,11 +3,11 @@
 - SvelteKit 
 - Typescript
 - Firebase 9
-- *includes FirebaseUI web + Firebase 8 brought in via CDN only when login component shown - FirebaseUI web allows for easy authentication in dozens of languages and many providers without you need to manage the authentication forms - this will be upgraded to use Firebase 9 once it goes GA*
+- *includes an optional FirebaseAuthUi component that brings in FirebaseUI web + Firebase 9 compat via CDN only when component shown - FirebaseUI web allows for easy authentication in dozens of languages and many providers without you need to manage the authentication forms*
 
 ## How to use
 
-Note that this is very much in progress and only works on the client but prepares the stage to work also on the server. Still here's how you can get started:
+Note that this is very much in progress and only works on the client but prepares the stage to work also on the server. Many options are not configurable like offline persistence or metadata additions. This is how I like to use Firebase, but I hope to make this library more configurable over time for those who don't use the same options as I do. Still here's how you can get started with what's available:
 
 - `npm install -D sveltefirets`
 - configure the package to play nice with Vite in your `svelte.config.js` file:

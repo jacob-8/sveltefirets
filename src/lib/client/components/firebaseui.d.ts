@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-// From https://www.runpkg.com/?firebaseui@4.7.1/dist/index.d.ts
+// From https://www.runpkg.com/?firebaseui@6.0.0/dist/index.d.ts
 /*
  * Copyright 2018 Google Inc. All Rights Reserved.
  *
@@ -14,18 +14,23 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 declare namespace firebaseui {}
+
 export as namespace firebaseui;
+
 type CredentialHelperType = string;
+
 interface Callbacks {
   signInSuccessWithAuthResult?(
     // tslint:disable-next-line:no-any firebase dependency not available.
     authResult: any,
     redirectUrl?: string
   ): boolean;
-  signInFailure?(error: firebaseui.auth.AuthUIError): Promise<void>;
+  signInFailure?(error: firebaseui.auth.AuthUIError): Promise<void> | void;
   uiShown?(): void;
 }
+
 interface SignInOption {
   provider: string;
   providerName?: string;
@@ -34,17 +39,20 @@ interface SignInOption {
   iconUrl?: string;
   hd?: string | RegExp;
 }
+
 interface SamlSignInOption extends SignInOption {
   providerName?: string;
   buttonColor: string;
   iconUrl: string;
 }
+
 interface FederatedSignInOption extends SignInOption {
   authMethod?: string;
   clientId?: string;
   scopes?: string[];
   customParameters?: object;
 }
+
 interface OAuthSignInOption extends SignInOption {
   providerName?: string;
   buttonColor: string;
@@ -53,12 +61,14 @@ interface OAuthSignInOption extends SignInOption {
   customParameters?: object;
   loginHintKey?: string;
 }
+
 interface OidcSignInOption extends SignInOption {
   providerName?: string;
   buttonColor: string;
   iconUrl: string;
   customParameters?: object;
 }
+
 interface ActionCodeSettings {
   url: string;
   handleCodeInApp?: boolean;
@@ -72,12 +82,21 @@ interface ActionCodeSettings {
   };
   dynamicLinkDomain?: string;
 }
+
+interface DisableSignUpConfig {
+  status: boolean;
+  adminEmail?: string;
+  helpLink?: string;
+}
+
 interface EmailSignInOption extends SignInOption {
   forceSameDevice?: boolean;
   requireDisplayName?: boolean;
   signInMethod?: string;
   emailLinkSignIn?(): ActionCodeSettings;
+  disableSignUp?: DisableSignUpConfig;
 }
+
 interface PhoneSignInOption extends SignInOption {
   recaptchaParameters?: {
     type?: string;
@@ -90,11 +109,9 @@ interface PhoneSignInOption extends SignInOption {
   whitelistedCountries?: string[];
   blacklistedCountries?: string[];
 }
+
 declare namespace firebaseui.auth {
   interface Config {
-    // This is now a no-op and is deprecated and will be removed by Jan 31st,
-    // 2021.
-    acUiConfig?: object;
     autoUpgradeAnonymousUsers?: boolean;
     callbacks?: Callbacks;
     credentialHelper?: CredentialHelperType;
@@ -117,13 +134,16 @@ declare namespace firebaseui.auth {
     tosUrl?: (() => void) | string;
     privacyPolicyUrl?: (() => void) | string;
     widgetUrl?: string;
+    adminRestrictedOperation?: DisableSignUpConfig;
   }
+
   interface TenantConfig extends firebaseui.auth.Config {
     fullLabel?: string;
     displayName?: string;
     buttonColor?: string;
     iconUrl?: string;
   }
+
   class AuthUI {
     static getInstance(appId?: string): AuthUI | null;
     // tslint:disable-next-line:no-any firebase dependency not available.
@@ -136,6 +156,7 @@ declare namespace firebaseui.auth {
     delete(): Promise<void>;
     isPendingRedirect(): boolean;
   }
+
   class AuthUIError {
     private constructor();
     code: string;
@@ -144,27 +165,29 @@ declare namespace firebaseui.auth {
     credential: any | null;
     toJSON(): object;
   }
+
   class CredentialHelper {
     private constructor();
-    // `ACCOUNT_CHOOSER_COM` is deprecated and will be removed by Jan 31st,
-    // 2021.
-    static ACCOUNT_CHOOSER_COM: CredentialHelperType;
     static GOOGLE_YOLO: CredentialHelperType;
     static NONE: CredentialHelperType;
   }
+
   class AnonymousAuthProvider {
     private constructor();
     static PROVIDER_ID: string;
   }
+
   interface ProjectConfig {
     projectId: string;
     apiKey: string;
   }
+
   interface SelectedTenantInfo {
     email?: string;
     tenantId: string | null;
     providerIds: string[];
   }
+
   interface CIAPCallbacks {
     signInUiShown?(tenantId: string | null): void;
     selectTenantUiShown?(): void;
@@ -172,6 +195,7 @@ declare namespace firebaseui.auth {
     // tslint:disable-next-line:no-any firebase dependency not available.
     beforeSignInSuccess?(currentUser: any): Promise<any>;
   }
+
   interface CIAPError {
     httpErrorCode?: number;
     code: string;
@@ -180,6 +204,7 @@ declare namespace firebaseui.auth {
     retry?(): Promise<void>;
     toJSON(): object;
   }
+
   interface CIAPHandlerConfig {
     authDomain: string;
     displayMode?: string;
@@ -188,6 +213,7 @@ declare namespace firebaseui.auth {
     callbacks?: firebaseui.auth.CIAPCallbacks;
     tenants: { [key: string]: firebaseui.auth.TenantConfig };
   }
+
   class FirebaseUiHandler {
     constructor(
       element: Element | string,
@@ -211,4 +237,5 @@ declare namespace firebaseui.auth {
     processUser(user: any): Promise<any>;
   }
 }
+
 export = firebaseui;

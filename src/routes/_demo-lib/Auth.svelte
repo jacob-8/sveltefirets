@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getAuth, signInAnonymously } from '@firebase/auth';
-  import { logOut } from 'sveltefirets';
+  import { logOut, FirebaseUiAuth, updateUserData } from 'sveltefirets';
   import { user } from './user';
 </script>
 
@@ -15,5 +15,10 @@
     on:click={() => {
       const auth = getAuth();
       signInAnonymously(auth);
-    }}>Log In Anonymously</button>
+    }}>Log In Anonymously using just Firebase</button>
+  <hr />
+  <p>Or use FirebaseUI for Web:</p>
+  <FirebaseUiAuth
+    on:close
+    on:updateuserdata={(e) => updateUserData(e.detail.user, e.detail.isNewUser)} />
 {/if}

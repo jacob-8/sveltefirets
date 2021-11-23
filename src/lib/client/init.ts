@@ -11,10 +11,8 @@ export function initFirebase(config: FirebaseOptions) {
     return firebaseApp;
   }
 
-  console.log('initing firebase');
   if (getApps().length) {
     firebaseApp = getApp();
-    console.log('firebase previously initialized');
   } else {
     firebaseApp = initializeApp(config);
     console.log('firebase initialized');
