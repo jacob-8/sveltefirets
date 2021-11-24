@@ -7,10 +7,12 @@
 <script lang="ts">
   import type { User } from 'firebase/auth';
   import { onMount, createEventDispatcher } from 'svelte';
-  import { getApp } from 'firebase/app';
+  // import { getApp } from 'firebase/app';
+  import type { FirebaseOptions } from 'firebase/app';
   import { loadScriptOnce, loadStylesOnce } from '../loader';
   import type { LanguageCodes } from './languageCodes.type';
 
+  export let firebaseConfig: FirebaseOptions;
   export let languageCode: LanguageCodes = 'en';
   export let tosUrl: firebaseui.auth.Config['tosUrl'] = undefined; // '.../terms' | () => window.location.assign("your-terms-url");
   export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl'] = undefined;
@@ -26,8 +28,9 @@
     await loadScriptOnce('https://www.gstatic.com/firebasejs/9.5.0/firebase-app-compat.js');
     await loadScriptOnce('https://www.gstatic.com/firebasejs/9.5.0/firebase-auth-compat.js');
     if (firebase && firebase.apps && firebase.apps.length === 0) {
-      const firebaseApp = getApp();
-      firebase.initializeApp(firebaseApp.options);
+      // const firebaseApp = getApp(); // oddly enough this works in local dev but returns undefined when used in an installed package - I'm not sure why so I'm requiring users to pass the config into this component manually until someone can help me understand this problem.
+      // firebase.initializeApp(firebaseApp.options);
+      firebase.initializeApp(firebaseConfig);
     }
     if (languageCode === 'iw' || languageCode === 'ar') {
       await loadStylesOnce('https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth-rtl.css');
