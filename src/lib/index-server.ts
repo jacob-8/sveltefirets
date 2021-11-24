@@ -1,7 +1,7 @@
 const noopPromise = () => new Promise((resolve) => resolve(null));
 const noop = () => null;
 
-const initFirebase = () => console.log('does not init on server yet'),
+const initFirebase = noop,
   getUid = noop,
   colRef = noop,
   docRef = noop,

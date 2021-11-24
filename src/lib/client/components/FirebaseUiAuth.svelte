@@ -1,17 +1,13 @@
 <script context="module" lang="ts">
   let ui: firebaseui.auth.AuthUI;
   declare const firebaseui: typeof import('./firebaseui');
-  declare global {
-    interface Window {
-      firebase: any;
-    }
-  }
+  declare const firebase: typeof import('firebase/compat').default;
 </script>
 
 <script lang="ts">
   import type { User } from 'firebase/auth';
   import { onMount, createEventDispatcher } from 'svelte';
-  import { firebaseAppStore } from '../init';
+  import { getApp } from 'firebase/app';
   import { loadScriptOnce, loadStylesOnce } from '../loader';
   import type { LanguageCodes } from './languageCodes.type';
 
@@ -29,8 +25,9 @@
   onMount(async () => {
     await loadScriptOnce('https://www.gstatic.com/firebasejs/9.5.0/firebase-app-compat.js');
     await loadScriptOnce('https://www.gstatic.com/firebasejs/9.5.0/firebase-auth-compat.js');
-    if (window && window.firebase && window.firebase.apps && window.firebase.apps.length === 0) {
-      window.firebase.initializeApp($firebaseAppStore.options);
+    if (firebase && firebase.apps && firebase.apps.length === 0) {
+      const firebaseApp = getApp();
+      firebase.initializeApp(firebaseApp.options);
     }
     if (languageCode === 'iw' || languageCode === 'ar') {
       await loadStylesOnce('https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth-rtl.css');
@@ -74,16 +71,16 @@
       signInFlow: 'popup',
       // signInSuccessUrl: "<url-to-redirect-to-on-success>",
       signInOptions: [
-        window.firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        // window.firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        // window.firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-        // window.firebase.auth.GithubAuthProvider.PROVIDER_ID,
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+        // firebase.auth.GithubAuthProvider.PROVIDER_ID,
         {
-          provider: window.firebase.auth.EmailAuthProvider.PROVIDER_ID,
-          signInMethod: window.firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
+          provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+          signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
           forceSameDevice: false,
         },
-        // window.firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+        // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
         firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
       ],
     };
@@ -95,7 +92,7 @@
       ui.reset();
       ui.start(container, uiConfig);
     } else {
-      ui = new firebaseui.auth.AuthUI(window.firebase.auth());
+      ui = new firebaseui.auth.AuthUI(firebase.auth());
       ui.start(container, uiConfig);
     }
   }
