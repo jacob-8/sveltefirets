@@ -24,7 +24,7 @@ export const authState = derived<Writable<FirebaseApp>, User>(
   null
 );
 
-export function createUserStore<T>(userKey = 'firebase_user') {
+export function createUserStore<T>({ userKey = 'firebase_user', log = false }) {
   const { subscribe, set } = writable<T>(null);
   let unsub: Unsubscriber;
 
@@ -35,7 +35,7 @@ export function createUserStore<T>(userKey = 'firebase_user') {
   authState.subscribe((u) => {
     if (u) {
       unsub && unsub();
-      const userStore = docStore<T>(`users/${u.uid}`, { log: true });
+      const userStore = docStore<T>(`users/${u.uid}`, { log });
       unsub = userStore.subscribe((user) => {
         if (user) {
           set(user);
