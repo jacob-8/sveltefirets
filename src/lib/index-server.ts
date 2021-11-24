@@ -1,13 +1,10 @@
-export const platform = 'server';
-export * from './interfaces';
-
 const noopPromise = () => new Promise((resolve) => resolve(null));
 const noop = () => null;
 
 const initFirebase = () => console.log('does not init on server yet'),
   getUid = noop,
-  colRef = null,
-  docRef = null,
+  colRef = noop,
+  docRef = noop,
   getCollection = noopPromise,
   getDocument = noopPromise,
   add = noopPromise,
@@ -19,12 +16,18 @@ const initFirebase = () => console.log('does not init on server yet'),
   setOnline = noopPromise,
   updateOnline = noopPromise,
   deleteDocumentOnline = noopPromise,
-  authState = null, 
+  collectionStore = noop,
+  docStore = noop,
+  authState = null,
   createUserStore = noop,
   logOut = noop,
   updateUserData = noopPromise;
+
+export * from './interfaces';
+export { initFirebase };
+
+// Firestore Helpers
 export {
-  initFirebase,
   getUid,
   colRef,
   docRef,
@@ -35,17 +38,15 @@ export {
   update,
   deleteDocument,
   docExists,
-  addOnline,
-  setOnline,
-  updateOnline,
-  deleteDocumentOnline,
-  authState, 
-  createUserStore,
-  logOut,
-  updateUserData,
 };
+export { addOnline, setOnline, updateOnline, deleteDocumentOnline };
 
 // Components
 export { default as Collection } from './server/components/Collection.svelte';
 export { default as Doc } from './server/components/Doc.svelte';
 export { default as FirebaseUiAuth } from './client/components/FirebaseUiAuth.svelte';
+
+// Stores & Auth
+export { collectionStore, docStore };
+export { authState, createUserStore, logOut };
+export { updateUserData };

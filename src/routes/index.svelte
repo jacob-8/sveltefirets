@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getDocument, platform } from 'sveltefirets';
+  import { getDocument } from 'sveltefirets';
   import Auth from './_demo-lib/Auth.svelte';
   import Config from './_demo-lib/Config.svelte';
   import Create from './_demo-lib/Create.svelte';
@@ -13,14 +13,10 @@
 
 <h1>SvelteFire TS</h1>
 
-{#if platform === 'client'}
-  <p>
-    <strong>Tip:</strong>
-    Open the browser console for development logging.
-  </p>
-{:else}
-  <p>Came from server</p>
-{/if}
+<p>
+  <strong>Tip:</strong>
+  Open the browser console for development logging.
+</p>
 
 <Config />
 
