@@ -17,6 +17,17 @@
   export let tosUrl: firebaseui.auth.Config['tosUrl'] = undefined; // '.../terms' | () => window.location.assign("your-terms-url");
   export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl'] = undefined;
 
+  export let signInWith: {
+    google?: boolean;
+    facebook?: boolean;
+    twitter?: boolean;
+    github?: boolean;
+    emailPassword?: boolean;
+    emailPasswordless?: boolean;
+    phone?: boolean;
+    anonymous?: boolean;
+  } = { google: true, emailPasswordless: true };
+
   const dispatch = createEventDispatcher<{
     success: string | null;
     updateuserdata: { user: User; isNewUser: boolean };
@@ -74,17 +85,18 @@
       signInFlow: 'popup',
       // signInSuccessUrl: "<url-to-redirect-to-on-success>",
       signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-        // firebase.auth.GithubAuthProvider.PROVIDER_ID,
-        {
+        signInWith.google && firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        signInWith.facebook && firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        signInWith.twitter && firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+        signInWith.github && firebase.auth.GithubAuthProvider.PROVIDER_ID,
+        signInWith.emailPassword && firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        signInWith.emailPasswordless && {
           provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
           signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
           forceSameDevice: false,
         },
-        // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-        firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
+        signInWith.phone && firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+        signInWith.anonymous && firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
       ],
     };
 

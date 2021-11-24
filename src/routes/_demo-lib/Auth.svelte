@@ -26,6 +26,7 @@
   <button on:click={() => window.open('/ar')}>Go to Arabic Auth (RTL)</button>
   <FirebaseUiAuth
     languageCode="es"
+    signInWith={{ google: true, emailPasswordless: true, anonymous: true }}
     {firebaseConfig}
     on:updateuserdata={(e) => updateUserData(e.detail.user, e.detail.isNewUser)} />
 {/if}
