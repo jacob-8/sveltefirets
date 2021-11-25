@@ -1,5 +1,5 @@
 <script lang="ts">
-import { limit, orderBy } from 'firebase/firestore';
+  import { limit, orderBy } from 'firebase/firestore';
 
   import { Collection, deleteDocument, update } from 'sveltefirets';
   import type { IMessage } from './message.interface';
@@ -26,14 +26,21 @@ justify-content: space-between;">
 
   <input type="text" bind:value={refField} maxlength="5" placeholder="Optional ref field" />
 </div>
-<Collection path="messages" queryConstraints={[limit(5), orderBy('updatedAt', 'desc')]} startWith={preloadedMessages} let:data={messages} {refField} log>
+<Collection
+  path="messages"
+  queryConstraints={[limit(5), orderBy('updatedAt', 'desc')]}
+  startWith={preloadedMessages}
+  let:data={messages}
+  {refField}
+  log>
   <!-- where('createdBy', '==', $user.uid) -->
   {#each messages as message}
     <b>{message.text}</b>, sent on {message.updatedAt && message.updatedAt.toDate()}
     <pre style="font-size: 70%;">{JSON.stringify(message, null, 2)}</pre>
     <button type="button" on:click={() => changeGreeting(message.id)}>Update</button>
     <button type="button" on:click={() => deleteDocument(`messages/${message.id}`)}>Delete</button>
+    <a href={`/${message.id}`} sveltekit:prefetch>Preload on client</a>
+    <a href={`/${message.id}`} target="_blank">Preload on server</a>
     <hr />
   {/each}
 </Collection>
-

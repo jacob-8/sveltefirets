@@ -1,12 +1,11 @@
 const noopPromise = () => new Promise((resolve) => resolve(null));
 const noop = () => null;
 
-const initFirebase = noop,
-  getUid = noop,
+const getUid = noop,
   colRef = noop,
   docRef = noop,
-  getCollection = noopPromise,
-  getDocument = noopPromise,
+  getCollection = noopPromise, // third
+  getDocument = noopPromise, // second
   add = noopPromise,
   set = noopPromise,
   update = noopPromise,
@@ -24,7 +23,7 @@ const initFirebase = noop,
   updateUserData = noopPromise;
 
 export * from './interfaces';
-export { initFirebase };
+export { initFirebase } from './init';
 
 // Firestore Helpers
 export {

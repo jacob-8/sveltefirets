@@ -33,6 +33,7 @@ kit: {
 </script>
 <slot />
 ``` 
+- Because firebase is a dependency of this package, you will not need to include firebase in your package.json but can still use methods and types from firebase.
 - Refer to the demo app in `/src` (try it out at https://sveltefirets.vercel.app) for further implementation until I add docs.
 
 ## Inspiration: [Fireship.io](https://fireship.io/)
