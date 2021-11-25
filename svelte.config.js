@@ -21,6 +21,7 @@ const config = {
 			// 	exclude: ['sveltefirets']
 			// },
 			ssr: {
+				external: ['firebase'], // from https://github.com/firebase/firebase-js-sdk/issues/5140#issuecomment-877631462, see https://vitejs.dev/guide/ssr.html#ssr-externals
 				noExternal: ['sveltefirets']
 			}
 		}

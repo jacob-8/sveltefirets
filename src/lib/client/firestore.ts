@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Inspired by https://fireship.io/lessons/firestore-advanced-usage-angularfire/
+import type { FirebaseApp } from 'firebase/app';
 import {
   getFirestore,
   CollectionReference,
@@ -27,13 +29,16 @@ export const getUid = () => {
 type CollectionPredicate<T> = string | CollectionReference<T>;
 type DocPredicate<T> = string | DocumentReference<T>;
 
-export function colRef<T>(ref: CollectionPredicate<T>): CollectionReference<T> {
-  const db = getFirestore();
-  return typeof ref === 'string' ? (collection(db, ref) as CollectionReference<T>) : ref;
-}
+export function colRef<T>(
+  ref: CollectionPredicate<T>,
+  firebaseApp?: FirebaseApp // needed server-side and just adding clientside for intellisense
+  ): CollectionReference<T> {
+    const db = getFirestore();
+    return typeof ref === 'string' ? (collection(db, ref) as CollectionReference<T>) : ref;
+  }
 
-export function docRef<T>(ref: DocPredicate<T>): DocumentReference<T> {
-  if (typeof ref === 'string') {
+  export function docRef<T>(ref: DocPredicate<T>, firebaseApp?: FirebaseApp): DocumentReference<T> {
+    if (typeof ref === 'string') {
     const pathParts = ref.split('/');
     const documentId = pathParts.pop();
     const collectionString = pathParts.join('/');
@@ -43,11 +48,13 @@ export function docRef<T>(ref: DocPredicate<T>): DocumentReference<T> {
   }
 }
 
+/** firebaseApp is required server-side, but is ignored client-side */
 export async function getCollection<T>(
   path: CollectionPredicate<T>,
-  queryConstraints: QueryConstraint[] = []
-): Promise<T[]> {
-  const ref = typeof path === 'string' ? colRef<T>(path) : path;
+  queryConstraints: QueryConstraint[] = [],
+  firebaseApp?: FirebaseApp
+  ): Promise<T[]> {
+    const ref = typeof path === 'string' ? colRef<T>(path) : path;
   const q = query(ref, ...queryConstraints);
   const collectionSnap = await getDocs(q);
   return collectionSnap.docs.map((docSnap) => ({
@@ -56,7 +63,8 @@ export async function getCollection<T>(
   }));
 }
 
-export async function getDocument<T>(ref: DocPredicate<T>): Promise<T> {
+/** firebaseApp is required server-side, but is ignored client-side */
+export async function getDocument<T>(ref: DocPredicate<T>, firebaseApp?: FirebaseApp): Promise<T> {
   const docSnap = await getDoc(docRef(ref));
   return docSnap.exists() ? { ...(docSnap.data() as T), id: docSnap.id } : null;
 }

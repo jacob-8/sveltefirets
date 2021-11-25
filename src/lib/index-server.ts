@@ -2,10 +2,6 @@ const noopPromise = () => new Promise((resolve) => resolve(null));
 const noop = () => null;
 
 const getUid = noop,
-  colRef = noop,
-  docRef = noop,
-  getCollection = noopPromise, // third
-  getDocument = noopPromise, // second
   add = noopPromise,
   set = noopPromise,
   update = noopPromise,
@@ -23,21 +19,11 @@ const getUid = noop,
   updateUserData = noopPromise;
 
 export * from './interfaces';
-export { initFirebase } from './init';
+export { initFirebase } from './server/init';
 
 // Firestore Helpers
-export {
-  getUid,
-  colRef,
-  docRef,
-  getCollection,
-  getDocument,
-  add,
-  set,
-  update,
-  deleteDocument,
-  docExists,
-};
+export { colRef, docRef, getCollection, getDocument } from './server/firestore';
+export { getUid, add, set, update, deleteDocument, docExists };
 export { addOnline, setOnline, updateOnline, deleteDocumentOnline };
 
 // Components

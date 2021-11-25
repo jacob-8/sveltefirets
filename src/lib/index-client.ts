@@ -1,5 +1,5 @@
 export * from './interfaces';
-export { initFirebase } from './init';
+export { initFirebase } from './client/init';
 
 // Firestore Helpers
 export {

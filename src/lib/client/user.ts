@@ -4,7 +4,7 @@ import { getAuth, onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { doc, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
 import type { FirebaseApp } from 'firebase/app';
 
-import { firebaseAppStore } from '../init';
+import { firebaseAppStore } from './init';
 import { docStore } from './stores';
 import type { IBaseUser } from '../interfaces';
 import { setCookie } from '../helpers/cookies';

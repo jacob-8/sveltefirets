@@ -1,5 +1,5 @@
 // Use when wanting to receive back promises that will resolve or error when internet is flaky, unlike regular firestore methods which won't resolve right away in these situations. See notes in Readme.md for more info.
-// NOTE: Be sure to import your firestore methods such as serverTimestamp() from firebase/firestore/lite otherwise you will receive errors
+
 import {
   getFirestore,
   CollectionReference,
@@ -41,11 +41,16 @@ function docRef<T>(ref: DocPredicate<T>): DocumentReference<T> {
   }
 }
 
+// not exporting lite versions of getCollection nor getDocument on client in favor of using full firestore cache-first versions.
+
 async function getDocument<T>(ref: DocPredicate<T>): Promise<T> {
   const docSnap = await getDoc(docRef(ref));
   return docSnap.exists() ? { ...(docSnap.data() as T), id: docSnap.id } : null;
 }
 
+/**
+ * Use when wanting to receive back promises that will resolve or error when internet is flaky, unlike regular firestore methods which won't resolve right away in these situations.
+ * Be sure to import firestore methods such as serverTimestamp() from firebase/firestore/lite otherwise you will receive errors */
 export function addOnline<T>(
   ref: CollectionPredicate<T>,
   data: T,
@@ -62,6 +67,9 @@ export function addOnline<T>(
   });
 }
 
+/**
+ * Use when wanting to receive back promises that will resolve or error when internet is flaky, unlike regular firestore methods which won't resolve right away in these situations.
+ * Be sure to import firestore methods such as serverTimestamp() from firebase/firestore/lite otherwise you will receive errors */
 export async function setOnline<T>(
   ref: DocPredicate<T>,
   data: T,
@@ -86,6 +94,9 @@ export async function setOnline<T>(
       ));
 } // could split apart into set and upsert if desired, https://stackoverflow.com/questions/46597327/difference-between-set-with-merge-true-and-update
 
+/**
+ * Use when wanting to receive back promises that will resolve or error when internet is flaky, unlike regular firestore methods which won't resolve right away in these situations.
+ * Be sure to import firestore methods such as serverTimestamp() from firebase/firestore/lite otherwise you will receive errors */
 export async function updateOnline<T>(
   ref: DocPredicate<T>,
   data: Partial<T>,
@@ -101,6 +112,9 @@ export async function updateOnline<T>(
   });
 }
 
+/**
+ * Use when wanting to receive back promises that will resolve or error when internet is flaky, unlike regular firestore methods which won't resolve right away in these situations.
+ * Be sure to import firestore methods such as serverTimestamp() from firebase/firestore/lite otherwise you will receive errors */
 export function deleteDocumentOnline<T>(ref: DocPredicate<T>): Promise<void> {
   return deleteDoc(docRef(ref));
 }

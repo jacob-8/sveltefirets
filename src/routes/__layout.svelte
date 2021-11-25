@@ -3,8 +3,8 @@
   import { firebaseConfig } from './_demo-lib/firebaseConfig';
   import type { Load } from '@sveltejs/kit';
   export const load: Load = async () => {
-    await initFirebase(firebaseConfig);
-    return {};
+    const firebaseApp = initFirebase(firebaseConfig);
+    return { stuff: { firebaseApp } };
   };
 </script>
 
