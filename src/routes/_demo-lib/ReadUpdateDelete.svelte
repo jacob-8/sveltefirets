@@ -31,7 +31,7 @@ justify-content: space-between;">
   <!-- where('createdBy', '==', $user.uid) -->
   <div>
     <a href={`/messages`} sveltekit:prefetch>Preload firestore data for all messages on client</a>
-    <a href={`/messages`} target="_blank">Load firestore data for all messages server-side</a>
+    <a href={`/messages`} target="_blank" style="text-decoration: line-through;">Load firestore data for all messages server-side (will throw error as it doesn't work yet)</a>
   </div>
 
   {#each messages as message}
@@ -48,7 +48,7 @@ justify-content: space-between;">
         }
       }}>Delete</button>
     <a href={`/${message.id}`} sveltekit:prefetch>Preload firestore data on client</a>
-    <a href={`/${message.id}`} target="_blank">Load firestore data server-side</a>
+    <a href={`/${message.id}`} target="_blank" style="text-decoration: line-through;">Load firestore data server-side (will throw error as it doesn't work yet)</a>
     <hr />
   {/each}
 </Collection>
