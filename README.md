@@ -7,7 +7,7 @@
 
 ## How to use
 
-This package nows also works to load data server-side (view the source code on https://sveltefirets.vercel.app/messages for example) using the same client SDK that works client side. Note that this is very much in progress. Many options are not configurable like offline persistence or metadata additions. This is how I like to use Firebase, but I hope to make this library more configurable over time for those who don't use the same options as I do. Still here's how you can get started with what's available:
+Note that this is very much in progress and only works on the client but prepares the stage to work also on the server. Many options are not configurable like offline persistence or metadata additions. This is how I like to use Firebase, but I hope to make this library more configurable over time for those who don't use the same options as I do. Still here's how you can get started with what's available:
 
 - `npm install -D sveltefirets`
 - configure the package to play nice with Vite in your `svelte.config.js` file:
@@ -15,7 +15,6 @@ This package nows also works to load data server-side (view the source code on h
 kit: { 
 	vite: {
 		ssr: {
-      external: ['firebase'],
 			noExternal: ['sveltefirets']
 		}
 	}
@@ -28,15 +27,14 @@ kit: {
   import { firebaseConfig } from '$lib/firebaseConfig';
   import type { Load } from '@sveltejs/kit';
   export const load: Load = async () => {
-    const firebaseApp = initFirebase(firebaseConfig);
-    return { stuff: { firebaseApp } };
+    initFirebase(firebaseConfig);
+    return {};
   };
 </script>
 <slot />
 ``` 
-- You only need to return `firebaseApp` via `stuff` if you want to load data server side as seen in [src/messages.svelte](https://github.com/jacobbowdoin/sveltefirets/blob/main/src/routes/messages.svelte) (a collection) and in the `/[messageId].svelte` routes (document) of the demo app.
 - Because firebase is a dependency of this package, you will not need to include firebase in your package.json but can still use methods and types from firebase.
-- Refer to the demo app in `/src` (try it out at https://sveltefirets.vercel.app) for further implementation until I add more docs.
+- Refer to the demo app in `/src` (try it out at https://sveltefirets.vercel.app) for further implementation until I add docs.
 
 ## Inspiration: [Fireship.io](https://fireship.io/)
 
