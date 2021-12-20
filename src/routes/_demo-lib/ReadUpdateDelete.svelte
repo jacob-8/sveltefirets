@@ -31,7 +31,9 @@ justify-content: space-between;">
   <!-- where('createdBy', '==', $user.uid) -->
   <div>
     <a href={`/messages`} sveltekit:prefetch>Preload firestore data for all messages on client</a>
-    <a href={`/messages`} target="_blank" style="text-decoration: line-through;">Load firestore data for all messages server-side (will throw error as it doesn't work yet)</a>
+    <a href={`/messages`} target="_blank" style="text-decoration: line-through;"
+      >Load firestore data for all messages server-side (will throw error as it doesn't work yet)</a>
+      <a href={`/api/messages`} target="_blank">Messages API endpoint</a>
   </div>
 
   {#each messages as message}
@@ -44,11 +46,15 @@ justify-content: space-between;">
         if (messages.length > 2) {
           deleteDocument(`messages/${message.id}`);
         } else {
-          alert('I like to keep at least two messages around for demonstration. Try adding a few more and then you will be able to delete.')
+          alert(
+            'I like to keep at least two messages around for demonstration. Try adding a few more and then you will be able to delete.'
+          );
         }
       }}>Delete</button>
     <a href={`/${message.id}`} sveltekit:prefetch>Preload firestore data on client</a>
-    <a href={`/${message.id}`} target="_blank" style="text-decoration: line-through;">Load firestore data server-side (will throw error as it doesn't work yet)</a>
+    <a href={`/${message.id}`} target="_blank" style="text-decoration: line-through;"
+      >Load firestore data server-side (will throw error as it doesn't work yet)</a>
+    <a href={`/api/${message.id}`} target="_blank">Message API endpoint</a>
     <hr />
   {/each}
 </Collection>

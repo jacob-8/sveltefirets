@@ -3,6 +3,7 @@
   import type { Load } from '@sveltejs/kit';
   import type { IMessage } from './_demo-lib/message.interface';
   export const load: Load = async ({ page: { params }, stuff: { firebaseApp } }) => {
+    console.log({firebaseApp});
     try {
       const message = await getDocument<IMessage>(`messages/${params.messageId}`, firebaseApp);
       console.log('loaded: ', { message });
