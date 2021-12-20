@@ -14,6 +14,9 @@
 		"release": "npm run package && cd package && npm publish",
 		"postversion": "git push && git push --tags && npm run release"
 	},
+	"dependencies": {
+		"firebase": "^9.6.1"
+	},
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "^1.0.0-next.32",
 		"@sveltejs/kit": "^1.0.0-next.202",
@@ -23,7 +26,6 @@
 		"eslint": "^7.22.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-svelte3": "^3.2.1",
-		"firebase": "^9.6.1",
 		"jest": "^27.3.1",
 		"prettier": "^2.4.1",
 		"prettier-plugin-svelte": "^2.5.1",
@@ -37,7 +39,7 @@
 		"typescript": "^4.5.4"
 	},
 	"peerDependencies": {
-		"firebase": "^9.5.0"
+		"firebase": "^9.6.1"
 	},
 	"type": "module",
 	"main": "./index-client.js",
