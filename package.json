@@ -15,8 +15,8 @@
 		"postversion": "git push && git push --tags && npm run release"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-vercel": "^1.0.0-next.31",
-		"@sveltejs/kit": "^1.0.0-next.196",
+		"@sveltejs/adapter-vercel": "^1.0.0-next.32",
+		"@sveltejs/kit": "^1.0.0-next.202",
 		"@types/jest": "^27.0.3",
 		"@typescript-eslint/eslint-plugin": "^4.29.3",
 		"@typescript-eslint/parser": "^4.29.3",
@@ -30,7 +30,7 @@
 		"svelte": "^3.44.3",
 		"svelte-check": "^2.2.11",
 		"svelte-preprocess": "^4.9.8",
-		"svelte2tsx": "^0.4.10",
+		"svelte2tsx": "^0.4.12",
 		"sveltefirets": "file:./package",
 		"ts-jest": "^27.0.7",
 		"tslib": "^2.0.0",
