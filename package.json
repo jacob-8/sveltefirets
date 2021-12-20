@@ -23,18 +23,18 @@
 		"eslint": "^7.22.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-svelte3": "^3.2.1",
-		"firebase": "^9.5.0",
+		"firebase": "^9.6.1",
 		"jest": "^27.3.1",
 		"prettier": "^2.4.1",
-		"prettier-plugin-svelte": "^2.5.0",
-		"svelte": "^3.44.2",
-		"svelte-check": "^2.2.10",
+		"prettier-plugin-svelte": "^2.5.1",
+		"svelte": "^3.44.3",
+		"svelte-check": "^2.2.11",
 		"svelte-preprocess": "^4.9.8",
 		"svelte2tsx": "^0.4.10",
 		"sveltefirets": "file:./package",
 		"ts-jest": "^27.0.7",
 		"tslib": "^2.0.0",
-		"typescript": "^4.5.2"
+		"typescript": "^4.5.4"
 	},
 	"peerDependencies": {
 		"firebase": "^9.5.0"
