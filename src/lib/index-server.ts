@@ -18,7 +18,7 @@ const getUid = noop,
   logOut = noop,
   updateUserData = noopPromise;
 
-export * from './interfaces';
+export type { IBaseUser, IFirestoreMetaData, IFirestoreMetaDataAbbreviated } from './interfaces';
 export { initFirebase } from './server/init';
 
 // Firestore Helpers
