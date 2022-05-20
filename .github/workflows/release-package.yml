@@ -2,19 +2,24 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'packages/sveltefirets/**'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm ci
-      - run: npm test
-      - run: npm run package
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.32.3
+
+      - run: pnpm install
+      - run: pnpm -F sveltefirets package
       
       - id: publish
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-          package: "./package/package.json"
+          package: "./packages/sveltefirets/package/package.json"
           access: "public"
