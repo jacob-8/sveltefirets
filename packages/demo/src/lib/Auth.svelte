@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getAuth, signInAnonymously } from '@firebase/auth';
+  import { getAuth, signInAnonymously } from 'firebase/auth';
   import { logOut, FirebaseUiAuth, updateUserData } from 'sveltefirets';
   import { firebaseConfig } from './firebaseConfig';
   import { user } from './user';
@@ -16,10 +16,10 @@
     on:click={() => {
       const auth = getAuth();
       signInAnonymously(auth);
-    }}>Log In Anonymously using just Firebase</button>
+    }}>Log In Anonymously using just Firebase (doesn't work?)</button>
   <hr />
   <p>
-    Or use FirebaseUI for Web for easy auth. It also includes support for 42 languages and dialects
+    Use FirebaseUI for Web for easy auth. It also includes support for 42 languages and dialects
     out of the box. Spanish is demoed here and you can also try English and Arabic.
   </p>
   <button on:click={() => window.open('/en')}>Go to English Auth</button>

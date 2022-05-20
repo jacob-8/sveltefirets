@@ -1,12 +1,11 @@
 <script context="module" lang="ts">
   import { getDocument } from 'sveltefirets';
+  import type { IMessage } from '$lib/message.interface';
   import type { Load } from '@sveltejs/kit';
-  import type { IMessage } from './_demo-lib/message.interface';
-  export const load: Load = async ({ page: { params }, stuff: { firebaseApp } }) => {
-    console.log({firebaseApp});
+  export const load: Load = async ({ params, stuff: { firebaseApp } }) => {
     try {
       const message = await getDocument<IMessage>(`messages/${params.messageId}`, firebaseApp);
-      console.log('loaded: ', { message });
+      console.log({ message });
       if (message) {
         return { props: { message } };
       } else {

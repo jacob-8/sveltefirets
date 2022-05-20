@@ -1,8 +1,8 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { initFirebase, getDocument } from 'sveltefirets';
 
-import { firebaseConfig } from '../_demo-lib/firebaseConfig';
-import type { IMessage } from '../_demo-lib/message.interface';
+import { firebaseConfig } from '$lib/firebaseConfig';
+import type { IMessage } from '$lib/message.interface';
 
 export const get: RequestHandler = async (request) => {
   const firebaseApp = initFirebase(firebaseConfig);

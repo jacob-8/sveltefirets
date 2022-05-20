@@ -1,7 +1,7 @@
 <script lang="ts">
   import { FirebaseUiAuth, updateUserData } from 'sveltefirets';
   import { goto } from '$app/navigation';
-  import { firebaseConfig } from './_demo-lib/firebaseConfig';
+  import { firebaseConfig } from '$lib/firebaseConfig';
 </script>
 
 <FirebaseUiAuth

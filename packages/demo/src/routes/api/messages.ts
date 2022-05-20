@@ -2,8 +2,8 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { initFirebase, getCollection } from 'sveltefirets';
 import { limit, orderBy } from 'firebase/firestore';
 
-import { firebaseConfig } from '../_demo-lib/firebaseConfig';
-import type { IMessage } from '../_demo-lib/message.interface';
+import { firebaseConfig } from '$lib/firebaseConfig';
+import type { IMessage } from '$lib/message.interface';
 
 export const get: RequestHandler = async () => {
   const firebaseApp = initFirebase(firebaseConfig);
@@ -12,7 +12,7 @@ export const get: RequestHandler = async () => {
     [limit(5), orderBy('updatedAt', 'desc')],
     firebaseApp
   );
-  console.log('loaded: ', { messages });
+  console.log({ messages });
 
   if (messages) {
     return {

@@ -1,4 +1,4 @@
-import { initializeApp, getApps, FirebaseApp, FirebaseOptions } from 'firebase/app';
+import { initializeApp, getApps, type FirebaseApp, type FirebaseOptions } from 'firebase/app';
 
 let firebaseApp: FirebaseApp = null;
 export function initFirebase(config: FirebaseOptions) {

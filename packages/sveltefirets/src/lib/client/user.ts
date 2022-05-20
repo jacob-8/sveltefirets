@@ -1,8 +1,9 @@
-import { derived, writable, Writable } from 'svelte/store';
+import { derived, writable, type Writable } from 'svelte/store';
 import type { Unsubscriber } from 'svelte/store';
-import { getAuth, onAuthStateChanged, signOut, User } from 'firebase/auth';
-import { doc, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
+
 import type { FirebaseApp } from 'firebase/app';
+import { getAuth, onAuthStateChanged, signOut, type User } from 'firebase/auth';
+import { doc, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
 
 import { firebaseAppStore } from './init';
 import { docStore } from './stores';

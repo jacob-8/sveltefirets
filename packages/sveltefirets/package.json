@@ -2,10 +2,7 @@
   "name": "sveltefirets",
   "version": "0.0.16",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
     "package": "svelte-kit package && node update-packaged-index-path.js",
-    "preview": "svelte-kit preview",
     "prepare": "svelte-kit sync",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
@@ -20,6 +17,7 @@
     "svelte": "^3.44.0",
     "svelte-check": "^2.2.6",
     "svelte-preprocess": "^4.10.1",
+    "svelte2tsx": "^0.5.9",
     "tslib": "^2.3.1",
     "typescript": "~4.6.2"
   },

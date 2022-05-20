@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Auth from './_demo-lib/Auth.svelte';
-  import Config from './_demo-lib/Config.svelte';
-  import Create from './_demo-lib/Create.svelte';
-  import ReadSingle from './_demo-lib/ReadSingle.svelte';
-  import ReadUpdateDelete from './_demo-lib/ReadUpdateDelete.svelte';
+  import Auth from '$lib/Auth.svelte';
+  import Config from '$lib/Config.svelte';
+  import Create from '$lib/Create.svelte';
+  import ReadSingle from '$lib/ReadSingle.svelte';
+  import ReadUpdateDelete from '$lib/ReadUpdateDelete.svelte';
 </script>
 
 <h1>SvelteFire TS</h1>

@@ -1,5 +1,4 @@
-import { getPerformance, trace } from 'firebase/performance';
-import type { PerformanceTrace } from 'firebase/performance';
+import { getPerformance, trace, type PerformanceTrace } from 'firebase/performance';
 import { getApp } from 'firebase/app';
 
 export function startTrace(name: string) {

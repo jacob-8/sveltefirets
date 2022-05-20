@@ -1,6 +1,6 @@
-import { initializeApp, getApps, FirebaseApp, FirebaseOptions } from 'firebase/app';
+import { initializeApp, getApps, type FirebaseApp, type FirebaseOptions } from 'firebase/app';
 import { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore';
-import { Writable, writable } from 'svelte/store';
+import { type Writable, writable } from 'svelte/store';
 
 export const firebaseAppStore: Writable<FirebaseApp> = writable(null);
 let firebaseApp: FirebaseApp = null;
