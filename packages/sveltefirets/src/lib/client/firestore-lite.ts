@@ -2,8 +2,8 @@
 
 import {
   getFirestore,
-  CollectionReference,
-  DocumentReference,
+  type CollectionReference,
+  type DocumentReference,
   collection,
   doc,
   getDoc,

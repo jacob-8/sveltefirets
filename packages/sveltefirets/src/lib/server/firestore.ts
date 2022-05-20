@@ -5,9 +5,9 @@
 import type { FirebaseApp } from 'firebase/app';
 import {
   getFirestore,
-  CollectionReference,
-  DocumentReference,
-  QueryConstraint,
+  type CollectionReference,
+  type DocumentReference,
+  type QueryConstraint,
   collection,
   doc,
   getDocs,
