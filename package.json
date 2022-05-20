@@ -9,7 +9,6 @@
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --ignore-path .gitignore  --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
-		"test": "jest",
 		"package": "svelte-kit package",
 		"release": "npm run package && cd package && npm publish",
 		"postversion": "git push && git push --tags && npm run release"
@@ -20,13 +19,11 @@
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "^1.0.0-next.32",
 		"@sveltejs/kit": "^1.0.0-next.202",
-		"@types/jest": "^27.0.3",
 		"@typescript-eslint/eslint-plugin": "^4.29.3",
 		"@typescript-eslint/parser": "^4.29.3",
 		"eslint": "^7.22.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-svelte3": "^3.2.1",
-		"jest": "^27.3.1",
 		"prettier": "^2.4.1",
 		"prettier-plugin-svelte": "^2.5.1",
 		"svelte": "^3.44.3",
@@ -34,12 +31,8 @@
 		"svelte-preprocess": "^4.9.8",
 		"svelte2tsx": "^0.4.12",
 		"sveltefirets": "file:./package",
-		"ts-jest": "^27.0.7",
 		"tslib": "^2.0.0",
 		"typescript": "^4.5.4"
-	},
-	"peerDependencies": {
-		"firebase": "^9.6.1"
 	},
 	"type": "module",
 	"main": "./index-client.js",
