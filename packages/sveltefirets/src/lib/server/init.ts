@@ -1,8 +1,9 @@
-import type { FirebaseApp, FirebaseOptions } from 'firebase/app';
+// import type { FirebaseApp, FirebaseOptions } from 'firebase/app';
 // import { initializeApp, getApps, type FirebaseApp, type FirebaseOptions } from 'firebase/app';
 
-const firebaseApp: FirebaseApp = null;
-export function initFirebase(config: FirebaseOptions) {
+// const firebaseApp: FirebaseApp = null;
+// export function initFirebase(config: FirebaseOptions) {
+export function initFirebase(config: any) {
   return null;
   // if (firebaseApp) {
   //   return firebaseApp;
