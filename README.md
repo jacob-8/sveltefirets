@@ -1,6 +1,6 @@
 # SvelteFireTS
 
-- SvelteKit (tested on 1.0.0-next.336)
+- SvelteKit (tested on 1.0.0-next.348)
 - Typescript
 - Firebase 9.8
 - *includes an optional FirebaseAuthUi component that brings in [FirebaseUI web](https://github.com/firebase/firebaseui-web) + Firebase 9 compat via CDN only when component shown - FirebaseUI web allows for easy authentication in dozens of languages and many providers without you needing to manage the authentication forms*
@@ -17,14 +17,23 @@ Note that this is very much in progress and many options are not yet configurabl
   import { firebaseConfig } from '$lib/firebaseConfig';
   import type { Load } from '@sveltejs/kit';
   export const load: Load = () => {
-    initFirebase(firebaseConfig);
-    return {};
+    const firebaseApp = initFirebase(firebaseConfig);
+    return { stuff: { firebaseApp } };
   };
 </script>
 <slot />
 ``` 
-- Technically because `firebase` is a dependency of this package, you will not need to include `firebase` in your package.json to use its methods and types but you probably still should for clarity: `npm install firebase`
-- Refer to the demo app in `/packages/demo` (try it out at https://sveltefirets.vercel.app) for further implementation until I add docs.
+- Technically because `firebase` is a dependency of this package, you may not need to include `firebase` in your package.json to use its methods and types but you probably still should for clarity: `npm install firebase`
+- Add the type for `stuff.firebaseApp` prop to your `app.d.t.s` file:
+```ts
+declare namespace App {
+  ...
+  interface Stuff {
+    firebaseApp: import('firebase/app').FirebaseApp
+  }
+}
+```
+- Refer to the [source code](https://github.com/jacob-8/sveltefirets/tree/main/packages/demo) for the [demo app](https://sveltefirets.vercel.app) in `/packages/demo` for usage until better docs are added.
 
 ## Developing
 - `pnpm i`
