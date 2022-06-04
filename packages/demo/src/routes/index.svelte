@@ -1,9 +1,9 @@
 <script lang="ts">
-  // import Auth from '$lib/Auth.svelte';
-  // import Config from '$lib/Config.svelte';
-  // import Create from '$lib/Create.svelte';
-  // import ReadSingle from '$lib/ReadSingle.svelte';
-  // import ReadUpdateDelete from '$lib/ReadUpdateDelete.svelte';
+  import Auth from '$lib/Auth.svelte';
+  import Config from '$lib/Config.svelte';
+  import Create from '$lib/Create.svelte';
+  import ReadSingle from '$lib/ReadSingle.svelte';
+  import ReadUpdateDelete from '$lib/ReadUpdateDelete.svelte';
 </script>
 
 <h1>SvelteFire TS</h1>
@@ -13,7 +13,7 @@
   Open the browser console for development logging.
 </p>
 
-<!-- <Config />
+<Config />
 
 <Auth />
 
@@ -21,4 +21,4 @@
 
 <ReadUpdateDelete />
 
-<ReadSingle /> -->
+<ReadSingle />
