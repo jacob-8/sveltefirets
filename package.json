@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "pnpm --filter=demo dev",
+		"demo": "pnpm --filter=demo dev",
 		"build": "pnpm --filter=sveltefirets package && pnpm --filter=demo build",
 		"preview": "svelte-kit preview",
 		"lint": "prettier --ignore-path .gitignore  --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
