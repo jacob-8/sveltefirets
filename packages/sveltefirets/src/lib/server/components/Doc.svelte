@@ -28,7 +28,7 @@
   <slot data={$store} ref={store.ref} error={store.error} />
 {:else if store.loading}
   <slot name="loading" />
-{:else}
+{:else if startWith}
   <slot name="fallback" />
 {/if}
 

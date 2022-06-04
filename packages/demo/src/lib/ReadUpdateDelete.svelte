@@ -4,6 +4,7 @@
   import type { IMessage } from './message.interface';
 
   let refField: string;
+  let maxDocs = 5;
   const preloadedMessages: IMessage[] = [{ text: 'preloadedMessage from the server' }];
 
   function changeGreeting(messageId: string) {
@@ -19,11 +20,12 @@
 justify-content: space-between;">
   <h2>Read, Update, and Delete greetings</h2>
   <input type="text" bind:value={refField} maxlength="5" placeholder="Optional ref field" />
+  <input type="number" bind:value={maxDocs} min="1" max="10" placeholder="Document limit" />
 </div>
 
 <Collection
   path="messages"
-  queryConstraints={[limit(5), orderBy('updatedAt', 'desc')]}
+  queryConstraints={[limit(maxDocs), orderBy('updatedAt', 'desc')]}
   startWith={preloadedMessages}
   let:data={messages}
   {refField}

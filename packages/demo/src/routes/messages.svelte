@@ -11,7 +11,6 @@
         [limit(5), orderBy('updatedAt', 'desc')],
         firebaseApp
       );
-      console.log({ messages });
       if (messages) {
         return { props: { messages } };
       } else {

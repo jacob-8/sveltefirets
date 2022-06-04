@@ -4,7 +4,8 @@
 	"scripts": {
 		"dev": "pnpm --filter=demo dev",
 		"demo": "pnpm --filter=demo dev",
-		"build": "pnpm --filter=sveltefirets package && pnpm --filter=demo build",
+		"build": "pnpm package && pnpm --filter=demo build",
+		"package": "pnpm --filter=sveltefirets package",
 		"preview": "svelte-kit preview",
 		"lint": "prettier --ignore-path .gitignore  --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
