@@ -25,3 +25,5 @@ export { default as FirebaseUiAuth } from './client/components/FirebaseUiAuth.sv
 export { collectionStore, docStore } from './client/stores';
 export { authState, createUserStore, logOut } from './client/user';
 export { updateUserData } from './client/updateUserData';
+
+export { type LanguageCode, languagesWithTranslations} from './client/components/languageCodes';

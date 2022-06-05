@@ -29,9 +29,11 @@ export { addOnline, setOnline, updateOnline, deleteDocumentOnline };
 // Components
 export { default as Collection } from './server/components/Collection.svelte';
 export { default as Doc } from './server/components/Doc.svelte';
-export { default as FirebaseUiAuth } from './client/components/FirebaseUiAuth.svelte';
+export { default as FirebaseUiAuth } from './server/components/FirebaseUiAuth.svelte';
 
 // Stores & Auth
 export { collectionStore, docStore };
 export { authState, createUserStore, logOut };
 export { updateUserData };
+
+export { type LanguageCode, languagesWithTranslations} from './client/components/languageCodes';
