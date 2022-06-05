@@ -1,29 +1,21 @@
-import { derived, writable, type Writable } from 'svelte/store';
-import type { Unsubscriber } from 'svelte/store';
+import { writable, type Unsubscriber } from 'svelte/store';
 
-import type { FirebaseApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, signOut, type User } from 'firebase/auth';
 import { doc, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
 
-import { firebaseAppStore } from './init';
+import { getFirebaseApp } from './init';
 import { docStore } from './stores';
 import type { IBaseUser } from '../interfaces';
 import { setCookie } from '../helpers/cookies';
 
-export const authState = derived<Writable<FirebaseApp>, User>(
-  firebaseAppStore,
-  ($firebaseApp, set) => {
-    if ($firebaseApp) {
-      const auth = getAuth();
-      onAuthStateChanged(
-        auth,
-        (u) => set(u),
-        (err) => console.error(err.message)
-      );
-    }
-  },
-  null
-);
+export const authState = writable<User>(null, (set) => {
+  const auth = getAuth(getFirebaseApp());
+  onAuthStateChanged(
+    auth,
+    (u) => set(u),
+    (err) => console.error(err.message)
+  );
+});
 
 export function createUserStore<T>({ userKey = 'firebase_user', log = false }) {
   const { subscribe, set } = writable<T>(null);

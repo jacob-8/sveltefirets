@@ -8,8 +8,6 @@ let firebaseConfig: FirebaseOptions = null;
 let firebaseApp: FirebaseApp = null;
 let db: Firestore = null;
 
-export const firebaseAppStore: Writable<FirebaseApp> = writable(null);
-
 export function setConfig(config: FirebaseOptions) {
   console.log('firebase config set on client: ' + config.projectId);
   firebaseConfig = config;
@@ -22,7 +20,6 @@ export function getFirebaseApp() {
 
   if (getApps().length) {
     firebaseApp = getApps()[0];
-    firebaseAppStore.set(firebaseApp);
     return firebaseApp;
   }
 
@@ -45,7 +42,6 @@ export function getFirebaseApp() {
       );
     }
   });
-  firebaseAppStore.set(firebaseApp);
   return firebaseApp;
 }
 
