@@ -1,9 +1,8 @@
 import { getPerformance, trace, type PerformanceTrace } from 'firebase/performance';
-import { getApp } from 'firebase/app';
+import { getFirebaseApp } from './init';
 
 export function startTrace(name: string) {
-  const firebaseApp = getApp();
-  const perf = getPerformance(firebaseApp);
+  const perf = getPerformance(getFirebaseApp());
   const t = trace(perf, name);
   t.start();
   return t;

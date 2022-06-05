@@ -17,6 +17,8 @@ export const authState = writable<User>(null, (set) => {
   );
 });
 
+/**
+ * Subscribes to current Firebase user, pulls their data from the users collection, caches it to local storage as well as sets a cookie to allow for server-side rendering (not authenticated routes, just basic UI stuff like a name in a header). It also denotes their visit as a `lastVisit` timestamp in Firestore. */
 export function createUserStore<T>({ userKey = 'firebase_user', log = false }) {
   const { subscribe, set } = writable<T>(null);
   let unsub: Unsubscriber;
@@ -46,7 +48,7 @@ export function createUserStore<T>({ userKey = 'firebase_user', log = false }) {
 }
 
 export const logOut = async () => {
-  const auth = getAuth();
+  const auth = getAuth(getFirebaseApp());
   await signOut(auth);
 };
 
