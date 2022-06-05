@@ -33,6 +33,7 @@ importers:
       mdsvex: ^0.10.5
       svelte: ^3.44.0
       svelte-check: ^2.7.2
+      svelte-pieces: ^1.0.22
       svelte-preprocess: ^4.10.1
       sveltefirets: workspace:^0.0.17
       tslib: ^2.3.1
@@ -45,6 +46,7 @@ importers:
       mdsvex: 0.10.6_svelte@3.48.0
       svelte: 3.48.0
       svelte-check: 2.7.2_svelte@3.48.0
+      svelte-pieces: 1.0.22_svelte@3.48.0
       svelte-preprocess: 4.10.6_dg7s4kx4gpzom5ifrkhkr632g4
       sveltefirets: link:../sveltefirets
       tslib: 2.4.0
@@ -1564,6 +1566,13 @@ packages:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
     dev: true
 
+  /fast-xml-parser/3.21.1:
+    resolution: {integrity: sha512-FTFVjYoBOZTJekiUsawGsSYV9QL0A+zDYCRj7y34IO6Jg+2IMYEtQa+bbictpdpV8dHxXywqU7C0gRDEOFtBFg==}
+    hasBin: true
+    dependencies:
+      strnum: 1.0.5
+    dev: true
+
   /fastq/1.13.0:
     resolution: {integrity: sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==}
     dependencies:
@@ -1773,6 +1782,11 @@ packages:
     engines: {node: '>= 0.4.0'}
     dependencies:
       function-bind: 1.1.1
+    dev: true
+
+  /he/1.2.0:
+    resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
+    hasBin: true
     dev: true
 
   /http-parser-js/0.5.6:
@@ -2644,6 +2658,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /strnum/1.0.5:
+    resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
+    dev: true
+
   /supports-color/7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
@@ -2691,6 +2709,17 @@ packages:
       svelte: '>=3.19.0'
     dependencies:
       svelte: 3.48.0
+    dev: true
+
+  /svelte-pieces/1.0.22_svelte@3.48.0:
+    resolution: {integrity: sha512-Fpz4lXoL8pkqxRlpTA6Wod4E0H009m/Pu21xoutmi/WS8czqMZs7/ISsCeP9t7nw0Af82FE/31AMcztFCvQjzg==}
+    peerDependencies:
+      svelte: ^3.46.4
+    dependencies:
+      fast-xml-parser: 3.21.1
+      he: 1.2.0
+      svelte: 3.48.0
+      yootils: 0.3.1
     dev: true
 
   /svelte-preprocess/4.10.6_dg7s4kx4gpzom5ifrkhkr632g4:
@@ -3026,4 +3055,8 @@ packages:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.0.1
+    dev: true
+
+  /yootils/0.3.1:
+    resolution: {integrity: sha512-A7AMeJfGefk317I/3tBoUYRcDcNavKEkpiPN/nQsBz/viI2GvT7BtrqdPD6rGqBFN8Ax7v4obf+Cl32JF9DDVw==}
     dev: true

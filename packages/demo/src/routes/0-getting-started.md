@@ -1,54 +1,84 @@
 # Getting Started
 
-## Add [Firebase Project Config](https://firebase.google.com/docs/web/learn-more#config-object) to `.env` file as a string
+## Install SvelteFireTS
+`npm i -D sveltefirets` or `pnpm add -D sveltefirets`
+- Because `firebase` is a dependency of this package, you may not need to include `firebase` in your package.json to use its methods and types but you probably still should for clarity: `npm i -D firebase`
+
+## Add [Firebase Project Config](https://firebase.google.com/docs/web/learn-more#config-object)
+
+### Option 1: Easy Method
+Create a `firebaseConfig.ts` file that exports your config:
+```ts
+export const firebaseConfig = {
+  apiKey: '...',
+  authDomain: 'YOURPROJECTID.firebaseapp.com',
+  databaseURL: 'https://YOURPROJECTID.firebaseio.com',
+  projectId: 'YOURPROJECTID',
+  storageBucket: 'YOURPROJECTID.appspot.com',
+  messagingSenderId: '...',
+  appId: '...',
+  measurementId: '...',
+};
+```
+
+### Option 2: Use Env Variables
+If using different firebase projects for different environments (e.g. dev vs. prod), first add the config object to a `.env` file in the same folder as `svelte.config.js` as a string:
 ```
 VITE_FIREBASE_CONFIG={"apiKey":"...","authDomain":"YOURPROJECTID.firebaseapp.com","databaseURL":"https://YOURPROJECTID.firebaseio.com","projectId":"YOURPROJECTID","storageBucket":"YOURPROJECTID.appspot.com","messagingSenderId":"...","appId":"...","measurementId":"..."}
 ```
-- Replace each value with your own.
-- The `.env` file lives alongside your `svelte.config.js` but you can place it elsewhere (useful for sharing in a monorepo) by setting [`config.kit.vite.envDir`](https://vitejs.dev/config/#envdir) to `../../` for example.
-- Values placed into your hosting provider's env variables (e.g. Vercel) will override these and allow for easy use of different projects between dev and production.
+and set up your `firebaseConfig.ts` file like this:
+```ts
+import type { FirebaseOptions } from 'firebase/app';
+export let firebaseConfig: FirebaseOptions = {};
+const envFirebaseConfigValue = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG as string) as FirebaseOptions;
+if (envFirebaseConfigValue.projectId) {
+  firebaseConfig = envFirebaseConfigValue;
+} else {
+  throw Error('VITE_FIREBASE_CONFIG is not set.');
+}
+```
 
-### Make your config available to Sveltefirets on the server
+- Any config placed into your hosting provider's env variables (e.g. Vercel) under the `VITE_FIREBASE_CONFIG` key will automatically override these and allow for easy use of different projects between dev and production.
+- *If wanting to share between projects in a monorepo set [`config.kit.vite.envDir`](https://vitejs.dev/config/#envdir) to `../../` and place in the repo root.*
 
-If using Vercel or any Node based hosting provider you can add the config to `process.env` like this in `hooks.ts`:
+## Pass Firebase Config to SvelteFireTS
 
-```js
+### Client Side
+
+Run `setConfig` with your Firebase Config object in your root layout(s), usually `src/routes/__layout.svelte`:
+
+```html
+<script context="module" lang="ts">
+  import { setConfig } from 'sveltefirets';
+  import { firebaseConfig } from '$lib/firebaseConfig';
+  import type { Load } from '@sveltejs/kit';
+  export const load: Load = () => {
+    setConfig(firebaseConfig);
+    return {};
+  };
+</script>
+<slot />
+```
+
+### Server Side
+
+Run `setConfig` with your Firebase Config object like this in `hooks.ts`:
+
+```ts
+import { setConfig } from 'sveltefirets';
+import { firebaseConfig } from '$lib/firebaseConfig';
 import type { Handle } from '@sveltejs/kit';
 export const handle: Handle = async ({ event, resolve }) => {
-  process.env.FIREBASE_CONFIG = import.meta.env.VITE_FIREBASE_CONFIG;
+  setConfig(firebaseConfig);
   const response = await resolve(event);
   return response;
 };
 ```
 
-Not researched yet, but if using Cloudflare Workers, you may be able to put in your wrangler.toml the following: `FIREBASE_CONFIG = "..."` as per [this](https://developers.cloudflare.com/workers/platform/environment-variables). See [this](https://community.cloudflare.com/t/how-can-i-read-environment-variable-dynamically/353207) also. Probably not needed, but `process.env.FIREBASE_CONFIG` in the above `hooks.ts` code may need to be `self.FIREBASE_CONFIG` or `global.FIREBASE_CONFIG`.
+This ensures that before any data is fetched from an endpoint, SvelteFireTS will have the proper configuration to init Firebase with.
 
-### Set global variable client side in root __layout.svelte file, then Firebase will be inited only when needed
+## Next Steps
 
-## Next
+**You are ready to use SvelteFireTS in any manner described in these docs!** 
 
-- `npm install -D sveltefirets`
-- add `initFirebase` with your Firebase config in your root `__layout.svelte`:
-```html
-<script context="module" lang="ts">
-  import { initFirebase } from 'sveltefirets';
-  import { firebaseConfig } from '$lib/firebaseConfig';
-  import type { Load } from '@sveltejs/kit';
-  export const load: Load = () => {
-    const firebaseApp = initFirebase(firebaseConfig);
-    return { stuff: { firebaseApp } };
-  };
-</script>
-<slot />
-``` 
-- Technically because `firebase` is a dependency of this package, you may not need to include `firebase` in your package.json to use its methods and types but you probably still should for clarity: `npm install firebase`
-- Add the type for `stuff.firebaseApp` prop to your `app.d.t.s` file:
-```ts
-declare namespace App {
-  ...
-  interface Stuff {
-    firebaseApp: import('firebase/app').FirebaseApp
-  }
-}
-```
-- Refer to the [source code](https://github.com/jacob-8/sveltefirets/tree/main/packages/demo) for the [demo app](https://sveltefirets.vercel.app) in `/packages/demo` for usage until better docs are added.
+*Note that the `setConfig` method used above does not initialize Firebase but rather makes the cofiguration available to SvelteFireTS. Firebase will be initialized the first time it is needed, thus saving your client side start time a few moments on pages that don't utilize Firebase if you have any. If you have sitewide authentication then this is a moot point.*

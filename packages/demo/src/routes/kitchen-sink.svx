@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Auth from '$lib/Auth.svelte';
   import Config from '$lib/Config.svelte';
   import Create from '$lib/Create.svelte';
   import ReadSingle from '$lib/ReadSingle.svelte';
@@ -14,8 +13,6 @@
 </p>
 
 <Config />
-
-<Auth />
 
 <Create />
 
