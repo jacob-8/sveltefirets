@@ -6,14 +6,11 @@ import {
 } from 'firebase/app';
 import { getFirestore, type Firestore } from 'firebase/firestore';
 
-console.log('hello from sveltefirets server init');
-
 let firebaseConfig: FirebaseOptions = null;
 let firebaseApp: FirebaseApp = null;
 let db: Firestore = null;
 
 export function setConfig(config: FirebaseOptions) {
-  console.log('firebase config set on server: ' + config.projectId);
   firebaseConfig = config;
 }
 
@@ -34,7 +31,6 @@ export function getFirebaseApp() {
   }
 
   firebaseApp = initializeApp(firebaseConfig);
-  console.log('firebase initialized on server');
   return firebaseApp;
 }
 

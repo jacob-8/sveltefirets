@@ -8,7 +8,6 @@ let db: Firestore = null;
 const browser = typeof window !== 'undefined';
 
 export function setConfig(config: FirebaseOptions) {
-  console.log(`firebase config set on ${browser ? 'client' : 'server'} ${config.projectId}`);
   firebaseConfig = config;
 }
 
@@ -34,7 +33,7 @@ export function getFirebaseApp() {
   }
 
   firebaseApp = initializeApp(firebaseConfig);
-  console.log('firebase initialized');
+  console.log(`${firebaseConfig.projectId} initialized on ${browser ? 'client' : 'server'}`);
 
   if (browser) {
     const db = getFirestore();
