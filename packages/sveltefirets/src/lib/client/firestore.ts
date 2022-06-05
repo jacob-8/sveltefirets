@@ -4,6 +4,9 @@ import {
   type CollectionReference,
   type DocumentReference,
   type QueryConstraint,
+  type PartialWithFieldValue,
+  type WithFieldValue,
+  type UpdateData,
   collection,
   doc,
   getDocs,
@@ -58,57 +61,47 @@ export async function getDocument<T>(ref: DocPredicate<T>): Promise<T> {
 
 export function add<T>(
   ref: CollectionPredicate<T>,
-  data: T,
+  data: WithFieldValue<T>,
   opts: {
     abbreviate?: boolean;
   } = {}
 ): Promise<DocumentReference<T>> {
-  return addDoc(colRef(ref), {
-    ...data,
-    [opts.abbreviate ? 'ca' : 'createdAt']: serverTimestamp(),
-    [opts.abbreviate ? 'cb' : 'createdBy']: getUid(),
-    [opts.abbreviate ? 'ua' : 'updatedAt']: serverTimestamp(),
-    [opts.abbreviate ? 'ub' : 'updatedBy']: getUid(),
-  });
+  data[opts.abbreviate ? 'ca' : 'createdAt'] = serverTimestamp();
+  data[opts.abbreviate ? 'cb' : 'createdBy'] = getUid();
+  data[opts.abbreviate ? 'ua' : 'updatedAt'] = serverTimestamp();
+  data[opts.abbreviate ? 'ub' : 'updatedBy'] = getUid();
+  return addDoc(colRef(ref), data);
 }
 
 export async function set<T>(
   ref: DocPredicate<T>,
-  data: T,
+  data: PartialWithFieldValue<T>,
   opts: {
     abbreviate?: boolean;
     merge?: boolean;
   } = {}
 ): Promise<void> {
   const snap = await getDocument(ref);
-  return await (snap
-    ? update(ref, data)
-    : setDoc(
-        docRef(ref),
-        {
-          ...data,
-          [opts.abbreviate ? 'ca' : 'createdAt']: serverTimestamp(),
-          [opts.abbreviate ? 'cb' : 'createdBy']: getUid(),
-          [opts.abbreviate ? 'ua' : 'updatedAt']: serverTimestamp(),
-          [opts.abbreviate ? 'ub' : 'updatedBy']: getUid(),
-        },
-        { merge: opts.merge }
-      ));
+  if (snap) {
+    return await update(ref, data);
+  }
+  data[opts.abbreviate ? 'ca' : 'createdAt'] = serverTimestamp();
+  data[opts.abbreviate ? 'cb' : 'createdBy'] = getUid();
+  data[opts.abbreviate ? 'ua' : 'updatedAt'] = serverTimestamp();
+  data[opts.abbreviate ? 'ub' : 'updatedBy'] = getUid();
+  return await setDoc(docRef(ref), data, { merge: opts.merge });
 } // could split apart into set and upsert if desired, https://stackoverflow.com/questions/46597327/difference-between-set-with-merge-true-and-update
 
 export async function update<T>(
   ref: DocPredicate<T>,
-  data: Partial<T>,
+  data: PartialWithFieldValue<T>,
   opts: {
     abbreviate?: boolean;
   } = {}
 ): Promise<void> {
-  // @ts-ignore
-  return updateDoc(docRef(ref), {
-    ...data,
-    [opts.abbreviate ? 'ua' : 'updatedAt']: serverTimestamp(),
-    [opts.abbreviate ? 'ub' : 'updatedBy']: getUid(),
-  });
+  data[opts.abbreviate ? 'ua' : 'updatedAt'] = serverTimestamp();
+  data[opts.abbreviate ? 'ub' : 'updatedBy'] = getUid();
+  return updateDoc(docRef(ref), data as UpdateData<T>);
 }
 
 export function deleteDocument<T>(ref: DocPredicate<T>): Promise<void> {
