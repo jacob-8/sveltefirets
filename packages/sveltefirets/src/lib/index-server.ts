@@ -19,7 +19,7 @@ const getUid = noop,
   updateUserData = noopPromise;
 
 export type { IBaseUser, IFirestoreMetaData, IFirestoreMetaDataAbbreviated } from './interfaces';
-export { setConfig, getFirebaseApp } from './server/init';
+export { setConfig, getFirebaseApp, getDb } from './server/init';
 
 // Firestore Helpers
 export { colRef, docRef, getCollection, getDocument } from './server/firestore';

@@ -1,19 +1,19 @@
-import { initializeApp, getApps, type FirebaseApp, type FirebaseOptions } from 'firebase/app';
+import {
+  initializeApp,
+  getApps,
+  type FirebaseApp,
+  type FirebaseOptions,
+} from 'firebase/app';
+import { getFirestore, type Firestore } from 'firebase/firestore';
 
 console.log('hello from sveltefirets server init');
-// if (process && process.env && process.env['FIREBASE_CONFIG']) {
-//   console.log('from sveltefirets' + process.env['FIREBASE_CONFIG']);
-// }
-
-// if (FIREBASE_CONFIG) {
-//   console.log(FIREBASE_CONFIG)
-// }
 
 let firebaseConfig: FirebaseOptions = null;
 let firebaseApp: FirebaseApp = null;
+let db: Firestore = null;
 
 export function setConfig(config: FirebaseOptions) {
-  console.log('firebase config set on server: ' + config);
+  console.log('firebase config set on server: ' + config.projectId);
   firebaseConfig = config;
 }
 
@@ -28,10 +28,21 @@ export function getFirebaseApp() {
   }
 
   if (!firebaseConfig) {
-    throw Error('Sveltefirets firebaseConfig not set on server. Did you run `setConfig(config)` before a server endpoint used Firestore? In Sveltekit this is done in your hooks.ts file.');
+    throw Error(
+      'Sveltefirets firebaseConfig not set on server. Did you run `setConfig(config)` before a server endpoint used Firestore? In SvelteKit, do this in your hooks.ts file.'
+    );
   }
 
   firebaseApp = initializeApp(firebaseConfig);
   console.log('firebase initialized on server');
   return firebaseApp;
+}
+
+export function getDb() {
+  if (db) {
+    return db;
+  }
+
+  db = getFirestore(getFirebaseApp());
+  return db;
 }

@@ -1,9 +1,6 @@
-// must pass in firebaseApp because getFirestore() function always returns undefined when trying to fetch default app on its own accord - I think because it's designed to work in the client once Firestore has been initialized and not in one synchronous server-side operation
-
-// not using lite versions on server because on client we favor using full firestore cache-first versions instead of a fetch request on every data request (which count as a read even when a user hovers over a link with sveltekite:prefetch for example) and server and client must be using both lite or both regular firestore otherwise we will have errors when trying to pass in queryConstraints from the opposite package.
+// not using lite versions on server because on client we favor using full firestore cache-first versions instead of a fetch request on every data request (which count as a read even when a user hovers over a link with sveltekite:prefetch for example) and server and client must be using both lite or both regular firestore otherwise we will have errors when trying to pass in queryConstraints from the opposite package (firestore vs firestore-lite).
 
 import {
-  getFirestore,
   type CollectionReference,
   type DocumentReference,
   type QueryConstraint,
@@ -13,7 +10,7 @@ import {
   getDoc,
   query,
 } from 'firebase/firestore';
-import { getFirebaseApp } from './init';
+import { getDb } from './init';
 
 type CollectionPredicate<T> = string | CollectionReference<T>;
 type DocPredicate<T> = string | DocumentReference<T>;
@@ -21,8 +18,7 @@ type DocPredicate<T> = string | DocumentReference<T>;
 export function colRef<T>(
   ref: CollectionPredicate<T>,
 ): CollectionReference<T> {
-  const firebaseApp = getFirebaseApp();
-  const db = getFirestore(firebaseApp);
+  const db = getDb();
   return typeof ref === 'string' ? (collection(db, ref) as CollectionReference<T>) : ref;
 }
 

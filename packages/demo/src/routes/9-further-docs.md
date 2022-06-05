@@ -1,0 +1,1 @@
+See https://modularfirebase.web.app/common-use-cases/firestore/ for good docs on use cases (though possibly out-dated)

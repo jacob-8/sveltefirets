@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Inspired by https://fireship.io/lessons/firestore-advanced-usage-angularfire/
 import {
-  getFirestore,
   type CollectionReference,
   type DocumentReference,
   type QueryConstraint,
@@ -18,7 +17,7 @@ import {
 } from 'firebase/firestore';
 
 import { get } from 'svelte/store';
-import { getFirebaseApp } from './init';
+import { getDb } from './init';
 import { authState } from './user';
 
 export const getUid = () => {
@@ -30,8 +29,7 @@ type CollectionPredicate<T> = string | CollectionReference<T>;
 type DocPredicate<T> = string | DocumentReference<T>;
 
 export function colRef<T>(ref: CollectionPredicate<T>): CollectionReference<T> {
-  const firebaseApp = getFirebaseApp();
-  const db = getFirestore(firebaseApp);
+  const db = getDb();
   return typeof ref === 'string' ? (collection(db, ref) as CollectionReference<T>) : ref;
 }
 
