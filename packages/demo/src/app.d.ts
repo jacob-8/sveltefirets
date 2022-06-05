@@ -3,10 +3,10 @@
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 declare namespace App {
-	// interface Locals {}
-	// interface Platform {}
-	// interface Session {}
-	interface Stuff {
-		firebaseApp: import('firebase/app').FirebaseApp
-	}
+  // interface Locals {}
+  // interface Platform {}
+  // interface Session {}
+  interface Stuff {
+    kitbook: import('kitbook').KitbookStuff;
+  }
 }

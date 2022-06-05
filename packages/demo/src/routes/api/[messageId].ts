@@ -1,12 +1,10 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { initFirebase, getDocument } from 'sveltefirets';
+import { getDocument } from 'sveltefirets';
 
-import { firebaseConfig } from '$lib/firebaseConfig';
 import type { IMessage } from '$lib/message.interface';
 
 export const get: RequestHandler = async (request) => {
-  const firebaseApp = initFirebase(firebaseConfig);
-  const message = await getDocument<IMessage>(`messages/${request.params.messageId}`, firebaseApp);
+  const message = await getDocument<IMessage>(`messages/${request.params.messageId}`);
   console.log({message});
 
   if (message) {

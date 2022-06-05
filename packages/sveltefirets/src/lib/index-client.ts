@@ -1,5 +1,5 @@
 export type { IBaseUser, IFirestoreMetaData, IFirestoreMetaDataAbbreviated } from './interfaces';
-export { initFirebase } from './client/init';
+export { setConfig, getFirebaseApp } from './client/init';
 
 // Firestore Helpers
 export {

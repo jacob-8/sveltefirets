@@ -2,15 +2,15 @@
   import { getCollection } from 'sveltefirets';
   import { limit, orderBy } from 'firebase/firestore';
   import type { IMessage } from '$lib/message.interface';
-  
+
   import type { Load } from '@sveltejs/kit';
-  export const load: Load = async ({ stuff: { firebaseApp } }) => {
+  export const load: Load = async () => {
     try {
-      const messages = await getCollection<IMessage>(
-        `messages`,
-        [limit(5), orderBy('updatedAt', 'desc')],
-        firebaseApp
-      );
+      console.log('getting messages')
+      const messages = await getCollection<IMessage>(`messages`, [
+        limit(5),
+        orderBy('updatedAt', 'desc'),
+      ]);
       if (messages) {
         return { props: { messages } };
       } else {

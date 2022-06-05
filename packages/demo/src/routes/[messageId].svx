@@ -2,9 +2,9 @@
   import { getDocument } from 'sveltefirets';
   import type { IMessage } from '$lib/message.interface';
   import type { Load } from '@sveltejs/kit';
-  export const load: Load = async ({ params: { messageId }, stuff: { firebaseApp } }) => {
+  export const load: Load = async ({ params: { messageId } }) => {
     try {
-      const message = await getDocument<IMessage>(`messages/${messageId}`, firebaseApp);
+      const message = await getDocument<IMessage>(`messages/${messageId}`);
       if (message) {
         return { props: { message, messageId } };
       } else {
