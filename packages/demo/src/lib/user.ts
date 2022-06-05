@@ -1,5 +1,4 @@
-import type { IBaseUser } from 'sveltefirets';
-import { createUserStore } from 'sveltefirets';
+import { createUserStore, type IBaseUser } from 'sveltefirets';
 import { firebaseConfig } from './firebaseConfig';
 
 interface IUser extends IBaseUser {
