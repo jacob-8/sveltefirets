@@ -1,17 +1,17 @@
-import type { FieldValue, Timestamp } from 'firebase/firestore';
+import type { Timestamp } from 'firebase/firestore';
 
 export interface IFirestoreMetaData {
   id?: string;
   createdBy?: string;
   updatedBy?: string;
-  createdAt?: Timestamp & FieldValue;
-  updatedAt?: Timestamp & FieldValue;
+  createdAt?: Timestamp;
+  updatedAt?: Timestamp;
 }
 
 export interface IFirestoreMetaDataAbbreviated {
   id?: string;
   cb?: string;
   ub?: string;
-  ca?: Timestamp & FieldValue;
-  ua?: Timestamp & FieldValue;
+  ca?: Timestamp;
+  ua?: Timestamp;
 }

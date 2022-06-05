@@ -1,5 +1,11 @@
 import { writable } from 'svelte/store';
-import { onSnapshot, query, type CollectionReference, type DocumentReference, type QueryConstraint } from 'firebase/firestore';
+import {
+  onSnapshot,
+  query,
+  type CollectionReference,
+  type DocumentReference,
+  type QueryConstraint,
+} from 'firebase/firestore';
 
 import { colRef, docRef } from './firestore';
 import { startTrace, stopTrace } from './perf';
@@ -30,10 +36,10 @@ export function docStore<T>(
     trace && stopTrace(trace);
   };
 
-  // Timout
+  // Timeout
   // Runs of first subscription
   const start = () => {
-    // Timout for fallback slot
+    // Timeout for fallback slot
     _waitForIt =
       maxWait &&
       setTimeout(
@@ -95,7 +101,14 @@ export function docStore<T>(
 export function collectionStore<T>(
   path: CollectionReference<T> | string,
   queryConstraints: QueryConstraint[] = [],
-  opts: { log?: boolean; traceId?: string; startWith?: T[]; maxWait?: number; once?: boolean, refField?: string } = {
+  opts: {
+    log?: boolean;
+    traceId?: string;
+    startWith?: T[];
+    maxWait?: number;
+    once?: boolean;
+    refField?: string;
+  } = {
     maxWait: 10000,
   }
 ) {

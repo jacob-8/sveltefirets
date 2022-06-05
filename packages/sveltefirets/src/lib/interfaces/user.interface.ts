@@ -1,4 +1,4 @@
-import type { FieldValue, Timestamp } from 'firebase/firestore';
+import type { Timestamp } from 'firebase/firestore';
 import type { IFirestoreMetaData } from '.';
 
 export type IBaseUser = User & Omit<IFirestoreMetaData, 'id'>;
@@ -8,5 +8,5 @@ interface User {
   email?: string;
   displayName?: string;
   photoURL?: string;
-  lastVisit?: Timestamp & FieldValue;
+  lastVisit?: Timestamp;
 }
