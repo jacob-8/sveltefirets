@@ -1,3 +1,4 @@
+// Server noops
 const noopPromise = () => new Promise((resolve) => resolve(null));
 const noop = () => null;
 
@@ -16,9 +17,11 @@ const getUid = noop,
   authState = null,
   createUserStore = noop,
   logOut = noop,
-  updateUserData = noopPromise;
+  updateUserData = noopPromise,
+  loadStylesOnce = noopPromise,
+  loadScriptOnce = noopPromise;
 
-export type { IBaseUser, IFirestoreMetaData, IFirestoreMetaDataAbbreviated } from './interfaces';
+// Main
 export { setConfig, getFirebaseApp, getDb } from './server/init';
 
 // Firestore Helpers
@@ -36,4 +39,9 @@ export { collectionStore, docStore };
 export { authState, createUserStore, logOut };
 export { updateUserData };
 
-export { type LanguageCode, languagesWithTranslations} from './client/components/languageCodes';
+// Types & Enums
+export type { IBaseUser, IFirestoreMetaData, IFirestoreMetaDataAbbreviated } from './interfaces';
+export { type LanguageCode, languagesWithTranslations } from './client/components/languageCodes';
+
+// Helpers
+export { loadScriptOnce, loadStylesOnce };

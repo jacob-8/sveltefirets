@@ -1,9 +1,8 @@
-export type { IBaseUser, IFirestoreMetaData, IFirestoreMetaDataAbbreviated } from './interfaces';
+// Main
 export { setConfig, getFirebaseApp, getDb } from './client/init';
 
 // Firestore Helpers
 export {
-  getUid,
   colRef,
   docRef,
   getCollection,
@@ -15,6 +14,7 @@ export {
   docExists,
 } from './client/firestore';
 export { addOnline, setOnline, updateOnline, deleteDocumentOnline } from './client/firestore-lite';
+export { getUid } from './client/uid';
 
 // Components
 export { default as Collection } from './client/components/Collection.svelte';
@@ -26,4 +26,9 @@ export { collectionStore, docStore } from './client/stores';
 export { authState, createUserStore, logOut } from './client/user';
 export { updateUserData } from './client/updateUserData';
 
-export { type LanguageCode, languagesWithTranslations} from './client/components/languageCodes';
+// Types & Enums
+export type { IBaseUser, IFirestoreMetaData, IFirestoreMetaDataAbbreviated } from './interfaces';
+export { type LanguageCode, languagesWithTranslations } from './client/components/languageCodes';
+
+// Helpers
+export { loadScriptOnce, loadStylesOnce } from './client/loader';
