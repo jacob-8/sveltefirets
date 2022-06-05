@@ -12,7 +12,7 @@
   export let maxWait = 10000;
   export let once = false;
 
-  $: opts = {
+  const opts = {
     startWith,
     traceId,
     log,
@@ -31,19 +31,20 @@
 
   // Props changed
   $: {
-    if (unsub) {
-      // Unsub and create new store
-      unsub();
-      store = docStore(path, opts);
-      dispatch('ref', { ref: store.ref });
-    }
+    if (typeof window !== 'undefined') {
+      if (unsub) {
+        // Unsub and create new store
+        unsub();
+        store = docStore(path, opts);
+        dispatch('ref', { ref: store.ref });
+      }
 
-    unsub = store.subscribe((data) => {
-      dispatch('data', {
-        data,
+      unsub = store.subscribe((data) => {
+        dispatch('data', {
+          data,
+        });
       });
-    });
-    // use emitted data with on:data={(e) => console.log(e.detail.data)}
+    }
   }
 
   onMount(() => dispatch('ref', { ref: store.ref }));

@@ -14,7 +14,7 @@
   export let once = false;
   export let refField: string = undefined;
 
-  $: opts = {
+  const opts = {
     startWith,
     traceId,
     log,
@@ -34,18 +34,19 @@
 
   // Props changed
   $: {
-    if (unsub) {
-      unsub();
-      store = collectionStore(path, queryConstraints, opts);
-      dispatch('ref', { ref: store.ref });
-    }
+    if (typeof window !== 'undefined') {
+      if (unsub) {
+        unsub();
+        store = collectionStore(path, queryConstraints, opts);
+        dispatch('ref', { ref: store.ref });
+      }
 
-    unsub = store.subscribe((data) => {
-      dispatch('data', {
-        data,
+      unsub = store.subscribe((data) => {
+        dispatch('data', {
+          data,
+        });
       });
-    });
-    // use emitted data with on:data={(e) => console.log(e.detail.data)}
+    }
   }
 
   onMount(() => dispatch('ref', { ref: store.ref }));

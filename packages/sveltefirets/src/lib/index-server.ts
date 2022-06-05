@@ -1,3 +1,5 @@
+// Deprecated the server only options as the `svelte` export key is needing to be used in package.json and I don't know of any way to differentiate the `svelte` key between client and server
+
 // Server noops
 const noopPromise = () => new Promise((resolve) => resolve(null));
 const noop = () => null;

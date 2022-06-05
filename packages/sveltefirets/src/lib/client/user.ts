@@ -9,12 +9,14 @@ import type { IBaseUser } from '../interfaces';
 import { setCookie } from '../helpers/cookies';
 
 export const authState = writable<User>(null, (set) => {
-  const auth = getAuth(getFirebaseApp());
-  onAuthStateChanged(
-    auth,
-    (u) => set(u),
-    (err) => console.error(err.message)
-  );
+  if (typeof window !== 'undefined') {
+    const auth = getAuth(getFirebaseApp());
+    onAuthStateChanged(
+      auth,
+      (u) => set(u),
+      (err) => console.error(err.message)
+    );
+  }
 });
 
 /**
@@ -23,26 +25,28 @@ export function createUserStore<T>({ userKey = 'firebase_user', log = false }) {
   const { subscribe, set } = writable<T>(null);
   let unsub: Unsubscriber;
 
-  let cached = null;
-  cached = JSON.parse(localStorage.getItem(userKey));
-  set(cached);
+  if (typeof window !== 'undefined') {
+    let cached = null;
+    cached = JSON.parse(localStorage.getItem(userKey));
+    set(cached);
 
-  authState.subscribe((u) => {
-    if (u) {
-      unsub && unsub();
-      const userStore = docStore<T>(`users/${u.uid}`, { log });
-      unsub = userStore.subscribe((user) => {
-        if (user) {
-          set(user);
-          cacheUser(user, userKey);
-          denoteVisitOnce(user);
-        }
-      });
-    } else {
-      set(null);
-      removeCachedUser(userKey);
-    }
-  });
+    authState.subscribe((u) => {
+      if (u) {
+        unsub && unsub();
+        const userStore = docStore<T>(`users/${u.uid}`, { log });
+        unsub = userStore.subscribe((user) => {
+          if (user) {
+            set(user);
+            cacheUser(user, userKey);
+            denoteVisitOnce(user);
+          }
+        });
+      } else {
+        set(null);
+        removeCachedUser(userKey);
+      }
+    });
+  }
 
   return { subscribe };
 }

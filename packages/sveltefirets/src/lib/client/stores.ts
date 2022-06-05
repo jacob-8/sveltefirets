@@ -16,6 +16,21 @@ export function docStore<T>(
 ) {
   const { startWith, log, traceId, maxWait, once } = opts;
 
+  if (typeof window === 'undefined') {
+    const store = writable<T>(startWith);
+    const { subscribe } = store;
+    return {
+      subscribe,
+      ref: undefined,
+      get loading() {
+        return false;
+      },
+      get error() {
+        return false;
+      },
+    };
+  }
+
   const ref = typeof path === 'string' ? docRef<T>(path) : path;
   const trace = traceId && startTrace(traceId);
 
@@ -116,6 +131,24 @@ export function collectionStore<T>(
     idField: 'id',
     ...opts,
   };
+
+  if (typeof window === 'undefined') {
+    const store = writable(startWith);
+    const { subscribe } = store;
+    return {
+      subscribe,
+      ref: undefined,
+      get loading() {
+        return false;
+      },
+      get error() {
+        return false;
+      },
+      get meta() {
+        return { first: null, last: null };
+      },
+    };
+  }
 
   const ref = typeof path === 'string' ? colRef<T>(path) : path;
   const q = query(ref, ...queryConstraints);
