@@ -27,8 +27,6 @@
   let log = false;
 </script>
 
-<a href="/">Home</a>
-
 <h2>Message retrieved via load function:</h2>
 <pre>{JSON.stringify(message, null, 1)}</pre>
 
