@@ -1,7 +1,6 @@
 // Use when wanting to receive back promises that will resolve or error when internet is flaky, unlike regular firestore methods which won't resolve right away in these situations. See notes in Readme.md for more info.
 
 import {
-  getFirestore,
   type CollectionReference,
   type DocumentReference,
   collection,
@@ -14,19 +13,14 @@ import {
   serverTimestamp,
 } from 'firebase/firestore/lite';
 
-import { get } from 'svelte/store';
-import { authState } from './user';
-
-const getUid = () => {
-  const u = get(authState);
-  return (u && u.uid) || 'anonymous'; // 'anonymous' allows support messages to be saved by non-logged-in users
-};
+import { getDb } from './init';
+import { getUid } from './uid';
 
 type CollectionPredicate<T> = string | CollectionReference<T>;
 type DocPredicate<T> = string | DocumentReference<T>;
 
 function colRef<T>(ref: CollectionPredicate<T>): CollectionReference<T> {
-  const db = getFirestore();
+  const db = getDb();
   return typeof ref === 'string' ? (collection(db, ref) as CollectionReference<T>) : ref;
 }
 
