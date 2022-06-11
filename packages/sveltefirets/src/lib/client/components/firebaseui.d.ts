@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-// From https://www.runpkg.com/?firebaseui@6.0.0/dist/index.d.ts
+// From https://www.runpkg.com/?firebaseui@6.0.1/dist/index.d.ts
 /*
  * Copyright 2018 Google Inc. All Rights Reserved.
  *
@@ -22,13 +22,22 @@ export as namespace firebaseui;
 type CredentialHelperType = string;
 
 interface Callbacks {
-  signInSuccessWithAuthResult?(
-    // tslint:disable-next-line:no-any firebase dependency not available.
-    authResult: any,
-    redirectUrl?: string
-  ): boolean;
+  signInSuccessWithAuthResult?(authResult: AuthResult, redirectUrl?: string): boolean;
   signInFailure?(error: firebaseui.auth.AuthUIError): Promise<void> | void;
   uiShown?(): void;
+}
+
+type User = import('firebase/auth').User;
+type OAuthCredential = import('firebase/auth').OAuthCredential;
+interface AuthResult {
+  additionalUserInfo: {
+    isNewUser: boolean;
+    providerId: string;
+    profile: any;
+  };
+  credential: OAuthCredential;
+  operationType: 'link' | 'reauthenticate' | 'signIn';
+  user: User;
 }
 
 interface SignInOption {
