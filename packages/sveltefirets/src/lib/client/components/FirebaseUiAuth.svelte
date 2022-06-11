@@ -24,6 +24,8 @@
   export let tosUrl: firebaseui.auth.Config['tosUrl'] = undefined; // '.../terms' | () => window.location.assign("your-terms-url");
   export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl'] = undefined;
   export let signInSuccessUrl: string = undefined;
+  export let forceSameDevice = false;
+  export let continueUrl: string = undefined;
 
   let firebaseApp: FirebaseApp;
 
@@ -63,21 +65,14 @@
   function initAuthUi() {
     const uiConfig: firebaseui.auth.Config = {
       callbacks: {
-        signInSuccessWithAuthResult: function (authResult) {
-          const user = authResult.user as User;
-          // var credential = authResult.credential;
+        signInSuccessWithAuthResult: (authResult) => {
+          const user = authResult.user;
           const isNewUser = authResult.additionalUserInfo.isNewUser;
-          // const providerId = authResult.additionalUserInfo.providerId; // password or google.com
-          // var operationType = authResult.operationType; //signIn
           dispatch('updateuserdata', { user, isNewUser });
           dispatch('success', 'auth success');
-
-          // Do something with the returned AuthResult.
-          // Return type determines whether we continue the redirect automatically
-          // or whether we leave that to developer to handle.
-          return true;
+          return !!signInSuccessUrl; // if  true uses first signInSuccessUrl parameter given in the URL then the default signInSuccessUrl given in config here; if false, page won't redirect automatically
         },
-        signInFailure: function (error) {
+        signInFailure: (error) => {
           // Some unrecoverable error occurred during sign-in.
           // Return a promise when error handling is completed and FirebaseUI
           // will reset, clearing any UI. This commonly occurs for error code
@@ -98,7 +93,12 @@
         signInWith.emailPasswordless && {
           provider: EmailAuthProvider.PROVIDER_ID,
           signInMethod: EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
-          forceSameDevice: false,
+          forceSameDevice,
+          emailLinkSignIn: () => {
+            return {
+              url: continueUrl,
+            };
+          },
         },
         signInWith.phone && PhoneAuthProvider.PROVIDER_ID,
         signInWith.anonymous && firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
