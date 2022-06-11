@@ -1,19 +1,21 @@
-<script lang="ts">
-  import { logOut, FirebaseUiAuth, updateUserData } from 'sveltefirets';
+<script>
+  import { updateUserData, logOut } from 'sveltefirets';
   import { user } from '$lib/user';
-  import { Story } from 'kitbook';
   import Button from 'svelte-pieces/ui/Button.svelte';
 </script>
 
+<h1>Account page</h1>
+<p>Email link sign in landing example page</p>
+
 {#if $user}
-  You are logged in and here is your **User** document from Firestore:
+  You are logged in and here is your User document from Firestore:
 
   <pre>{JSON.stringify($user, null, 1)}</pre>
   <Button form="filled" onclick={logOut}>Log Out</Button>
 {:else}
-  <Story name="English">
+  {#await import('sveltefirets') then { FirebaseUiAuth }}
     <FirebaseUiAuth
-      signInWith={{ google: true, emailPasswordless: true, anonymous: true }}
+      signInWith={{ emailPasswordless: true }}
       on:updateuserdata={(e) => updateUserData(e.detail.user, e.detail.isNewUser)} />
-  </Story>
+  {/await}
 {/if}

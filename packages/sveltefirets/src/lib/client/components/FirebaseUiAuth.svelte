@@ -15,20 +15,11 @@
     type User,
   } from 'firebase/auth';
   import { onMount, createEventDispatcher } from 'svelte';
-  import type { FirebaseApp } from 'firebase/app';
   import { loadScriptOnce, loadStylesOnce } from '../loader';
   import type { LanguageCode } from './languageCodes';
   import { getFirebaseApp } from '../init';
 
   export let languageCode: LanguageCode = 'en';
-  export let tosUrl: firebaseui.auth.Config['tosUrl'] = undefined; // '.../terms' | () => window.location.assign("your-terms-url");
-  export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl'] = undefined;
-  export let signInSuccessUrl: string = undefined;
-  export let forceSameDevice = false;
-  export let continueUrl: string = undefined;
-
-  let firebaseApp: FirebaseApp;
-
   export let signInWith: {
     google?: boolean;
     facebook?: boolean;
@@ -39,18 +30,23 @@
     phone?: boolean;
     anonymous?: boolean;
   } = { google: true, emailPasswordless: true };
+  export let tosUrl: firebaseui.auth.Config['tosUrl'] = undefined; // '.../terms' | () => window.location.assign("your-terms-url");
+  export let privacyPolicyUrl: firebaseui.auth.Config['privacyPolicyUrl'] = undefined;
+  export let signInSuccessUrl: string = undefined;
+  export let continueUrl: string = undefined;
+  export let forceSameDevice = false;
 
   const dispatch = createEventDispatcher<{
     success: string | null;
     updateuserdata: { user: User; isNewUser: boolean };
   }>();
-  let loading = true;
+  let uiShown = false;
+  let firebaseUiLoaded = false;
   let container: HTMLDivElement;
 
   onMount(async () => {
     await loadScriptOnce('https://www.gstatic.com/firebasejs/9.8.2/firebase-app-compat.js');
     await loadScriptOnce('https://www.gstatic.com/firebasejs/9.8.2/firebase-auth-compat.js');
-    firebaseApp = getFirebaseApp();
     if (languageCode === 'iw' || languageCode === 'ar') {
       await loadStylesOnce('https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth-rtl.css');
     } else {
@@ -59,11 +55,12 @@
     await loadScriptOnce(
       `https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth__${languageCode}.js`
     );
-    initAuthUi();
+    firebaseUiLoaded = true;
   });
 
-  function initAuthUi() {
-    const uiConfig: firebaseui.auth.Config = {
+  let uiConfig: firebaseui.auth.Config;
+  $: if (firebaseUiLoaded) {
+    uiConfig = {
       callbacks: {
         signInSuccessWithAuthResult: (authResult) => {
           const user = authResult.user;
@@ -80,7 +77,7 @@
           // occurs. Check below for more details on this.
           return handleUIError(error);
         },
-        uiShown: () => (loading = false),
+        uiShown: () => (uiShown = true),
       },
       credentialHelper: firebaseui.auth.CredentialHelper.NONE, // disabling for moment if it makes harder with redirect (is ok if works through popup)
       signInFlow: 'popup',
@@ -103,17 +100,20 @@
         signInWith.phone && PhoneAuthProvider.PROVIDER_ID,
         signInWith.anonymous && firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
       ],
+      signInSuccessUrl,
+      tosUrl,
+      privacyPolicyUrl,
     };
 
-    if (signInSuccessUrl) uiConfig.signInSuccessUrl = signInSuccessUrl;
-    if (tosUrl) uiConfig.tosUrl = tosUrl;
-    if (privacyPolicyUrl) uiConfig.privacyPolicyUrl = privacyPolicyUrl;
+    initAuthUi();
+  }
 
+  function initAuthUi() {
     if (ui) {
       ui.reset();
       ui.start(container, uiConfig);
     } else {
-      ui = new firebaseui.auth.AuthUI(getAuth(firebaseApp));
+      ui = new firebaseui.auth.AuthUI(getAuth(getFirebaseApp()));
       ui.start(container, uiConfig);
     }
   }
@@ -124,7 +124,7 @@
   }
 </script>
 
-{#if loading}
+{#if !uiShown}
   <slot>
     <div>Loading...</div>
   </slot>

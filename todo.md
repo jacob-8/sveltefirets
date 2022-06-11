@@ -1,0 +1,2 @@
+- Continue installing in projects where folder was previously copied and document as I go.
+- check into if Doc and Collection opts can be made responsive without bugginess

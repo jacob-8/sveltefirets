@@ -52,8 +52,8 @@ justify-content: space-between;">
           );
         }
       }}>Delete</button>
-    <a href={`/${message.id}`} sveltekit:prefetch>Preload firestore data on client</a>
-    <a href={`/${message.id}`} target="_blank">Load firestore data server-side</a>
+    <a href={`/message/${message.id}`} sveltekit:prefetch>Preload firestore data on client</a>
+    <a href={`/message/${message.id}`} target="_blank">Load firestore data server-side</a>
     <a href={`/api/${message.id}`} target="_blank">Message API endpoint</a>
     <hr />
   {/each}

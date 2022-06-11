@@ -11,9 +11,10 @@
   <pre>{JSON.stringify($user, null, 1)}</pre>
   <Button form="filled" onclick={logOut}>Log Out</Button>
 {:else}
-  <Story name="Arabic">
+  <Story name="Spanish">
     <FirebaseUiAuth
-      languageCode={'ar'}
+      
+      languageCode={'es'}
       signInWith={{ google: true, emailPasswordless: true }}
       on:updateuserdata={(e) => updateUserData(e.detail.user, e.detail.isNewUser)} />
   </Story>
