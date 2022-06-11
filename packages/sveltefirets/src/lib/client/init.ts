@@ -1,9 +1,12 @@
 import { initializeApp, getApps, type FirebaseApp, type FirebaseOptions } from 'firebase/app';
 import { getFirestore, enableIndexedDbPersistence, type Firestore } from 'firebase/firestore';
+import { type Writable, writable } from 'svelte/store';
 
 let firebaseConfig: FirebaseOptions = null;
 let firebaseApp: FirebaseApp = null;
 let db: Firestore = null;
+
+export const firebaseAppStore: Writable<FirebaseApp> = writable(null);
 
 const browser = typeof window !== 'undefined';
 
@@ -18,6 +21,7 @@ export function getFirebaseApp() {
 
   if (getApps().length) {
     firebaseApp = getApps()[0];
+    firebaseAppStore.set(firebaseApp);
     return firebaseApp;
   }
 
@@ -49,6 +53,7 @@ export function getFirebaseApp() {
       }
     });
   }
+  firebaseAppStore.set(firebaseApp);
   return firebaseApp;
 }
 

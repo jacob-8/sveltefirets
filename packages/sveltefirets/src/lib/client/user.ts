@@ -1,23 +1,28 @@
-import { writable, type Unsubscriber } from 'svelte/store';
+import { derived, writable, type Unsubscriber, type Readable } from 'svelte/store';
 
 import { getAuth, onAuthStateChanged, signOut, type User } from 'firebase/auth';
 import { doc, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
+import type { FirebaseApp } from 'firebase/app';
 
-import { getFirebaseApp } from './init';
+import { firebaseAppStore, getFirebaseApp } from './init';
 import { docStore } from './stores';
 import type { IBaseUser } from '../interfaces';
 import { setCookie } from '../helpers/cookies';
 
-export const authState = writable<User>(null, (set) => {
-  if (typeof window !== 'undefined') {
-    const auth = getAuth(getFirebaseApp());
-    onAuthStateChanged(
-      auth,
-      (u) => set(u),
-      (err) => console.error(err.message)
-    );
-  }
-});
+export const authState = derived<Readable<FirebaseApp>, User>(
+  firebaseAppStore,
+  ($firebaseApp, set) => {
+    if ($firebaseApp) {
+      const auth = getAuth($firebaseApp);
+      onAuthStateChanged(
+        auth,
+        (u) => set(u),
+        (err) => console.error(err.message)
+      );
+    }
+  },
+  null
+);
 
 /**
  * Subscribes to current Firebase user, pulls their data from the users collection, caches it to local storage as well as sets a cookie to allow for server-side rendering (not authenticated routes, just basic UI stuff like a name in a header). It also denotes their visit as a `lastVisit` timestamp in Firestore. */
