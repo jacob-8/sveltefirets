@@ -1,5 +1,9 @@
 # sveltefirets
 
+## 0.0.24
+
+- - Add `continueUrl` prop to `FirebaseUiAuth.svelte` to make passwordless email authentication feasible using a landing page in single-page apps that conditionally load `FirebaseUiAuth` 
+
 ## 0.0.21
 
 - - First version where installed package version successfully works from both server and client side when installed in another project.
