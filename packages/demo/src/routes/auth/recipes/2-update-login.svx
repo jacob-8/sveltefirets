@@ -46,5 +46,5 @@
 </div>
 
 - See [verifyBeforeUpdateEmail() docs](https://firebase.google.com/docs/reference/js/v8/firebase.User#verifybeforeupdateemail) to learn about the possible errors that you should be catching.
-
+- See https://firebase.google.com/docs/auth/web/account-linking to learn how to link accounts (add a new sign in method instead of change the email for a particular one)
 
