@@ -3,15 +3,15 @@ import { getFirestore, enableIndexedDbPersistence, type Firestore } from 'fireba
 import { type Writable, writable } from 'svelte/store';
 
 let firebaseConfig: FirebaseOptions = null;
+export const firebaseConfigSet: Writable<boolean> = writable(null);
 let firebaseApp: FirebaseApp = null;
 let db: Firestore = null;
-
-export const firebaseAppStore: Writable<FirebaseApp> = writable(null);
 
 const browser = typeof window !== 'undefined';
 
 export function setConfig(config: FirebaseOptions) {
   firebaseConfig = config;
+  firebaseConfigSet.set(true);
 }
 
 export function getFirebaseApp() {
@@ -21,7 +21,6 @@ export function getFirebaseApp() {
 
   if (getApps().length) {
     firebaseApp = getApps()[0];
-    firebaseAppStore.set(firebaseApp);
     return firebaseApp;
   }
 
@@ -53,7 +52,6 @@ export function getFirebaseApp() {
       }
     });
   }
-  firebaseAppStore.set(firebaseApp);
   return firebaseApp;
 }
 

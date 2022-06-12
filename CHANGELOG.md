@@ -1,5 +1,9 @@
 # sveltefirets
 
+## 0.0.25
+
+- - Fix: User store will initialize immediately after firebase config set. v0.0.24 introduced a bug whereby the User store wouldn't initialize until something else called Firebase into action.
+
 ## 0.0.24
 
 - - Add `continueUrl` prop to `FirebaseUiAuth.svelte` to make passwordless email authentication feasible using a landing page in single-page apps that conditionally load `FirebaseUiAuth` 

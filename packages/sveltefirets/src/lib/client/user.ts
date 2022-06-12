@@ -1,19 +1,17 @@
 import { derived, writable, type Unsubscriber, type Readable } from 'svelte/store';
-
 import { getAuth, onAuthStateChanged, signOut, type User } from 'firebase/auth';
 import { doc, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
-import type { FirebaseApp } from 'firebase/app';
 
-import { firebaseAppStore, getFirebaseApp } from './init';
+import { firebaseConfigSet, getFirebaseApp } from './init';
 import { docStore } from './stores';
 import type { IBaseUser } from '../interfaces';
 import { setCookie } from '../helpers/cookies';
 
-export const authState = derived<Readable<FirebaseApp>, User>(
-  firebaseAppStore,
-  ($firebaseApp, set) => {
-    if ($firebaseApp) {
-      const auth = getAuth($firebaseApp);
+export const authState = derived<Readable<boolean>, User>(
+  firebaseConfigSet,
+  ($firebaseConfigSet, set) => {
+    if ($firebaseConfigSet) {
+      const auth = getAuth(getFirebaseApp());
       onAuthStateChanged(
         auth,
         (u) => set(u),
