@@ -24,10 +24,10 @@ export { default as FirebaseUiAuth } from './client/components/FirebaseUiAuth.sv
 // Stores & Auth
 export { collectionStore, docStore } from './client/stores';
 export { authState, createUserStore, logOut } from './client/user';
-export { updateUserData } from './client/updateUserData';
+export { updateUserData, saveUserData } from './client/updateUserData';
 
 // Types & Enums
-export type { IBaseUser, IFirestoreMetaData, IFirestoreMetaDataAbbreviated } from './interfaces';
+export type { IBaseUser, IFirestoreMetaData, IFirestoreMetaDataAbbreviated, AuthResult } from './interfaces';
 export { type LanguageCode, languagesWithTranslations } from './client/components/languageCodes';
 
 // Helpers

@@ -18,6 +18,7 @@
   import { loadScriptOnce, loadStylesOnce } from '../loader';
   import type { LanguageCode } from './languageCodes';
   import { getFirebaseApp } from '../init';
+  import type { AuthResult } from '../../interfaces';
 
   export let languageCode: LanguageCode = 'en';
   export let signInWith: {
@@ -38,7 +39,8 @@
 
   const dispatch = createEventDispatcher<{
     success: string | null;
-    updateuserdata: { user: User; isNewUser: boolean };
+    updateuserdata: { user: User; isNewUser: boolean }; // deprecated
+    authresult: AuthResult;
   }>();
   let uiShown = false;
   let firebaseUiLoaded = false;
@@ -62,10 +64,12 @@
   $: if (firebaseUiLoaded) {
     uiConfig = {
       callbacks: {
-        signInSuccessWithAuthResult: (authResult) => {
-          const user = authResult.user;
-          const isNewUser = authResult.additionalUserInfo.isNewUser;
-          dispatch('updateuserdata', { user, isNewUser });
+        signInSuccessWithAuthResult: (authResult: AuthResult) => {
+          dispatch('updateuserdata', {
+            user: authResult.user,
+            isNewUser: authResult.additionalUserInfo.isNewUser,
+          }); // deprecated in favor of authresult
+          dispatch('authresult', authResult);
           dispatch('success', 'auth success');
           return !!signInSuccessUrl; // if  true uses first signInSuccessUrl parameter given in the URL then the default signInSuccessUrl given in config here; if false, page won't redirect automatically
         },

@@ -22,22 +22,10 @@ export as namespace firebaseui;
 type CredentialHelperType = string;
 
 interface Callbacks {
-  signInSuccessWithAuthResult?(authResult: AuthResult, redirectUrl?: string): boolean;
+  // tslint:disable-next-line:no-any firebase dependency not available.
+  signInSuccessWithAuthResult?(authResult: any, redirectUrl?: string): boolean;
   signInFailure?(error: firebaseui.auth.AuthUIError): Promise<void> | void;
   uiShown?(): void;
-}
-
-type User = import('firebase/auth').User;
-type OAuthCredential = import('firebase/auth').OAuthCredential;
-interface AuthResult {
-  additionalUserInfo: {
-    isNewUser: boolean;
-    providerId: string;
-    profile: any;
-  };
-  credential: OAuthCredential;
-  operationType: 'link' | 'reauthenticate' | 'signIn';
-  user: User;
 }
 
 interface SignInOption {

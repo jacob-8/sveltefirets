@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { logOut, FirebaseUiAuth, updateUserData } from 'sveltefirets';
+  import { logOut, FirebaseUiAuth, saveUserData } from 'sveltefirets';
   import { user } from '$lib/user';
   import { Story } from 'kitbook';
   import Button from 'svelte-pieces/ui/Button.svelte';
@@ -15,6 +15,6 @@
     <FirebaseUiAuth
       languageCode={'ar'}
       signInWith={{ google: true, emailPasswordless: true }}
-      on:updateuserdata={(e) => updateUserData(e.detail.user, e.detail.isNewUser)} />
+      on:authresult={(e) => saveUserData(e.detail)} />
   </Story>
 {/if}

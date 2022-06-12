@@ -3,6 +3,7 @@
 ## 0.0.25
 
 - - Fix: User store will initialize immediately after firebase config set. v0.0.24 introduced a bug whereby the User store wouldn't initialize until something else called Firebase into action.
+  - Deprecated `updateUserData()` in favor of `saveUserData()` which accepts entire authResult object from FirebaseUi for Web to add `signInMethod` and `emailVerified` fields to the base user object. Correspondingly deprecated the `updateuserdata` event in favor of `authresult` for `FirebaseUiAuth.svelte`.
 
 ## 0.0.24
 

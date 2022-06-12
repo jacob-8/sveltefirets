@@ -5,7 +5,7 @@ Here's a simple way to achieve user login, say via a button in a header componen
 ```svelte
 <script lang="ts">
   import Modal from 'svelte-pieces/ui/Modal.svelte';
-  import { FirebaseUiAuth, updateUserData } from 'sveltefirets';
+  import { FirebaseUiAuth, saveUserData } from 'sveltefirets';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher<{
     close: boolean;
@@ -17,7 +17,7 @@ Here's a simple way to achieve user login, say via a button in a header componen
   <FirebaseUiAuth
     signInWith={{ google: true, emailPassword: true }}
     on:success={() => dispatch('close')}
-    on:updateuserdata={(e) => updateUserData(e.detail.user, e.detail.isNewUser)} />
+    on:authresult={(e) => saveUserData(e.detail)} />
 </Modal>
 ```
 

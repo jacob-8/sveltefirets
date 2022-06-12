@@ -9,4 +9,8 @@ interface User {
   displayName?: string;
   photoURL?: string;
   lastVisit?: Timestamp;
+  signInMethod?: SignInMethods;
+  emailVerified?: boolean;
 }
+
+export type SignInMethods = 'google.com' | 'password' | 'emailLink' | 'facebook.com' | 'github.com' | 'phone' | 'twitter.com';

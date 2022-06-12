@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { logOut, FirebaseUiAuth, updateUserData } from 'sveltefirets';
+  import { logOut, FirebaseUiAuth, saveUserData } from 'sveltefirets';
   import { user } from '$lib/user';
   import { Story } from 'kitbook';
   import Button from 'svelte-pieces/ui/Button.svelte';
@@ -24,7 +24,7 @@ The easiest method is to use the FirebaseUiAuth component that brings in [Fireba
   <Story name="Adjust Providers" knobs={{google: true, facebook: false, twitter: false, github: false, emailPassword: false, emailPasswordless: true, phone: false, anonymous: false}} let:props>
     <FirebaseUiAuth
       signInWith={props}
-      on:updateuserdata={(e) => updateUserData(e.detail.user, e.detail.isNewUser)} />
+      on:authresult={(e) => saveUserData(e.detail)} />
   </Story>
 {/if}
 
@@ -36,23 +36,23 @@ If you would like to change languages, sign in methods, or receive the user data
 
 ```svelte
 <script lang="ts">
-  import { FirebaseUiAuth, updateUserData } from 'sveltefirets';
+  import { FirebaseUiAuth, saveUserData } from 'sveltefirets';
 </script>
 
 <FirebaseUiAuth
   languageCode={'es'}
   signInWith={{ google: true, emailPasswordless: true, anonymous: true }}
-  on:updateuserdata={(e) => updateUserData(e.detail.user, e.detail.isNewUser)} />
+  on:authresult={(e) => saveUserData(e.detail)} />
 ```
 At present the other exposed props are `tosUrl` (terms of service url), `privacyPolicyUrl`, `signInSuccessUrl` (not needed if using the `updateduserdata` and `success` events) and `continueUrl` and `forceSameDevice` will only apply to `emailPasswordless` login (see that recipe for more info). If you need further customization, create a PR or just copy the `FirebaseUiAuth` component into your own project and adjust as needed.
 
 ## Save User to Firestore
 
-The `updateUserData` method seen above will save your user's data to a `users` collection in Firestore and will add a `createdAt` timestamp for new users or `updatedAt` and `lastVisit` timestamps for returning users.
+The `saveUserData` method seen above will save your user's data to a `users` collection in Firestore and will add a `createdAt` timestamp for new users or `updatedAt` and `lastVisit` timestamps for returning users.
 
 ## Create User store
 
-If you utilize `updateUserData` as shown above, then you can eaily create a user store (automatically persisted in local storage) to be used across your application like this:
+If you utilize `saveUserData` as shown above, then you can eaily create a user store (automatically persisted in local storage) to be used across your application like this:
 
 ```ts
 import { createUserStore, type IBaseUser } from 'sveltefirets';

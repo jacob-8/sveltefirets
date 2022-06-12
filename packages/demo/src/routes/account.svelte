@@ -1,5 +1,5 @@
 <script>
-  import { updateUserData, logOut } from 'sveltefirets';
+  import { saveUserData, logOut } from 'sveltefirets';
   import { user } from '$lib/user';
   import Button from 'svelte-pieces/ui/Button.svelte';
 </script>
@@ -16,6 +16,6 @@
   {#await import('sveltefirets') then { FirebaseUiAuth }}
     <FirebaseUiAuth
       signInWith={{ emailPasswordless: true }}
-      on:updateuserdata={(e) => updateUserData(e.detail.user, e.detail.isNewUser)} />
+      on:authresult={(e) => saveUserData(e.detail)} />
   {/await}
 {/if}
