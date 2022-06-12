@@ -1,6 +1,6 @@
 import type { AuthResult, IBaseUser, SignInMethods } from '../interfaces';
 import type { User } from 'firebase/auth';
-import { serverTimestamp, setDoc, type WithFieldValue } from 'firebase/firestore';
+import { arrayUnion, serverTimestamp, setDoc, type WithFieldValue } from 'firebase/firestore';
 import { docRef } from './firestore';
 
 export async function saveUserData(authResult: AuthResult) {
@@ -10,39 +10,41 @@ export async function saveUserData(authResult: AuthResult) {
     additionalUserInfo: { isNewUser, providerId },
   } = authResult;
 
-  const data: WithFieldValue<IBaseUser> = {
+  const userData: WithFieldValue<IBaseUser> = {
     uid: user.uid,
     email: user.email,
     emailVerified: user.emailVerified,
   };
 
   if (user.displayName || isNewUser) {
-    data.displayName = user.displayName || user.email.split('@')[0];
+    userData.displayName = user.displayName || user.email.split('@')[0];
   }
 
   if (user.photoURL) {
-    data.photoURL = user.photoURL;
+    userData.photoURL = user.photoURL;
   }
 
   if (authResult.credential && authResult.credential.signInMethod) {
-    data.signInMethod = authResult.credential.signInMethod as SignInMethods;
-  } else if (user.emailVerified) {
-    data.signInMethod = 'emailLink'; // if there is no credential then they must have used email and if they are also verified then it is either email link or they manually verified themselves at some point after signing up with email and password. So no credential + emailLink really signifies some sort of email sign in that has been verified. Wish firebase would properly return the providerId as 'emailLink' but it doesn't. It returns 'password' even for emailLink sign ins.
-  } else if (providerId === 'password') {
-    data.signInMethod = 'password';
+    userData.providerIds = arrayUnion(authResult.credential.signInMethod as SignInMethods);
+  } else if (providerId === 'password') { // email signIns don't return a credential
+    userData.providerIds = arrayUnion('password');
+  }
+  
+  if (isNewUser && providerId === 'password' && user.emailVerified) {
+    userData.emailLink = true; // If a new user uses email and if they are also verified then it is the email link method. Firebase returns 'password' as the providerId even for emailLink signIns.
   }
 
   const timestamp = serverTimestamp();
   if (isNewUser) {
-    data.createdAt = timestamp;
+    userData.createdAt = timestamp;
   } else {
-    data.updatedAt = timestamp;
-    data.lastVisit = timestamp;
+    userData.updatedAt = timestamp;
+    userData.lastVisit = timestamp;
   }
 
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000)); // wait for authentication to complete for new users before trying to save to the database
-    await setDoc<IBaseUser>(docRef(`users/${user.uid}`), data, { merge: true });
+    await setDoc<IBaseUser>(docRef(`users/${user.uid}`), userData, { merge: true });
   } catch (err) {
     console.error(err);
   }

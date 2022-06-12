@@ -9,8 +9,9 @@ interface User {
   displayName?: string;
   photoURL?: string;
   lastVisit?: Timestamp;
-  signInMethod?: SignInMethods;
+  providerIds?: SignInMethods[]; // 'emailLink' method will still say 'password'
   emailVerified?: boolean;
+  emailLink?: boolean; // set to true if they are both a new user and email is verified; this is the only way to distinguish apart from users who use email+pass and then later manually verify their email if the app provides that option.
 }
 
 export type SignInMethods = 'google.com' | 'password' | 'emailLink' | 'facebook.com' | 'github.com' | 'phone' | 'twitter.com';

@@ -1,5 +1,9 @@
 # sveltefirets
 
+## 0.0.26
+
+- - Using `providerIds` array instead of `signInMethod` on user object
+ 
 ## 0.0.25
 
 - - Fix: User store will initialize immediately after firebase config set. v0.0.24 introduced a bug whereby the User store wouldn't initialize until something else called Firebase into action.
