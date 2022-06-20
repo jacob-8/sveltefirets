@@ -1,6 +1,6 @@
 {
   "name": "sveltefirets",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "scripts": {
     "package": "svelte-kit package && node update-packaged-index-path.js",
     "prepare": "svelte-kit sync",

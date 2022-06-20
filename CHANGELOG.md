@@ -1,5 +1,9 @@
 # sveltefirets
 
+## 0.0.27
+
+- - Fix broken Firestore Lite methods by getting correct Firestore Lite instance
+
 ## 0.0.26
 
 - - Using `providerIds` array instead of `signInMethod` on user object

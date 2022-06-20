@@ -6,6 +6,7 @@ import {
   type PartialWithFieldValue,
   type WithFieldValue,
   type UpdateData,
+  getFirestore,
   collection,
   doc,
   getDoc,
@@ -16,14 +17,13 @@ import {
   serverTimestamp,
 } from 'firebase/firestore/lite';
 
-import { getDb } from './init';
 import { getUid } from './uid';
 
 type CollectionPredicate<T> = string | CollectionReference<T>;
 type DocPredicate<T> = string | DocumentReference<T>;
 
 function colRef<T>(ref: CollectionPredicate<T>): CollectionReference<T> {
-  const db = getDb();
+  const db = getFirestore();
   return typeof ref === 'string' ? (collection(db, ref) as CollectionReference<T>) : ref;
 }
 

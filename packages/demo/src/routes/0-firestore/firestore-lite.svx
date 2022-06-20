@@ -1,0 +1,24 @@
+<script lang="ts">
+  import Button from 'svelte-pieces/ui/Button.svelte';
+  import { setOnline } from 'sveltefirets';
+  import { Doc } from 'sveltefirets';
+  let id = 'testmessage';
+</script>
+
+<!-- prettier-ignore -->
+# Firestore Lite 
+
+## setOnline
+
+<Button
+  onclick={() => {
+    setOnline(`messages/${id}`, { text: 'Just a test' });
+  }}>Use setOnline</Button>
+
+<Doc path={`messages/${id}`} let:data={message}>
+  <pre>{JSON.stringify(message, null, 2)}</pre>
+  <div slot="fallback">
+    No document found with this id. Choose one from the above list of greetings (add a greeting
+    first if there are none).
+  </div>
+</Doc>
