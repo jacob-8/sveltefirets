@@ -49,11 +49,6 @@
   onMount(async () => {
     await loadScriptOnce('https://www.gstatic.com/firebasejs/9.8.2/firebase-app-compat.js');
     await loadScriptOnce('https://www.gstatic.com/firebasejs/9.8.2/firebase-auth-compat.js');
-    if (languageCode === 'iw' || languageCode === 'ar') {
-      await loadStylesOnce('https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth-rtl.css');
-    } else {
-      await loadStylesOnce('https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css');
-    }
     await loadScriptOnce(
       `https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth__${languageCode}.js`
     );
@@ -127,6 +122,18 @@
     window.location.replace('/');
   }
 </script>
+
+<svelte:head>
+  {#if languageCode === 'iw' || languageCode === 'ar'}
+    <link
+      href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth-rtl.css"
+      rel="stylesheet" />
+  {:else}
+    <link
+      href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css"
+      rel="stylesheet" />
+  {/if}
+</svelte:head>
 
 {#if !uiShown}
   <slot>
