@@ -35,7 +35,7 @@ importers:
       svelte-check: ^2.7.2
       svelte-pieces: ^1.0.22
       svelte-preprocess: ^4.10.1
-      sveltefirets: ^0.0.26
+      sveltefirets: workspace:^0.0.27
       tslib: ^2.3.1
       typescript: ~4.7.3
     devDependencies:
@@ -1106,6 +1106,11 @@ packages:
 
   /debug/3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     dependencies:
       ms: 2.1.3
     dev: true
@@ -2108,6 +2113,8 @@ packages:
       debug: 3.2.7
       iconv-lite: 0.4.24
       sax: 1.2.4
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /no-case/3.0.4:
@@ -2148,6 +2155,8 @@ packages:
       rimraf: 2.7.1
       semver: 5.7.1
       tar: 4.4.19
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /nopt/4.0.3:
