@@ -7,9 +7,11 @@
 - Firebase 9.8
 - *includes an optional FirebaseAuthUi component that brings in [FirebaseUI web](https://github.com/firebase/firebaseui-web) + Firebase 9 compat via CDN only when component shown - FirebaseUI web allows for easy authentication in dozens of languages and many providers without you needing to manage the authentication forms*
 
+
 ## Usage Instructions
 
-[Read the docs](https://sveltefirets.vercel.app/)
+[Read the docs](https://sveltefirets.vercel.app/) or
+[try editing them as a demo online in Stackblitz](https://stackblitz.com/github/jacob-8/sveltefirets/tree/main/packages/demo)
 
 ## Developing
 - `pnpm i`
