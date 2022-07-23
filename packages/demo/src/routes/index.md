@@ -2,7 +2,7 @@
 
 <img src="https://img.shields.io/npm/v/sveltefirets?color=000000&label=">
 
-Easily use [Firebase](https://firebase.google.com/docs) ([9.8](https://firebase.google.com/support/release-notes/js) currently) in a declarative manner. Built for **[SvelteKit](https://kit.svelte.dev/)** (tested on [1.0.0-next.348](https://github.com/sveltejs/kit/releases)) but it could be used with any Svelte framework. Spun off of [SvelteFire](https://github.com/codediodeio/sveltefire), the primary additions here are: 
+Easily use [Firebase](https://firebase.google.com/docs) ([9.9](https://firebase.google.com/support/release-notes/js) currently) in a declarative manner. Built for **[SvelteKit](https://kit.svelte.dev/)** (tested on [1.0.0-next.391](https://github.com/sveltejs/kit/releases) and Vercel) but it could be used with any Svelte framework. Spun off of [SvelteFire](https://github.com/codediodeio/sveltefire), the primary additions here are: 
 - Typescript
 - SSR ready
 - [FirebaseUI for Web](https://firebase.google.com/docs/auth/web/firebaseui) (optional) - to allow for easy authentication in dozens of languages and many providers without needing to manage the authentication forms.
