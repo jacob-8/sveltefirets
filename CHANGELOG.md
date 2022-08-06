@@ -1,5 +1,9 @@
 # sveltefirets
 
+## 0.0.28
+
+- - `loadScriptOnce` and `loadStylesOnce` dont mark script/style loaded until after it completes
+
 ## 0.0.27
 
 - - Fix broken Firestore Lite methods by getting correct Firestore Lite instance

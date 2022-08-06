@@ -12,8 +12,8 @@ export const loadScriptOnce = (() => {
   const loaded = [];
   return async function (url) {
     if (!loaded.includes(url)) {
-      loaded.push(url);
       await loadScript(url);
+      loaded.push(url);
       return true;
     } else {
       return true;
@@ -35,8 +35,8 @@ export const loadStylesOnce = (() => {
   let loaded = [];
   return async function (url) {
     if (!loaded.includes(url)) {
-      loaded = [url];
       await loadStyles(url);
+      loaded = [url];
       return true;
     } else {
       return true;
