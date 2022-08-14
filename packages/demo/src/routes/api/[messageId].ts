@@ -3,7 +3,7 @@ import { getDocument } from 'sveltefirets';
 
 import type { IMessage } from '$lib/message.interface';
 
-export const get: RequestHandler = async (request) => {
+export const GET: RequestHandler = async (request) => {
   const message = await getDocument<IMessage>(`messages/${request.params.messageId}`);
   console.log({message});
 

@@ -4,7 +4,7 @@ import { limit, orderBy } from 'firebase/firestore';
 
 import type { IMessage } from '$lib/message.interface';
 
-export const get: RequestHandler = async () => {
+export const GET: RequestHandler = async () => {
   const messages = await getCollection<IMessage>(`messages`, [
     limit(5),
     orderBy('updatedAt', 'desc'),
