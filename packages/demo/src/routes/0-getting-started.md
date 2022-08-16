@@ -7,7 +7,7 @@
 ## Add [Firebase Project Config](https://firebase.google.com/docs/web/learn-more#config-object)
 
 ### Option 1: Easy Method
-Create a `firebaseConfig.ts` file that exports your config:
+Create a `firebaseConfig.ts` file in your `lib` directory that exports your config:
 ```ts
 export const firebaseConfig = {
   apiKey: '...',
@@ -22,7 +22,7 @@ export const firebaseConfig = {
 ```
 
 ### Option 2: Use Env Variables
-If using different firebase projects for different environments (e.g. dev vs. prod), first add the config object to a `.env` file in the same folder as `svelte.config.js` as a string:
+If using different firebase projects for different environments (e.g. dev vs. prod), add the config object for the project you use to develop with to a `.env` file in the same folder as `svelte.config.js` as a string:
 ```
 VITE_FIREBASE_CONFIG={"apiKey":"...","authDomain":"YOURPROJECTID.firebaseapp.com","databaseURL":"https://YOURPROJECTID.firebaseio.com","projectId":"YOURPROJECTID","storageBucket":"YOURPROJECTID.appspot.com","messagingSenderId":"...","appId":"...","measurementId":"..."}
 ```
@@ -39,7 +39,7 @@ if (envFirebaseConfigValue.projectId) {
 ```
 
 - Any config placed into your hosting provider's env variables (e.g. Vercel) under the `VITE_FIREBASE_CONFIG` key will automatically override these and allow for easy use of different projects between dev and production.
-- *If wanting to share between projects in a monorepo set [`config.kit.vite.envDir`](https://vitejs.dev/config/#envdir) to `../../` and place in the repo root.*
+- *If wanting to share config between projects in a monorepo set the [`envDir`](https://vitejs.dev/config/#envdir) property in your `vite.config.js` to `../../` and place the `.env` file in the repo root.*
 
 ## Pass Firebase Config to SvelteFireTS
 

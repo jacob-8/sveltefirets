@@ -27,7 +27,7 @@ export function getFirebaseApp() {
   if (!firebaseConfig) {
     if (browser) {
       throw Error(
-        'Sveltefirets firebaseConfig not set on client. Did you run `setConfig(config)` before using Firestore? In SvelteKit this is done in your root __layout.svelte file (and any other root layouts you may be using).'
+        'Sveltefirets firebaseConfig not set on client. Did you run `setConfig(config)` before using Firestore? In SvelteKit this is done in your root layout file (and any other root layouts you may be using).'
       );
     }
     throw Error(
@@ -56,7 +56,7 @@ export function getFirebaseApp() {
 }
 
 /**
- * Note: Won't work for Firestore Lite as it return normal Firestore */
+ * Note: Won't work for Firestore Lite as it returns normal Firestore */
 export function getDb() {
   if (db) {
     return db;
