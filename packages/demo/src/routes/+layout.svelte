@@ -1,18 +1,5 @@
-<script context="module" lang="ts">
-  import { setConfig } from 'sveltefirets';
-  import { firebaseConfig } from '$lib/firebaseConfig';
-
-  import { Layout } from 'kitbook';
-  const modules = import.meta.glob('./**/*.{md,svx}');
-
-  import type { Load } from '@sveltejs/kit';
-  export const load: Load = () => {
-    setConfig(firebaseConfig);
-    return { stuff: { kitbook: { modules } } };
-  };
-</script>
-
 <script>
+  import { Layout } from 'kitbook';
   import { browser } from '$app/env';
   import { user } from '$lib/user';
   $: if (browser) {

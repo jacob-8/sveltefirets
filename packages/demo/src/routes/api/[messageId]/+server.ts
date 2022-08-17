@@ -8,14 +8,8 @@ export const GET: RequestHandler = async (request) => {
   console.log({message});
 
   if (message) {
-    return {
-      status: 200,
-      body: JSON.stringify(message),
-    };
+    return new Response(JSON.stringify(message));
   } else {
-    return {
-      status: 404,
-      body: 'Message not found',
-    };
+    return new Response('Message not found', { status: 404 });
   }
 };

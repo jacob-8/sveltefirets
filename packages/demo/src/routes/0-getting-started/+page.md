@@ -45,19 +45,16 @@ if (envFirebaseConfigValue.projectId) {
 
 ### Client Side
 
-Run `setConfig` with your Firebase Config object in your root layout(s), usually `src/routes/__layout.svelte`:
+Run `setConfig` with your Firebase Config object in your root layout(s) load file, usually `src/routes/+layout.ts`:
 
-```html
-<script context="module" lang="ts">
-  import { setConfig } from 'sveltefirets';
-  import { firebaseConfig } from '$lib/firebaseConfig';
-  import type { Load } from '@sveltejs/kit';
-  export const load: Load = () => {
-    setConfig(firebaseConfig);
-    return {};
-  };
-</script>
-<slot />
+```ts
+import { setConfig } from 'sveltefirets';
+import { firebaseConfig } from '$lib/firebaseConfig';
+import type { PageLoad } from '@sveltejs/kit';
+export const load: PageLoad = () => {
+  setConfig(firebaseConfig);
+  return {};
+};
 ```
 
 ### Server Side

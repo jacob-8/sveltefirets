@@ -12,14 +12,8 @@ export const GET: RequestHandler = async () => {
   console.log({ messages });
 
   if (messages) {
-    return {
-      status: 200,
-      body: JSON.stringify(messages),
-    };
+    return new Response(JSON.stringify(messages));
   } else {
-    return {
-      status: 404,
-      body: 'Messages not found',
-    };
+    return new Response('Messages not found', { status: 404 });
   }
 };
