@@ -17,7 +17,7 @@ import {
   serverTimestamp,
 } from 'firebase/firestore/lite';
 
-import { getUid } from './uid';
+import { getUid } from '../auth/uid';
 
 type CollectionPredicate<T> = string | CollectionReference<T>;
 type DocPredicate<T> = string | DocumentReference<T>;

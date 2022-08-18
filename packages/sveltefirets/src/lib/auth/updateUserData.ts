@@ -1,7 +1,7 @@
 import type { AuthResult, IBaseUser, SignInMethods } from '../interfaces';
 import type { User } from 'firebase/auth';
 import { arrayUnion, serverTimestamp, setDoc, type WithFieldValue } from 'firebase/firestore';
-import { docRef } from './firestore';
+import { docRef } from '../firestore/firestore';
 
 export async function saveUserData(authResult: AuthResult) {
   console.log({ authResult });

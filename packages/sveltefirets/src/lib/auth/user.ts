@@ -2,8 +2,8 @@ import { writable, type Unsubscriber } from 'svelte/store';
 import { getAuth, onAuthStateChanged, signOut, type User } from 'firebase/auth';
 import { doc, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
 
-import { getFirebaseApp } from './init';
-import { docStore } from './stores';
+import { getFirebaseApp } from '../init';
+import { docStore } from '../firestore/stores';
 import type { IBaseUser } from '../interfaces';
 import { setCookie } from '../helpers/cookies';
 

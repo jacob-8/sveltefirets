@@ -1,6 +1,6 @@
 // Main
-export { getFirebaseApp, getDb } from './client/init';
-export { firebaseConfig } from './client/config';
+export { getFirebaseApp, getDb } from './init';
+export { firebaseConfig } from './config';
 
 // Firestore Helpers
 export {
@@ -13,23 +13,23 @@ export {
   update,
   deleteDocument,
   docExists,
-} from './client/firestore';
-export { addOnline, setOnline, updateOnline, deleteDocumentOnline } from './client/firestore-lite';
-export { getUid } from './client/uid';
+} from './firestore/firestore';
+export { addOnline, setOnline, updateOnline, deleteDocumentOnline } from './firestore/firestore-lite';
+export { getUid } from './auth/uid';
 
 // Components
-export { default as Collection } from './client/components/Collection.svelte';
-export { default as Doc } from './client/components/Doc.svelte';
-export { default as FirebaseUiAuth } from './client/components/FirebaseUiAuth.svelte';
+export { default as Collection } from './firestore/Collection.svelte';
+export { default as Doc } from './firestore/Doc.svelte';
+export { default as FirebaseUiAuth } from './auth/FirebaseUiAuth.svelte';
 
 // Stores & Auth
-export { collectionStore, docStore } from './client/stores';
-export { authState, createUserStore, logOut } from './client/user';
-export { updateUserData, saveUserData } from './client/updateUserData';
+export { collectionStore, docStore } from './firestore/stores';
+export { authState, createUserStore, logOut } from './auth/user';
+export { updateUserData, saveUserData } from './auth/updateUserData';
 
 // Types & Enums
 export type { IBaseUser, IFirestoreMetaData, IFirestoreMetaDataAbbreviated, AuthResult } from './interfaces';
-export { type LanguageCode, languagesWithTranslations } from './client/components/languageCodes';
+export { type LanguageCode, languagesWithTranslations } from './auth/languageCodes';
 
 // Helpers
-export { loadScriptOnce, loadStylesOnce } from './client/loader';
+export { loadScriptOnce, loadStylesOnce } from './helpers/loader';

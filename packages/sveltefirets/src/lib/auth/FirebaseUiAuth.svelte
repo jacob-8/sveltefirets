@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   let ui: firebaseui.auth.AuthUI;
-  declare const firebaseui: typeof import('./firebaseui');
+  declare const firebaseui: typeof import('../interfaces/firebaseui');
 </script>
 
 <script lang="ts">
@@ -15,10 +15,10 @@
     type User,
   } from 'firebase/auth';
   import { onMount, createEventDispatcher } from 'svelte';
-  import { loadScriptOnce, loadStylesOnce } from '../loader';
+  import { loadScriptOnce, loadStylesOnce } from '../helpers/loader';
   import type { LanguageCode } from './languageCodes';
   import { getFirebaseApp } from '../init';
-  import type { AuthResult } from '../../interfaces';
+  import type { AuthResult } from '../interfaces';
 
   export let languageCode: LanguageCode = 'en';
   export let signInWith: {

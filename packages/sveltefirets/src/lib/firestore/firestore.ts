@@ -19,8 +19,8 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
-import { getDb } from './init';
-import { getUid } from './uid';
+import { getDb } from '../init';
+import { getUid } from '../auth/uid';
 
 type CollectionPredicate<T> = string | CollectionReference<T>;
 type DocPredicate<T> = string | DocumentReference<T>;
