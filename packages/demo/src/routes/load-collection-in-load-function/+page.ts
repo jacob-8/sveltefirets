@@ -6,6 +6,7 @@ import type { IMessage } from '$lib/message.interface';
 
 import type { PageLoad } from './$types';
 export const load: PageLoad = async () => {
+  console.log('loading from firestore')
   try {
     const messages = await getCollection<IMessage>(`messages`, [
       limit(5),
@@ -16,7 +17,7 @@ export const load: PageLoad = async () => {
     } else {
       throw redirect(301, '/');
     }
-  } catch (error) {
-    throw error(500, error);
+  } catch (err) {
+    throw error(500, err);
   }
 };

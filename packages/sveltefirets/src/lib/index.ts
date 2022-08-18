@@ -1,5 +1,6 @@
 // Main
-export { setConfig, getFirebaseApp, getDb } from './client/init';
+export { getFirebaseApp, getDb } from './client/init';
+export { firebaseConfig } from './client/config';
 
 // Firestore Helpers
 export {

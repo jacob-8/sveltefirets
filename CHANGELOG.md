@@ -1,5 +1,9 @@
 # sveltefirets
 
+## 0.0.29
+
+- - Breaking: Switched from adding a `firebaseConfig.ts` file manually and passing config to `sveltefirets` in the root layout (client) and hooks (server) to just placing it in the `PUBLIC_FIREBASE_CONFIG` .env variable. `firebaseConfig` values are not accessed by importing from `sveltefirets` as the library automatically reads the .env variables now. 
+
 ## 0.0.28
 
 - - `loadScriptOnce` and `loadStylesOnce` dont mark script/style loaded until after it completes

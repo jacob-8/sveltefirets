@@ -55,11 +55,10 @@ The `saveUserData` method seen above will save your user's data to a `users` col
 If you utilize `saveUserData` as shown above, then you can eaily create a user store (automatically persisted in local storage) to be used across your application like this:
 
 ```ts
-import { createUserStore, type IBaseUser } from 'sveltefirets';
-import { firebaseConfig } from './firebaseConfig';
+import { createUserStore, firebaseConfig, type IBaseUser } from 'sveltefirets';
 
 interface IUser extends IBaseUser {
-  theme: string;
+  theme: string; // whatever custom properties your project has
 }
 
 export const user = createUserStore<IUser>({
@@ -68,7 +67,7 @@ export const user = createUserStore<IUser>({
 });
 ```
 
-Both of those parameters are optional and you could just do `export const user = createUserStore<IUser>();`
+Both of those parameters are optional and you could just do `export const user = createUserStore<IUser>();` If you develop multiple firebase projects on the same port it's nice to specify the `userKey` as that avoids localStorage cache confusion.
 
 ## Future
 

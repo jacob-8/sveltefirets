@@ -1,18 +1,11 @@
-import { initializeApp, getApps, type FirebaseApp, type FirebaseOptions } from 'firebase/app';
+import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
 import { getFirestore, enableIndexedDbPersistence, type Firestore } from 'firebase/firestore';
-import { type Writable, writable } from 'svelte/store';
+import { firebaseConfig } from './config';
 
-let firebaseConfig: FirebaseOptions = null;
-export const firebaseConfigSet: Writable<boolean> = writable(null);
 let firebaseApp: FirebaseApp = null;
 let db: Firestore = null;
 
 const browser = typeof window !== 'undefined';
-
-export function setConfig(config: FirebaseOptions) {
-  firebaseConfig = config;
-  firebaseConfigSet.set(true);
-}
 
 export function getFirebaseApp() {
   if (firebaseApp) {
@@ -22,17 +15,6 @@ export function getFirebaseApp() {
   if (getApps().length) {
     firebaseApp = getApps()[0];
     return firebaseApp;
-  }
-
-  if (!firebaseConfig) {
-    if (browser) {
-      throw Error(
-        'Sveltefirets firebaseConfig not set on client. Did you run `setConfig(config)` before using Firestore? In SvelteKit this is done in your root layout file (and any other root layouts you may be using).'
-      );
-    }
-    throw Error(
-      'Sveltefirets firebaseConfig not set on server. Did you run `setConfig(config)` before a server endpoint used Firestore? In SvelteKit, do this in your hooks.ts file.'
-    );
   }
 
   firebaseApp = initializeApp(firebaseConfig);
