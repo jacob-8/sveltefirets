@@ -1,20 +1,18 @@
 <script lang="ts">
-  import Config from '$lib/Config.svelte';
   import Create from '$lib/Create.svelte';
   import ReadSingle from '$lib/ReadSingle.svelte';
   import ReadUpdateDelete from '$lib/ReadUpdateDelete.svelte';
+import { Story } from 'kitbook';
 </script>
 
-<h1>SvelteFire TS</h1>
+<!-- prettier-ignore -->
+# Create, Read, Update, Delete
 
-<p>
-  <strong>Tip:</strong>
-  Open the browser console for development logging.
-</p>
+*Tip: Open the browser console for development logging.*
 
-<Config />
-
-<Create />
+<Story name="Create greeting from">
+  <Create />
+</Story>
 
 <ReadUpdateDelete />
 

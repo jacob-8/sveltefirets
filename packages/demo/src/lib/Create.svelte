@@ -9,7 +9,6 @@
   }
 </script>
 
-<h2>Create greeting</h2>
 <input
   type="text"
   bind:value={name}

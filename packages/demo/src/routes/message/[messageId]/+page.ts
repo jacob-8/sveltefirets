@@ -7,11 +7,12 @@ export const load: PageLoad = async ({ params: { messageId } }) => {
   try {
     const message = await getDocument<IMessage>(`messages/${messageId}`);
     if (message) {
+      console.log({message});
       return { message, messageId };
     } else {
       throw redirect(301, '/');
     }
-  } catch (error) {
-    throw error(500, error);
+  } catch (err) {
+    throw error(500, err);
   }
 };

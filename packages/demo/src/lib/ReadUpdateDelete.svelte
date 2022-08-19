@@ -19,9 +19,12 @@
   style="display: flex; align-items: center;
 justify-content: space-between;">
   <h2>Read, Update, and Delete greetings</h2>
-  <input type="text" bind:value={refField} maxlength="5" placeholder="Optional ref field" />
-  <input type="number" bind:value={maxDocs} min="1" max="10" placeholder="Document limit" />
 </div>
+
+
+<input type="text" bind:value={refField} maxlength="5" placeholder="Optional ref field" />
+<input type="number" bind:value={maxDocs} min="1" max="10" placeholder="Document limit" />
+<hr />
 
 <Collection
   path="messages"
@@ -33,9 +36,15 @@ justify-content: space-between;">
   <!-- where('createdBy', '==', $user.uid) -->
   <div>
     <a href={`/messages`} sveltekit:prefetch>Preload firestore data for all messages on client</a>
-    <a href={`/messages`} target="_blank">Load firestore data for all messages server-side (opens new tab)</a>
-      <a href={`/api/messages`} target="_blank">Messages API endpoint</a>
   </div>
+  <div>
+    <a href={`/messages`} target="_blank"
+      >Load firestore data for all messages server-side (opens new tab)</a>
+  </div>
+  <div>
+    <a href={`/api/messages`} target="_blank">Messages API endpoint</a>
+  </div>
+  <hr />
 
   {#each messages as message}
     <b>{message.text}</b>, sent on {message.updatedAt && message.updatedAt.toDate()}
