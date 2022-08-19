@@ -1,10 +1,9 @@
 # Getting Started
 
-## Install SvelteFireTS
-`npm i -D sveltefirets` or `pnpm add -D sveltefirets`
-- Because `firebase` is a dependency of this package, you may not need to include `firebase` in your package.json to use its methods and types but you probably still should for clarity: `npm i -D firebase`
+## 1. Install SvelteFireTS and Firebase
+`npm i -D sveltefirets firebase` or `pnpm add -D sveltefirets firebase`
 
-## Add [Firebase Project Config](https://firebase.google.com/docs/web/learn-more#config-object) Via Env Variables
+## 2. Add [Firebase Project Config](https://firebase.google.com/docs/web/learn-more#config-object) Via Env Variables
 - Add your Firebase config object for the project you use to develop with to a `.env` file in the same folder as `svelte.config.js` as a string:
 ```
 PUBLIC_FIREBASE_CONFIG={"apiKey":"...","authDomain":"YOURPROJECTID.firebaseapp.com","databaseURL":"https://YOURPROJECTID.firebaseio.com","projectId":"YOURPROJECTID","storageBucket":"YOURPROJECTID.appspot.com","messagingSenderId":"...","appId":"...","measurementId":"..."}
@@ -15,9 +14,12 @@ PUBLIC_FIREBASE_CONFIG={"apiKey":"...","authDomain":"YOURPROJECTID.firebaseapp.c
 - If needing to access the config values in your site, just `import { firebaseConfig } from 'sveltefirets`;
 
 - Any config placed into your hosting provider's env variables (e.g. Vercel) under the `PUBLIC_FIREBASE_CONFIG` key will automatically override these and allow for easy use of different projects between dev and production.
+
+  - When using SvelteFireTS in non-SvelteKit environments, a file that exports `PUBLIC_FIREBASE_CONFIG` as a string will need to be aliased to `$env/static/public` as this library expects that to be available. *If this is not workable in your use case, feel free to submit a PR that updates `config.ts` to `process.env.PUBLIC_FIREBASE_CONFIG` server-side or `window.PUBLIC_FIREBASE_CONFIG` client side.*
+
 - *If wanting to share config between projects in a monorepo set the [`envDir`](https://vitejs.dev/config/#envdir) property in your `vite.config.js` to `../../` and place the `.env` file in the repo root.*
 
 
-## Next Steps
+## 3. Use
 
-**You are ready to use SvelteFireTS in any manner described in these docs!** 
+You are ready to use SvelteFireTS in any manner described in these docs!

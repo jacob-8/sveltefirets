@@ -11,6 +11,8 @@
   <pre>{JSON.stringify($user, null, 1)}</pre>
   <Button form="filled" onclick={logOut}>Log Out</Button>
 {:else}
+  Refresh to see the proper language:
+
   <Story name="Arabic">
     <FirebaseUiAuth
       languageCode={'ar'}

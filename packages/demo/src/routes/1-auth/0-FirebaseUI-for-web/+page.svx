@@ -8,7 +8,7 @@
 <!-- prettier-ignore -->
 # Authentication with FirebaseUi for Web
 
-The easiest method is to use the FirebaseUiAuth component that brings in [FirebaseUI web](https://github.com/firebase/firebaseui-web) and the Firebase 9 compat library via CDN when component mounted.
+The easiest way to set up auth is to use the `FirebaseUiAuth` component that brings in [FirebaseUI web](https://github.com/firebase/firebaseui-web) and the Firebase 9 compat library via CDN when the component is mounted.
 
 {#if $user}
   You are logged in and here is your User document from Firestore:
@@ -69,6 +69,6 @@ export const user = createUserStore<IUser>({
 
 Both of those parameters are optional and you could just do `export const user = createUserStore<IUser>();` If you develop multiple firebase projects on the same port it's nice to specify the `userKey` as that avoids localStorage cache confusion.
 
-## Future
+## Other Ideas
 
-- It would be nice if someone built out an example explaining how to easily add and enable one-tap sign-up: https://github.com/firebase/firebaseui-web#one-tap-sign-up
+- Anyone is welcome to contribute a PR that adds an example explaining how to easily add and enable one-tap sign-up: https://github.com/firebase/firebaseui-web#one-tap-sign-up
