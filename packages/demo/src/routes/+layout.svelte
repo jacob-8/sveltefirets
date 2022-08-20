@@ -8,6 +8,7 @@
 </script>
 
 <Layout
+  expanded
   title="SvelteFireTS"
   githubURL="https://github.com/jacob-8/sveltefirets/tree/main/packages/demo">
   <slot />
