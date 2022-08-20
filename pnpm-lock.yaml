@@ -35,7 +35,7 @@ importers:
       svelte-check: ^2.8.1
       svelte-pieces: ^1.0.39
       svelte-preprocess: ^4.10.7
-      sveltefirets: ^0.0.29
+      sveltefirets: ^0.0.30
       tslib: ^2.3.1
       typescript: ~4.7.4
       vite: ^3.0.9
@@ -49,7 +49,7 @@ importers:
       svelte-check: 2.8.1_svelte@3.49.0
       svelte-pieces: 1.0.39_svelte@3.49.0
       svelte-preprocess: 4.10.7_uslzfc62di2n2otc2tvfklnwji
-      sveltefirets: 0.0.29
+      sveltefirets: link:../sveltefirets
       tslib: 2.4.0
       typescript: 4.7.4
       vite: 3.0.9
@@ -2758,16 +2758,6 @@ packages:
       pascal-case: 3.1.2
       svelte: 3.49.0
       typescript: 4.7.4
-    dev: true
-
-  /sveltefirets/0.0.29:
-    resolution: {integrity: sha512-WkHw8IDb2U3Nu4Kvl/DhqV5oeuoUBftrJ7Uu2S89WppXdcf3UrY07GjUurefja/CN+X8J1bg+M7RnKsEG3rl7A==}
-    dependencies:
-      firebase: 9.9.3
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
     dev: true
 
   /tar/6.1.11:

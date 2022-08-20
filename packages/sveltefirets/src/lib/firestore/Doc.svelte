@@ -35,7 +35,8 @@
       if (unsub) {
         // Unsub and create new store
         unsub();
-        store = docStore(path, opts);
+        const updatedOpts = { ...opts, traceId, log, maxWait, once };
+        store = docStore(path, updatedOpts);
         dispatch('ref', { ref: store.ref });
       }
 

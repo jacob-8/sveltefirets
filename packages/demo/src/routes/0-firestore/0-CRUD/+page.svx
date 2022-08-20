@@ -22,7 +22,7 @@
 
   function deleteGreeting(messageId: string, messages: IMessage[]) {
     if (messages.length > 2) {
-      deleteDocument("messages/message.id")
+      deleteDocument(`messages/${messageId}`)
     } else {
       alert(
         'Keep at least two messages around for demonstration. Try adding a few more and then you will be able to delete.'

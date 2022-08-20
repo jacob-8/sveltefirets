@@ -37,7 +37,8 @@
     if (typeof window !== 'undefined') {
       if (unsub) {
         unsub();
-        store = collectionStore(path, queryConstraints, opts);
+        const updatedOpts = { ...opts, traceId, log, maxWait, once, refField };
+        store = collectionStore(path, queryConstraints, updatedOpts);
         dispatch('ref', { ref: store.ref });
       }
 
