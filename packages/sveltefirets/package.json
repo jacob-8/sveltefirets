@@ -1,6 +1,6 @@
 {
   "name": "sveltefirets",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "scripts": {
     "package": "svelte-kit sync && svelte-package && node update-packaged-index-path.js",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
