@@ -30,7 +30,7 @@ The next three blocks work in tandem. Start with the set, then update it, and fi
 <Story name="setOnline">
   <Button
     onclick={async () => {
-      await setOnline("testMessage", { text: 'Just a test' });
+      await setOnline(testMessagePath, { text: 'Just a test' });
     }}>setOnline</Button>
   <Doc path={testMessagePath} let:data={message}>
     <pre>{JSON.stringify(message, null, 2)}</pre>
@@ -42,7 +42,7 @@ The next three blocks work in tandem. Start with the set, then update it, and fi
 
 Notice how the `createdAt` timestamp won't change when using updateOnline:
 
-<Story name="updateOnline" knobs={{ id: 'testmessage' }} let:props={{ id }}>
+<Story name="updateOnline">
   <Button
     onclick={async () => {
       await updateOnline(testMessagePath, { text: 'Update the test' });
@@ -55,7 +55,7 @@ Notice how the `createdAt` timestamp won't change when using updateOnline:
   </Doc>
 </Story>
 
-<Story name="deleteDocumentOnline" knobs={{ id: 'testmessage' }} let:props={{ id }}>
+<Story name="deleteDocumentOnline">
   <Button
     onclick={async () => {
       await deleteDocumentOnline(testMessagePath, { text: 'Update the test' });
