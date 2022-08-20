@@ -2,7 +2,7 @@
 
 <img src="https://img.shields.io/npm/v/sveltefirets?color=000000&label=">
 
-- SvelteKit (tested on 1.0.0-next.414)
+- SvelteKit (tested on 1.0.0-next.427)
 - Typescript
 - Firebase 9.9
 - *includes an optional FirebaseAuthUi component that brings in [FirebaseUI web](https://github.com/firebase/firebaseui-web) + Firebase 9 compat via CDN only when component shown - FirebaseUI web allows for easy authentication in dozens of languages and many providers without you needing to manage the authentication forms*
