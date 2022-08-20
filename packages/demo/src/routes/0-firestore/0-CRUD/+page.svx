@@ -1,19 +1,146 @@
 <script lang="ts">
-  import Create from '$lib/Create.svelte';
-  import ReadSingle from '$lib/ReadSingle.svelte';
-  import ReadUpdateDelete from '$lib/ReadUpdateDelete.svelte';
-import { Story } from 'kitbook';
+  import { Story } from 'kitbook';
+  import { Button, Store } from 'svelte-pieces';
+  
+  // Add
+  import { add } from 'sveltefirets';
+  import type { IMessage } from '$lib/message.interface';
+  function sayHello(name: string) {
+    add<IMessage>('messages', { text: 'Hello from ' + name });
+  }
+  
+  // List, Update, Delete
+  import { limit, orderBy } from 'firebase/firestore';
+  import { Collection, deleteDocument, update } from 'sveltefirets';
+  const preloadedMessages: IMessage[] = [{ text: 'preloadedMessage from the server' }];
+  function changeGreeting(messageId: string) {
+    const newName = prompt('Enter updated name:');
+    if (newName) {
+      update<IMessage>(`messages/${messageId}`, { text: `Actually the name is ${newName}` });
+    }
+  }
+
+  function deleteGreeting(messageId: string, messages: IMessage[]) {
+    if (messages.length > 2) {
+      deleteDocument("messages/message.id")
+    } else {
+      alert(
+        'Keep at least two messages around for demonstration. Try adding a few more and then you will be able to delete.'
+      );
+    }
+  }
+
+  // Read
+  import { Doc } from 'sveltefirets';
 </script>
 
 <!-- prettier-ignore -->
 # Create, Read, Update, Delete
 
-*Tip: Open the browser console for development logging.*
+## Add
+
+Adding a type will ensure you add data according to your desired schemas.
+
+```ts
+import { add } from 'sveltefirets';
+import type { IMessage } from '$lib/message.interface';
+function sayHello(name: string) {
+  add<IMessage>('messages', { text: 'Hello from ' + name });
+}
+```
+
+Say hello to see your greeting appear in the list of greetings in the next section:
 
 <Story name="Create greeting from">
-  <Create />
+  <Store startWith={'John'} let:set let:store={text}>
+    <input
+      style="border: 1px solid gray; border-radius: 4px; padding: 2px"
+      type="text"
+      value={text}
+      maxlength="10"
+      placeholder="Enter name"
+      on:keyup={(e) => e.key === 'Enter' && sayHello(text)}
+      on:input={(e) => {
+        //@ts-ignore
+        set(e.target.value);
+      }} />
+    <Button onclick={() => sayHello(text)}>Add</Button>
+  </Store>
 </Story>
 
-<ReadUpdateDelete />
+## List (Collection), Update, Delete
 
-<ReadSingle />
+<div>
+  <a href={`/messages`} sveltekit:prefetch>Hover to preload firestore data for all messages on client (see console log)</a>
+</div>
+<div>
+  <a href={`/messages`} target="_blank"
+    >Load firestore data for all messages server-side (opens new tab)</a>
+</div>
+<div>
+  <a href={`/api/messages`} target="_blank">Messages API endpoint</a>
+</div>
+
+<Story name="list greetings" knobs={{refField: '', max: '1-10;5'}} let:props={{refField, max}}>
+  <Collection
+    path="messages"
+    queryConstraints={[limit(max), orderBy('updatedAt', 'desc')]}
+    startWith={preloadedMessages}
+    let:data={messages}
+    {refField}
+    log>
+    {#each messages as message}
+      <b>{message.text}</b>, sent on {message.updatedAt?.toDate()}
+      <br />
+      <Button size="sm" onclick={() => changeGreeting(message.id)}>Update</Button>
+      <Button size="sm" onclick={() => deleteGreeting(message.id, messages)}>Delete</Button>
+      {#if refField}
+        <pre style="font-size: 70%;">{JSON.stringify(message, null, 2)}</pre>
+      {/if}
+      <hr />
+    {/each}
+  </Collection>
+</Story>
+
+## Update
+
+```ts
+import { update } from 'sveltefirets';
+import type { IMessage } from '$lib/message.interface';
+function updateName(name: string) {
+  update<IMessage>('messages', { text: 'Hello from ' + name });
+}
+```
+
+## Delete
+
+```ts
+import { deleteDocument } from 'sveltefirets';
+function deleteGreeting(id: string) {
+  deleteDocument(`messages/${id}`);
+}
+```
+
+## Read (Document)
+
+<Story showCode name="read" knobs={{id: 'testmessage'}} let:props={{id}}>
+  <Doc path="messages/{id}" let:data={message}>
+    <Button href="/message/{message.id}">Preload firestore data on client</Button>
+    <Button href="/message/{message.id}" target="_blank">Load firestore data server-side</Button>
+    <Button href="/api/{message.id}" target="_blank">Message API endpoint</Button>
+    <pre>{JSON.stringify(message, null, 2)}</pre>
+    <div slot="fallback">
+      No document found with this id. Choose one from the above list of greetings (add a greeting first if there are none).
+    </div>
+  </Doc>
+</Story>
+
+## Set
+
+```ts
+import { set } from 'sveltefirets';
+import type { IMessage } from '$lib/message.interface';
+function setName(name: string) {
+  set<IMessage>('messages', { text: 'Hello from ' + name });
+}
+```
