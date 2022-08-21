@@ -26,10 +26,10 @@ importers:
 
   packages/demo:
     specifiers:
-      '@sveltejs/adapter-auto': 1.0.0-next.64
-      '@sveltejs/kit': 1.0.0-next.427
+      '@sveltejs/adapter-auto': 1.0.0-next.65
+      '@sveltejs/kit': 1.0.0-next.428
       firebase: ^9.9.3
-      kitbook: ^0.0.22
+      kitbook: ^0.0.23
       mdsvex: ^0.10.5
       svelte: ^3.49.0
       svelte-check: ^2.8.1
@@ -40,10 +40,10 @@ importers:
       typescript: ~4.7.4
       vite: ^3.0.9
     devDependencies:
-      '@sveltejs/adapter-auto': 1.0.0-next.64
-      '@sveltejs/kit': 1.0.0-next.427_svelte@3.49.0+vite@3.0.9
+      '@sveltejs/adapter-auto': 1.0.0-next.65
+      '@sveltejs/kit': 1.0.0-next.428_svelte@3.49.0+vite@3.0.9
       firebase: 9.9.3
-      kitbook: 0.0.22_svelte@3.49.0
+      kitbook: 0.0.23_svelte@3.49.0
       mdsvex: 0.10.6_svelte@3.49.0
       svelte: 3.49.0
       svelte-check: 2.8.1_svelte@3.49.0
@@ -56,8 +56,8 @@ importers:
 
   packages/sveltefirets:
     specifiers:
-      '@sveltejs/adapter-auto': 1.0.0-next.64
-      '@sveltejs/kit': 1.0.0-next.427
+      '@sveltejs/adapter-auto': 1.0.0-next.65
+      '@sveltejs/kit': 1.0.0-next.428
       '@sveltejs/package': 1.0.0-next.1
       firebase: ^9.9.3
       replace-in-file: ^6.3.5
@@ -71,8 +71,8 @@ importers:
     dependencies:
       firebase: 9.9.3
     devDependencies:
-      '@sveltejs/adapter-auto': 1.0.0-next.64
-      '@sveltejs/kit': 1.0.0-next.427_svelte@3.49.0+vite@3.0.9
+      '@sveltejs/adapter-auto': 1.0.0-next.65
+      '@sveltejs/kit': 1.0.0-next.428_svelte@3.49.0+vite@3.0.9
       '@sveltejs/package': 1.0.0-next.1_uslzfc62di2n2otc2tvfklnwji
       replace-in-file: 6.3.5
       svelte: 3.49.0
@@ -692,12 +692,12 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@sveltejs/adapter-auto/1.0.0-next.64:
-    resolution: {integrity: sha512-Q8DwcS6wl1GovzS9JJzaD/WL/Lfk1ur4nAF1HtmsUvZDpsPBVDqnK2AhYU4G3oFNiuHstrjAogMy5th8ptSFGw==}
+  /@sveltejs/adapter-auto/1.0.0-next.65:
+    resolution: {integrity: sha512-wYEcOeuCrswcmeOdmbaq+WxTp7vWN1fG1yPvmdzqe2LoUchOw6FQb6X/fR8miX6L8MXQXJteA0ntqE3FKqaBsw==}
     dependencies:
       '@sveltejs/adapter-cloudflare': 1.0.0-next.31
       '@sveltejs/adapter-netlify': 1.0.0-next.71
-      '@sveltejs/adapter-vercel': 1.0.0-next.66
+      '@sveltejs/adapter-vercel': 1.0.0-next.67
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -720,8 +720,8 @@ packages:
       tiny-glob: 0.2.9
     dev: true
 
-  /@sveltejs/adapter-vercel/1.0.0-next.66:
-    resolution: {integrity: sha512-s3Hcxu9nCG/rR3C3cFbdQGjTa5W4K2kRcc6S5Xefx7itbrw+4v3KpO8ZPB6qM55XDwVxuG7260NMHVI6MUGmSA==}
+  /@sveltejs/adapter-vercel/1.0.0-next.67:
+    resolution: {integrity: sha512-xg85d/vlivbTaZu70zmaPNkrY1YZhDrcxljuwVWO0LCzA4DACIA7CnXI9klUiXM5SPpsB8BhY6dS8sW5cDYWzw==}
     dependencies:
       '@vercel/nft': 0.21.0
       esbuild: 0.14.54
@@ -730,8 +730,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.427_svelte@3.49.0+vite@3.0.9:
-    resolution: {integrity: sha512-HUt1knOXaEM18y7E3k0CvhTxmoNhp0KbgfbLPmuRvSrQxRMsTnTpupZwW5mmU0VZkm4HHsf8mwftGy4WR8qf1Q==}
+  /@sveltejs/kit/1.0.0-next.428_svelte@3.49.0+vite@3.0.9:
+    resolution: {integrity: sha512-CVp7zltQ+3VOII1s7KuvgvGEFwD0PSqts9R3q4eaj0CNoC3gpdzcbEZayyQwXX/3lI1HdSNSF8gxbX0TRUoFuA==}
     engines: {node: '>=16.9'}
     hasBin: true
     requiresBuild: true
@@ -1959,8 +1959,8 @@ packages:
       readable-stream: 2.3.7
       setimmediate: 1.0.5
 
-  /kitbook/0.0.22_svelte@3.49.0:
-    resolution: {integrity: sha512-0GLz6n2ekQBaeSVGKAZgwqoC/CXyfdnu7S34+NMnheUYRWQ93EpwE9o4zW5dYmPoFlfo7FbB9+bfAqad5qamEw==}
+  /kitbook/0.0.23_svelte@3.49.0:
+    resolution: {integrity: sha512-eE169Tx+fkMOP2cAMJme9WJ2EuWbzp7tRWpeWfWMBUzF3NhIdj+oMo9qBOV+/CemEW3jyzO0s5nZ7RB3imK+aw==}
     dependencies:
       magic-string: 0.26.2
       prettier: 2.7.1
