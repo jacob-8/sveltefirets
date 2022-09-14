@@ -1,6 +1,7 @@
 # SvelteFireTS
 
-<img src="https://img.shields.io/npm/v/sveltefirets?color=000000&label=">
+[![NPM](https://img.shields.io/npm/v/sveltefirets?color=yellow&label=NPM)](https://www.npmjs.com/package/sveltefirets)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/jacobbowdoin)
 
 - SvelteKit (tested on 1.0.0-next.427)
 - Typescript
@@ -16,6 +17,7 @@
 ## Developing
 - `pnpm i`
 - `pnpm dev`
+
 
 ## Inspiration: [Fireship.io](https://fireship.io/)
 
