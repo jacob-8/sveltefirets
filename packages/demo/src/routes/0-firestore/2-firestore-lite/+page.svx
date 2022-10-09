@@ -68,7 +68,7 @@ Notice how the `createdAt` timestamp won't change when using updateOnline:
   </Doc>
 </Story>
 
-When you look at the code for each of these, you'll notice they are being awaited. Obviously you can still use these without awaiting, but the primary point is to only use then when you need to ensure data has been updated on the server, so we demo there here with async-await.
+When you look at the code for each of these, you'll notice they are being awaited. Obviously you can still use these without awaiting, but the primary point is to only use them when you need to ensure data has been updated on the server, so we demo there here with async-await.
 
 
 <!-- prettier-ignore -->
