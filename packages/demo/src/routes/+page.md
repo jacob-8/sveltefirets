@@ -2,6 +2,8 @@
 
 <img src="https://img.shields.io/npm/v/sveltefirets?color=000000&label=">
 
+[Try it in Stackblitz!](https://stackblitz.com/github/jacob-8/sveltefirets/tree/main/packages/demo)
+
 Easily use [Firebase](https://firebase.google.com/docs) ([9.9](https://firebase.google.com/support/release-notes/js) currently) in a declarative manner. Built for **[SvelteKit](https://kit.svelte.dev/)** (tested on [1.0.0-next.427](https://github.com/sveltejs/kit/releases) and Vercel) but it could be used with any Svelte framework. Spun off of [SvelteFire](https://github.com/codediodeio/sveltefire), the primary additions here are: 
 - Typescript
 - SSR ready
