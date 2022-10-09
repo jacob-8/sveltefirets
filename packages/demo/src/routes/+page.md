@@ -7,9 +7,9 @@ Easily use [Firebase](https://firebase.google.com/docs) ([9.9](https://firebase.
 - SSR ready
 - [FirebaseUI for Web](https://firebase.google.com/docs/auth/web/firebaseui) (optional) - to allow for easy authentication in dozens of languages and many providers without needing to manage the authentication forms.
 
-## Work in Progress
+## Open to Contributions
 
-Note that this is very much in progress and many options are not yet configurable like offline persistence (forced opt-in) or metadata additions. This library is set up how I like to use Firebase, but I hope to make this library more configurable over time for those who don't use the same options as I do. Please [create an issue](https://github.com/jacob-8/sveltefirets/issues/new) to start a discussion about features you'd like.
+If there are any configuration settings or features you'd like to see added please [create an issue](https://github.com/jacob-8/sveltefirets/issues/new) to start a discussion about features you'd like. After discussion, hopefully you can add a pull request to implement such.
 
 ## Inspiration: [Fireship.io](https://fireship.io/)
 
