@@ -80,13 +80,13 @@ then add entries to and invite others to collaborate on. That would be a poor ex
 the dictionary was never added to the server. So we use `setOnline` to ensure the dictionary is
 created before allowing the user to move forward. 
 
-### Further information Read these for useful tips
-on how to handle online/offline writes: -
-https://stackoverflow.com/questions/47674341/firestore-offline-promise-handling/47676754 -
-https://stackoverflow.com/questions/49818095/firebase-firestore-when-do-promises-from-offline-write-operations-resolve
--
-https://stackoverflow.com/questions/49829714/firebase-firestore-get-document-id-after-adding-data-offline
-- https://github.com/firebase/firebase-js-sdk/issues/1497 -
-https://firebase.google.com/docs/firestore/manage-data/enable-offline -
-https://github.com/firebase/firebase-js-sdk/issues/520 -
-https://stackoverflow.com/questions/47674341/firestore-offline-promise-handling/47676754#47676754
+### Further information 
+
+Read these for useful tips on how to handle online/offline writes: 
+- https://stackoverflow.com/questions/47674341/firestore-offline-promise-handling/47676754 
+- https://stackoverflow.com/questions/49818095/firebase-firestore-when-do-promises-from-offline-write-operations-resolve
+- https://stackoverflow.com/questions/49829714/firebase-firestore-get-document-id-after-adding-data-offline
+- https://github.com/firebase/firebase-js-sdk/issues/1497
+- https://firebase.google.com/docs/firestore/manage-data/enable-offline
+- https://github.com/firebase/firebase-js-sdk/issues/520
+- https://stackoverflow.com/questions/47674341/firestore-offline-promise-handling/47676754#47676754
