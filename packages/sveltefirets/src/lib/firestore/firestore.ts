@@ -78,7 +78,7 @@ export async function set<T>(
   data: PartialWithFieldValue<T>,
   opts: {
     abbreviate?: boolean;
-    merge?: boolean;
+    merge?: boolean; // useless in a context where `update` is called for prior existing documents
   } = {}
 ): Promise<void> {
   const snap = await getDocument(ref);
