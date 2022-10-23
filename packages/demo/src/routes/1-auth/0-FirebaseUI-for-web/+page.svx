@@ -8,7 +8,7 @@
 <!-- prettier-ignore -->
 # Authentication with FirebaseUi for Web
 
-The easiest way to set up auth is to use the `FirebaseUiAuth` component that brings in [FirebaseUI web](https://github.com/firebase/firebaseui-web) and the Firebase 9 compat library via CDN when the component is mounted.
+Of course you can set up your own authentication form using the methods provided by Firebase Authentication and detailed in their docs, but if you want an extremely easy and battle-tested way to set up auth, consider using the `FirebaseUiAuth` component that brings in [FirebaseUI web](https://github.com/firebase/firebaseui-web) and the Firebase 9 compat library via CDN when the component is mounted.
 
 {#if $user}
   You are logged in and here is your User document from Firestore:
@@ -49,25 +49,6 @@ At present the other exposed props are `tosUrl` (terms of service url), `privacy
 ## Save User to Firestore
 
 The `saveUserData` method seen above will save your user's data to a `users` collection in Firestore and will add a `createdAt` timestamp for new users or `updatedAt` and `lastVisit` timestamps for returning users.
-
-## Create User store
-
-If you utilize `saveUserData` as shown above, then you can eaily create a user store (automatically persisted in local storage) to be used across your application like this:
-
-```ts
-import { createUserStore, firebaseConfig, type IBaseUser } from 'sveltefirets';
-
-interface IUser extends IBaseUser {
-  theme: string; // whatever custom properties your project has
-}
-
-export const user = createUserStore<IUser>({
-  userKey: `${firebaseConfig.projectId}_firebase_user`,
-  log: true,
-});
-```
-
-Both of those parameters are optional and you could just do `export const user = createUserStore<IUser>();` If you develop multiple firebase projects on the same port it's nice to specify the `userKey` as that avoids localStorage cache confusion.
 
 ## Other Ideas
 

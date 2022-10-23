@@ -3,9 +3,12 @@
 [![NPM](https://img.shields.io/npm/v/sveltefirets?color=yellow&label=NPM)](https://www.npmjs.com/package/sveltefirets)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/jacobbowdoin)
 
-- SvelteKit (tested on 1.0.0-next.427)
+- SvelteKit (tested on 1.0.0-next.522)
 - Typescript
-- Firebase 9.9
+- Firestore convenience helpers
+- Auth store
+- SSR ready (for unauthenticated data fetching)
+- Firebase 9.12
 - *includes an optional FirebaseAuthUi component that brings in [FirebaseUI web](https://github.com/firebase/firebaseui-web) + Firebase 9 compat via CDN only when component shown - FirebaseUI web allows for easy authentication in dozens of languages and many providers without you needing to manage the authentication forms*
 
 

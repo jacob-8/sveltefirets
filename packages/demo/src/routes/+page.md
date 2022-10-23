@@ -4,9 +4,11 @@
 
 [Try it in Stackblitz!](https://stackblitz.com/github/jacob-8/sveltefirets/tree/main/packages/demo)
 
-Easily use [Firebase](https://firebase.google.com/docs) ([9.9](https://firebase.google.com/support/release-notes/js) currently) in a declarative manner. Built for **[SvelteKit](https://kit.svelte.dev/)** (tested on [1.0.0-next.427](https://github.com/sveltejs/kit/releases) and Vercel) but it could be used with any Svelte framework. Spun off of [SvelteFire](https://github.com/codediodeio/sveltefire), the primary additions here are: 
+Easily use [Firebase](https://firebase.google.com/docs) ([9.12](https://firebase.google.com/support/release-notes/js) currently) in a declarative manner. Built for **[SvelteKit](https://kit.svelte.dev/)** (tested on [1.0.0-next.522](https://github.com/sveltejs/kit/releases) and Vercel) but it could be used with any Svelte framework. Spun off of [SvelteFire](https://github.com/codediodeio/sveltefire), the primary additions here are: 
 - Typescript
-- SSR ready
+- Firestore convenience helpers
+- Auth store
+- SSR ready (for unauthenticated data fetching)
 - [FirebaseUI for Web](https://firebase.google.com/docs/auth/web/firebaseui) (optional) - to allow for easy authentication in dozens of languages and many providers without needing to manage the authentication forms.
 
 ## Open to Contributions

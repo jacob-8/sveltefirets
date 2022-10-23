@@ -1,26 +1,26 @@
 {
   "name": "sveltefirets",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "scripts": {
     "package": "svelte-kit sync && svelte-package && node update-packaged-index-path.js",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "dependencies": {
-    "firebase": "^9.9.3"
+    "firebase": "^9.12.1"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "1.0.0-next.65",
-    "@sveltejs/kit": "1.0.0-next.428",
-    "@sveltejs/package": "1.0.0-next.1",
+    "@sveltejs/adapter-auto": "1.0.0-next.84",
+    "@sveltejs/kit": "1.0.0-next.522",
+    "@sveltejs/package": "1.0.0-next.5",
     "replace-in-file": "^6.3.5",
-    "svelte": "^3.49.0",
-    "svelte-check": "^2.8.1",
+    "svelte": "^3.52.0",
+    "svelte-check": "^2.9.2",
     "svelte-preprocess": "^4.10.7",
-    "svelte2tsx": "^0.5.14",
+    "svelte2tsx": "^0.5.20",
     "tslib": "^2.3.1",
-    "typescript": "~4.7.4",
-    "vite": "^3.0.9"
+    "typescript": "~4.8.4",
+    "vite": "^3.1.8"
   },
   "type": "module",
   "svelte": "src/lib/index.ts",

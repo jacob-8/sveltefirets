@@ -7,7 +7,7 @@ import { docStore } from '../firestore/stores';
 import type { IBaseUser } from '../interfaces';
 import { setCookie } from '../helpers/cookies';
 
-export const authState = writable<User>(null, (set) => {
+export const authState = writable<User>(undefined, (set) => {
   if (typeof window !== 'undefined') {
     const auth = getAuth(getFirebaseApp());
     onAuthStateChanged(
@@ -58,6 +58,7 @@ export const logOut = async () => {
 function cacheUser(user: IBaseUser, userKey: string) {
   localStorage.setItem(userKey, JSON.stringify(user));
   const minimalUser: Partial<IBaseUser> = {
+    uid: user.uid,
     displayName: user.displayName,
     email: user.email,
     photoURL: user.photoURL || null,
