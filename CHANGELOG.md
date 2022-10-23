@@ -2,7 +2,7 @@
 
 ## 0.0.32
 
-- `authState` is set to `undefined` until `onAuthStateChanged()` either returns `null` or a Firebase User object enabling `$authState !== 'undefined'` to be used to detect if auth has finished loading
+- `authState` is set to `undefined` until `onAuthStateChanged()` either returns `null` or a Firebase User object enabling `$authState !== undefined` to be used to detect if auth has finished loading
 
 ## 0.0.31
 

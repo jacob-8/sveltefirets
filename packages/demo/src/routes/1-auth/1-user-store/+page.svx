@@ -28,7 +28,7 @@ Sometimes you would like to wait for Auth to finish loading before showing user 
   import { user } from '$lib/user';
 </script>
 
-{#if $authState !== 'undefined'}
+{#if $authState !== undefined}
   {#if $user}
      User authenticated
   {:else}
@@ -68,7 +68,7 @@ export const load: LayoutLoad = async ({ data }) => {
   import { page } from '$app/stores';
   import { authState } from 'sveltefirets';
   import { user as userStore } from '$lib/user';
-  $: user = $userStore || (authState === 'undefined' && $page.data?.user) || null; 
+  $: user = $userStore || (authState === undefined && $page.data?.user) || null; 
   // only use page data set from the cookie before authState has been inited so that when a user logs out, the user value here doesn't fall back to the page data  value initially set by the cookie. Even though the cookie is cleared on logout, the page data is not updated.
 </script>
 {user?.email}
