@@ -2,25 +2,24 @@
 	"name": "root",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "pnpm --filter=demo dev",
-		"demo": "pnpm --filter=demo dev",
-		"build": "pnpm package && pnpm --filter=demo build",
+		"dev": "pnpm --filter=sveltefirets dev",
+		"build": "pnpm --filter=sveltefirets build",
+		"preview": "svelte-kit --filter=sveltefirets preview",
 		"package": "pnpm --filter=sveltefirets package",
-		"preview": "svelte-kit preview",
 		"lint": "prettier --ignore-path .gitignore  --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
 		"check-packages": "pnpm update --interactive --recursive --latest"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^5.40.1",
-		"@typescript-eslint/parser": "^5.40.1",
-		"eslint": "^8.26.0",
+		"@typescript-eslint/eslint-plugin": "^5.47.1",
+		"@typescript-eslint/parser": "^5.47.1",
+		"eslint": "^8.30.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"prettier": "^2.7.1",
-		"prettier-plugin-svelte": "^2.8.0",
-		"svelte": "^3.52.0",
-		"typescript": "~4.8.4"
+		"prettier": "^2.8.1",
+		"prettier-plugin-svelte": "^2.9.0",
+		"svelte": "^3.55.0",
+		"typescript": "~4.9.4"
 	},
 	"type": "module"
 }

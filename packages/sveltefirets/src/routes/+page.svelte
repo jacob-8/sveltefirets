@@ -1,1 +1,0 @@
-See packages/demo directory for a demo app.
