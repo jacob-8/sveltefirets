@@ -2,7 +2,8 @@ import { redirect, error } from '@sveltejs/kit';
 
 import { getCollection } from 'sveltefirets';
 import { limit, orderBy } from 'firebase/firestore';
-import type { IMessage } from '$lib/message.interface';
+import type { IMessage } from '../message.interface';
+
 import type { PageLoad } from './$types';
 export const load: PageLoad = async () => {
   try {

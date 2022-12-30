@@ -1,5 +1,6 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { kitbook } from 'kitbook/plugins/vite';
+import path from 'path';
 
 /** @type {import('vite').UserConfig} */
 const config = {
@@ -7,6 +8,11 @@ const config = {
 		kitbook({ routes: 'src/routes' }),
 		sveltekit(),
 	],
+	resolve: {
+		alias: {
+			'sveltefirets': path.resolve('./src/lib'),
+		}
+	},
 };
 
 export default config;

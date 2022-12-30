@@ -4,7 +4,9 @@
 `npm i -D sveltefirets firebase` or `pnpm add -D sveltefirets firebase`
 
 ## 2. Add [Firebase Project Config](https://firebase.google.com/docs/web/learn-more#config-object) Via Env Variables
+
 - Add your Firebase config object for the project you use to develop with to a `.env` file in the same folder as `svelte.config.js` as a string:
+
 ```
 PUBLIC_FIREBASE_CONFIG={"apiKey":"...","authDomain":"YOURPROJECTID.firebaseapp.com","databaseURL":"https://YOURPROJECTID.firebaseio.com","projectId":"YOURPROJECTID","storageBucket":"YOURPROJECTID.appspot.com","messagingSenderId":"...","appId":"...","measurementId":"..."}
 ```

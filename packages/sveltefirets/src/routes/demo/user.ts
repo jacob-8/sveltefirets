@@ -1,4 +1,4 @@
-import { createUserStore, firebaseConfig, type IBaseUser } from 'sveltefirets';
+import { createUserStore, firebaseConfig, type IBaseUser } from '$lib';
 
 interface IUser extends IBaseUser {
   theme: string;

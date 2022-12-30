@@ -8,7 +8,9 @@
     "javascript",
     "svelte"
   ],
-  "files.associations": {
-    "*.svx": "svelte"
-  },
+  "foam.completion.label": "title",
+  "foam.edit.linkReferenceDefinitions": "withoutExtensions",
+  "foam.files.ignore": [
+      "**/node_modules/**/*",
+  ]
 }

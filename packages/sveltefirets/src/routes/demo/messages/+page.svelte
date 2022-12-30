@@ -11,8 +11,7 @@
   let log = true;
 </script>
 
-<h2>Messages retrieved via load function:</h2>
-<p>Limited to 5 most recent for practicality.</p>
+Messages retrieved via load function (Limited to 5 most recent):
 
 <pre>{JSON.stringify(messages, null, 1)}</pre>
 

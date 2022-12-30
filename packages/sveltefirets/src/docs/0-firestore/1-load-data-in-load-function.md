@@ -1,13 +1,7 @@
-<script lang="ts">
-  import type { PageData } from './$types';
-  export let data: PageData;
-  $: ({messages} = data);
-</script>
-
 <!-- prettier-ignore -->
 # Load Data in Load function
 
-Works both server and client side. Try refreshing the page and navigating via sidebar to test both methods.
+Works both server and client side.
 
 ## Load Collection
 
@@ -39,9 +33,11 @@ Then in your `+page.svelte` file:
 
 To return this:
 
-<pre>{JSON.stringify(messages, null, 1)}</pre>
+<!-- <pre>{JSON.stringify(messages, null, 1)}</pre> -->
 
-Did you see the flash of objects rearranging as the client side Firestore fetched, updated the content (and also cached)?
+<iframe src="/demo/messages" style="width: 100%; height: 50vh; border: 1px solid black;"></iframe>
+
+<!-- Refresh to see the flash of objects rearranging as the client side Firestore fetched, updated the content (and also cached). (needs refresh button placed on iframe) -->
 
 ## Load Document
 
