@@ -1,6 +1,6 @@
 <script>
   import { saveUserData, logOut } from 'sveltefirets';
-  import { user } from '$lib/user';
+  import { user } from '../user';
   import Button from 'svelte-pieces/ui/Button.svelte';
 </script>
 

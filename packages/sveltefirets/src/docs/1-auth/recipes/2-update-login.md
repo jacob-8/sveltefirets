@@ -1,7 +1,7 @@
 <script lang="ts">
   import { verifyBeforeUpdateEmail, getAuth } from 'firebase/auth';
   import Button from 'svelte-pieces/ui/Button.svelte';
-  import { user } from '$lib/user';
+  import { user } from '../../../routes/demo/user';
   import { FirebaseUiAuth, saveUserData } from 'sveltefirets';
 </script>
 
@@ -19,7 +19,7 @@
   if (newEmail) {
     const auth = getAuth();
     const user = auth.currentUser;
-    verifyBeforeUpdateEmail(user, newEmail, { url: 'https://sveltefirets.vercel.app/account' });
+    verifyBeforeUpdateEmail(user, newEmail, { url: 'https://sveltefirets.vercel.app/demo/account' });
   }
 }}>Update Email</button>
 ```
@@ -33,7 +33,7 @@
           if (newEmail) {
             const auth = getAuth();
             const firebase_user = auth.currentUser;
-            verifyBeforeUpdateEmail(firebase_user, newEmail, { url: 'https://sveltefirets.vercel.app/account' });
+            verifyBeforeUpdateEmail(firebase_user, newEmail, { url: 'https://sveltefirets.vercel.app/demo/account' });
           }
         } catch (e) {
           alert(e)
@@ -45,6 +45,6 @@
   {/if}
 </div>
 
-- See [verifyBeforeUpdateEmail() docs](https://firebase.google.com/docs/reference/js/v8/firebase.User#verifybeforeupdateemail) to learn about the possible errors that you should be catching.
+- See [verifyBeforeUpdateEmail docs](https://firebase.google.com/docs/reference/js/v8/firebase.User#verifybeforeupdateemail) to learn about the possible errors that you should be catching.
 - See https://firebase.google.com/docs/auth/web/account-linking to learn how to link accounts (add a new sign in method instead of change the email for a particular one)
 

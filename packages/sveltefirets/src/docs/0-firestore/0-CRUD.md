@@ -51,22 +51,20 @@ function sayHello(name: string) {
 
 Say hello to add your greeting to the list of greetings (seen in the next section):
 
-<div>
-  <Store startWith={'John'} let:set let:store={text}>
-    <input
-      style="border: 1px solid gray; border-radius: 4px; padding: 2px"
-      type="text"
-      value={text}
-      maxlength="10"
-      placeholder="Enter name"
-      on:keyup={(e) => e.key === 'Enter' && sayHello(text)}
-      on:input={(e) => {
-        //@ts-ignore
-        set(e.target.value);
-      }} />
-    <Button onclick={() => sayHello(text)}>Add</Button>
-  </Store>
-</div>
+<Store startWith={'John'} let:set let:store={text}>
+  <input
+    style="border: 1px solid gray; border-radius: 4px; padding: 2px"
+    type="text"
+    value={text}
+    maxlength="10"
+    placeholder="Enter name"
+    on:keyup={(e) => e.key === 'Enter' && sayHello(text)}
+    on:input={(e) => {
+      //@ts-ignore
+      set(e.target.value);
+    }} />
+  <Button size="sm" onclick={() => sayHello(text)}>Add</Button>
+</Store>
 
 ## List (Collection), Update, Delete
 
@@ -97,9 +95,9 @@ The `<Collection />` component works asynchronously and so can't handle SSR load
 
 After reading [[1-load-data-in-load-function#Load Document]], feel free to test out page loaded data for the above messages using the following links:
 
-- <a href={`/messages`}>Hover to preload firestore data for all messages on client (see console log)</a>
-- <a href={`/messages`} target="_blank">Load firestore data for all messages server-side (opens new tab)</a>
-- <a href={`/api/messages`} target="_blank">Messages API endpoint</a>
+- <a href={`/demo/messages`}>Hover to preload firestore data for all messages on client (see console log)</a>
+- <a href={`/demo/messages`} target="_blank">Load firestore data for all messages server-side (opens new tab)</a>
+- <a href={`/demo/api/messages`} target="_blank">Messages API endpoint</a>
 
 ## Update
 
@@ -126,14 +124,14 @@ function deleteGreeting(id: string) {
 
 ## Read (Document)
 
-Same as using the `<Collection />` component, the easiest way to show live data for a document is to use the `<Doc />` component which operates very similarly to the original [Sveltefire one](https://github.com/codediodeio/sveltefire#doc) with the addition of the `traceId`, `log`, `maxWait`, `once` props being reactive. Go ahead and update the ID, pulling from the list above.
+Same as using the `<Collection />` component, the easiest way to show live data for a document is to use the `<Doc />` component which operates very similarly to the original [Sveltefire one](https://github.com/codediodeio/sveltefire#doc) with the addition of the `traceId`, `log`, `maxWait`, `once` props being reactive. Go ahead and update the id (in the controls to the right), pulling from the list above.
 
 
 <Story showCode name="read" knobs={{id: 'testMessage'}} let:props={{id}}>
   <Doc path="messages/{id}" let:data={message}>
-    <Button href="/message/{message.id}">Preload firestore data on client</Button>
-    <Button href="/message/{message.id}" target="_blank">Load firestore data server-side</Button>
-    <Button href="/api/{message.id}" target="_blank">Message API endpoint</Button>
+    <Button href="/demo/message/{message.id}">Preload firestore data on client</Button>
+    <Button href="/demo/message/{message.id}" target="_blank">Load firestore data server-side</Button>
+    <Button href="/demo/api/{message.id}" target="_blank">Message API endpoint</Button>
     <pre>{JSON.stringify(message, null, 2)}</pre>
     <div slot="fallback">
       No document found with this id. Choose an ID from the above list of greetings.

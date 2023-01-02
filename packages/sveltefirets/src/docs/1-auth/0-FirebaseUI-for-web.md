@@ -1,6 +1,6 @@
 <script lang="ts">
   import { logOut, FirebaseUiAuth, saveUserData } from 'sveltefirets';
-  import { user } from '$lib/user';
+  import { user } from '../../routes/demo/user';
   import { Story } from 'kitbook';
   import Button from 'svelte-pieces/ui/Button.svelte';
 </script>
@@ -8,25 +8,57 @@
 <!-- prettier-ignore -->
 # Authentication with FirebaseUi for Web
 
-Of course you can set up your own authentication form using the methods provided by Firebase Authentication and detailed in their docs, but if you want an extremely easy and battle-tested way to set up auth, consider using the `FirebaseUiAuth` component that brings in [FirebaseUI web](https://github.com/firebase/firebaseui-web) and the Firebase 9 compat library via CDN when the component is mounted.
+If you want an extremely easy and battle-tested way to set up auth, consider using the `FirebaseUiAuth` component that brings in [FirebaseUI web](https://github.com/firebase/firebaseui-web) and the Firebase 9 compat library via CDN when the component is mounted.
 
-{#if $user}
-  You are logged in and here is your User document from Firestore:
+## Auth Providers
 
-  <pre>{JSON.stringify($user, null, 1)}</pre>
-  <Button form="filled" onclick={logOut}>Log Out</Button>
-{:else}
+Support a number of Auth providers (of which only Google and Email will actually will in this firebase project - the authors require further steps in the Firebase console to be able to use).
 
-  It includes support for a number of Auth providers (of which only Google and Email are turned on for this firebase project) and [42 languages and
-  dialects](https://github.com/firebase/firebaseui-web/blob/master/LANGUAGES.md) out of the box.
-  English is demoed here and you can also try Spanish with `es` and Arabic (RTL) with `ar` by navigating in the sidebar (refresh to see the different language).
+<Story name="Adjust Providers" knobs={{google: true, facebook: false, twitter: false, github: false, emailPassword: false, emailPasswordless: true, phone: false, anonymous: false}} let:props>
+  {#if $user}
+    You are logged in and here is your User document from Firestore:
   
-  <Story name="Adjust Providers" knobs={{google: true, facebook: false, twitter: false, github: false, emailPassword: false, emailPasswordless: true, phone: false, anonymous: false}} let:props>
+    <pre>{JSON.stringify($user, null, 1)}</pre>
+    <Button form="filled" onclick={logOut}>Log Out</Button>
+  {:else}
     <FirebaseUiAuth
       signInWith={props}
       on:authresult={(e) => saveUserData(e.detail)} />
-  </Story>
-{/if}
+  {/if}
+</Story>
+
+## i18n
+
+Supports [42 languages and
+dialects](https://github.com/firebase/firebaseui-web/blob/master/LANGUAGES.md) out of the box.
+
+<Story name="Spanish (es)">
+  {#if $user}
+    You are logged in and here is your User document from Firestore:
+  
+    <pre>{JSON.stringify($user, null, 1)}</pre>
+    <Button form="filled" onclick={logOut}>Log Out</Button>
+  {:else}
+    <FirebaseUiAuth
+      languageCode={'es'}
+      signInWith={{ google: true, emailPasswordless: true }}
+      on:authresult={(e) => saveUserData(e.detail)} />
+    {/if}
+</Story>
+
+<Story name="Arabic (ar) - right-to-left">
+  {#if $user}
+    You are logged in and here is your User document from Firestore:
+  
+    <pre>{JSON.stringify($user, null, 1)}</pre>
+    <Button form="filled" onclick={logOut}>Log Out</Button>
+  {:else}
+    <FirebaseUiAuth
+      languageCode={'ar'}
+      signInWith={{ google: true, emailPasswordless: true }}
+      on:authresult={(e) => saveUserData(e.detail)} />
+    {/if}
+</Story>
 
 If you simply add the `<FirebaseUiAuth />` component to your page, you'll receive the English version with Google and Email sign in options (they'll only work if you've enabled them in your Firebase Console of course).
 

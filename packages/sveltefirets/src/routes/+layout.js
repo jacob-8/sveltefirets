@@ -1,1 +1,2 @@
-export { layoutLoad as load } from 'kitbook';
+import { layoutLoad } from 'kitbook';
+export const load = layoutLoad();

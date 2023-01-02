@@ -1,3 +1,7 @@
+<script>
+    import { Story } from "kitbook";
+
+</script>
 <!-- prettier-ignore -->
 # Load Data in Load function
 
@@ -33,9 +37,9 @@ Then in your `+page.svelte` file:
 
 To return this:
 
-<!-- <pre>{JSON.stringify(messages, null, 1)}</pre> -->
-
-<iframe src="/demo/messages" style="width: 100%; height: 50vh; border: 1px solid black;"></iframe>
+<Story height={500}>
+  <iframe src="/demo/messages" style="width: 100%; height: 100%;"></iframe>
+</Story>
 
 <!-- Refresh to see the flash of objects rearranging as the client side Firestore fetched, updated the content (and also cached). (needs refresh button placed on iframe) -->
 

@@ -12,5 +12,6 @@
   "foam.edit.linkReferenceDefinitions": "withoutExtensions",
   "foam.files.ignore": [
       "**/node_modules/**/*",
-  ]
+  ],
+  "files.associations": {}
 }
