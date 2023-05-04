@@ -15,11 +15,11 @@ jobs:
           version: 6.32.3
 
       - run: pnpm install
-      - run: pnpm -F sveltefirets package
+      - run: pnpm package
       
       - id: publish
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-          package: "./packages/sveltefirets/package/package.json"
+          package: "./packages/sveltefirets/package.json"
           access: "public"
