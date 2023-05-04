@@ -1,8 +1,9 @@
 # sveltefirets
 
-## 0.0.35 - 5/4/2023
+## 0.0.36 - 5/4/2023
 
 - update to latest SvelteKit 1.0+ package, update Firebase to 9.21.0
+- [breaking] if you want type intellisense for deep imports (`import { loadScriptOnce } from 'sveltefirets/helpers/loader';`) then update to typescript version 5 and set `moduleResolution` to `bundler` in your `tsconfig.json` as described in https://kit.svelte.dev/docs/packaging#typescript.
 
 ## 0.0.32
 
