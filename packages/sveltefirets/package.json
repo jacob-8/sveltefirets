@@ -1,6 +1,6 @@
 {
   "name": "sveltefirets",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "description": "Use Firebase in a declarative manner in Svelte",
   "scripts": {
     "dev": "vite dev --mode kitbook",
@@ -49,8 +49,8 @@
   },
   "typesVersions": {
     ">4.0": {
-      "*": [
-        "./dist/*.d.ts"
+      "index": [
+        "./dist/index.d.ts"
       ]
     }
   },
