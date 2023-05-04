@@ -1,5 +1,10 @@
 # sveltefirets
 
+## 0.0.33 - 5/4/2023
+
+- update to latest SvelteKit 1.0+ package, update Firebase to 9.21.0
+- [breaking] all imports must now be through the root package, `sveltefirets` instead of `sveltefirets/helpers/loader` for example.
+
 ## 0.0.32
 
 - `authState` is set to `undefined` until `onAuthStateChanged()` either returns `null` or a Firebase User object enabling `$authState !== undefined` to be used to detect if auth has finished loading
