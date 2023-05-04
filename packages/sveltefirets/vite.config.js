@@ -5,7 +5,7 @@ import path from 'path';
 /** @type {import('vite').UserConfig} */
 const config = {
 	plugins: [
-		kitbook({ routes: 'src/routes' }),
+		kitbook(),
 		sveltekit(),
 	],
 	resolve: {

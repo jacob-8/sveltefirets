@@ -2,7 +2,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { getCollection } from 'sveltefirets';
 import { limit, orderBy } from 'firebase/firestore';
 
-import type { IMessage } from '$lib/message.interface';
+import type { IMessage } from '../../message.interface';
 
 export const GET: RequestHandler = async () => {
   const messages = await getCollection<IMessage>(`messages`, [

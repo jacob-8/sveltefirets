@@ -5,7 +5,7 @@
 
 [Try in Stackblitz!](https://stackblitz.com/github/jacob-8/sveltefirets/tree/main/packages/demo) or [Read the docs](https://sveltefirets.vercel.app/)
 
-Easily use [Firebase](https://firebase.google.com/docs) ([9.15](https://firebase.google.com/support/release-notes/js) currently) in a declarative manner. Built for **[SvelteKit 1.0+](https://kit.svelte.dev/)** but it could be used with any Svelte framework.
+Easily use [Firebase](https://firebase.google.com/docs) ([9.21](https://firebase.google.com/support/release-notes/js) currently) in a declarative manner. Built for **[SvelteKit 1.0+](https://kit.svelte.dev/)** but it could be used with any Svelte framework.
 
 - Typescript
 - Firestore convenience helpers

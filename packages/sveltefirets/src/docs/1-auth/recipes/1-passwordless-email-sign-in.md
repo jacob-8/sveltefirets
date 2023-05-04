@@ -1,6 +1,6 @@
 <script lang="ts">
   import { logOut, FirebaseUiAuth, saveUserData } from 'sveltefirets';
-  import { user } from '../../../routes/demo/user';
+  import { user } from '../../../.kitbook/routes/demo/user';
   import { Story } from 'kitbook';
   import Button from 'svelte-pieces/ui/Button.svelte';
 </script>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { verifyBeforeUpdateEmail, getAuth } from 'firebase/auth';
   import Button from 'svelte-pieces/ui/Button.svelte';
-  import { user } from '../../../routes/demo/user';
+  import { user } from '../../../.kitbook/routes/demo/user';
   import { FirebaseUiAuth, saveUserData } from 'sveltefirets';
 </script>
 

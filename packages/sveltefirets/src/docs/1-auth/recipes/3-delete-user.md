@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getAuth, deleteUser } from 'firebase/auth';
-  import { user } from '../../../routes/demo/user';
+  import { user } from '../../../.kitbook/routes/demo/user';
   import { deleteDocument, FirebaseUiAuth, saveUserData } from 'sveltefirets';
   import Button from 'svelte-pieces/ui/Button.svelte';
 </script>

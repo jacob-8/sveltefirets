@@ -1,0 +1,1 @@
+You can ignore this lib section for now. At present, Kitbook doesn't have a way to hide unused sections.

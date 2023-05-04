@@ -1,4 +1,4 @@
-import type { IFirestoreMetaData } from 'sveltefirets';
+import type { IFirestoreMetaData } from '$lib';
 export interface IMessage extends IFirestoreMetaData {
   text: string;
 }

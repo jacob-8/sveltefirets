@@ -1,7 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { getDocument } from 'sveltefirets';
 
-import type { IMessage } from '$lib/message.interface';
+import type { IMessage } from '../../message.interface';
 
 export const GET: RequestHandler = async (request) => {
   const message = await getDocument<IMessage>(`messages/${request.params.messageId}`);

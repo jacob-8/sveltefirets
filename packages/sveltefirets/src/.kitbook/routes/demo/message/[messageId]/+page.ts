@@ -1,7 +1,7 @@
 import { redirect, error } from '@sveltejs/kit';
+import type { IMessage } from '../../message.interface';
 
 import { getDocument } from 'sveltefirets';
-import type { IMessage } from '$lib/message.interface';
 import type { PageLoad } from './$types';
 export const load: PageLoad = async ({ params: { messageId } }) => {
   try {

@@ -1,7 +1,7 @@
 <script>
   import { saveUserData, logOut } from 'sveltefirets';
   import { user } from '../user';
-  import Button from 'svelte-pieces/ui/Button.svelte';
+  import { Button } from 'svelte-pieces';
 </script>
 
 <h1>Account page</h1>
