@@ -1,9 +1,8 @@
 # sveltefirets
 
-## 0.0.34 - 5/4/2023
+## 0.0.35 - 5/4/2023
 
 - update to latest SvelteKit 1.0+ package, update Firebase to 9.21.0
-- [breaking] all imports must now be through the root package, `sveltefirets` instead of `sveltefirets/helpers/loader` for example.
 
 ## 0.0.32
 
