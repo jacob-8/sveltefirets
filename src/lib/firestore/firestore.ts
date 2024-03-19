@@ -16,6 +16,7 @@ import {
   updateDoc,
   serverTimestamp,
   type DocumentData,
+  type PartialWithFieldValue,
 } from 'firebase/firestore';
 
 import { getDb } from '../init';
@@ -74,7 +75,7 @@ export function add<T>(
 
 export async function set<T>(
   ref: DocPredicate<T>,
-  data: Partial<T>,
+  data: PartialWithFieldValue<T>,
   opts: {
     abbreviate?: boolean;
     merge?: boolean; // useless in a context where `update` is called for prior existing documents
@@ -93,14 +94,14 @@ export async function set<T>(
 
 export async function update<T>(
   ref: DocPredicate<T>,
-  data: DocumentData,
+  data: PartialWithFieldValue<T>,
   opts: {
     abbreviate?: boolean;
   } = {}
 ): Promise<void> {
   data[opts.abbreviate ? 'ua' : 'updatedAt'] = serverTimestamp();
   data[opts.abbreviate ? 'ub' : 'updatedBy'] = getUid();
-  return updateDoc(docRef(ref), data);
+  return updateDoc(docRef(ref), data as DocumentData);
 }
 
 export function deleteDocument<T>(ref: DocPredicate<T>): Promise<void> {
