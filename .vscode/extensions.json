@@ -2,28 +2,22 @@
   "recommendations": [
     // Svelte
     "svelte.svelte-vscode",
-    "fivethree.vscode-svelte-snippets",
     // Styles
     "antfu.iconify",
-    "voorjaar.windicss-intellisense",
+    "antfu.unocss",
     // Code quality
     "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    // ^Required
-    // ----------------
-    // Optional:
     // Git
-    "eamodio.gitlens",
     "github.vscode-pull-request-github",
+    // Kitbook
+    "yzhang.markdown-all-in-one",
+    "foam.foam-vscode",
+    // ---- You should definitely install the ones above, the ones below are recommended
+    // "usernamehw.errorlens",
+    // "eamodio.gitlens",
     // "cschleiden.vscode-github-actions",
-    // Efficiency
-    "usernamehw.errorlens",
-    // "wallabyjs.quokka-vscode",
-    // "yzhang.markdown-all-in-one",
-    // Jacob's Recommendations
     // "aaron-bond.better-comments",
     // "vscode-icons-team.vscode-icons",
     // "wallabyjs.quokka-vscode",
-    // "wallabyjs.wallaby-vscode"
   ]
 }

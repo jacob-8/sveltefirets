@@ -12,8 +12,9 @@ export function getFirebaseApp() {
     return firebaseApp;
   }
 
-  if (getApps().length) {
-    firebaseApp = getApps()[0];
+  const currentApps = getApps();
+  if (currentApps.length) {
+    firebaseApp = currentApps[0];
     return firebaseApp;
   }
 
