@@ -3,9 +3,10 @@ import { getAuth, onAuthStateChanged, signOut, type User } from 'firebase/auth';
 import { doc, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
 
 import { getFirebaseApp } from '../init';
-import { docStore } from '../firestore/stores';
+import { docStore } from '../firestore/stores/doc-store';
 import type { IBaseUser } from '../interfaces';
 import { setCookie } from '../helpers/cookies';
+import { firebaseConfig } from '../config';
 
 export const authState = writable<User>(undefined, (set) => {
   if (typeof window !== 'undefined') {
@@ -20,8 +21,10 @@ export const authState = writable<User>(undefined, (set) => {
 
 /**
  * Subscribes to current Firebase user, pulls their data from the users collection, caches it to local storage as well as sets a cookie to allow for server-side rendering (not authenticated routes, just basic UI stuff like a name in a header). It also denotes their visit as a `lastVisit` timestamp in Firestore. */
-export function createUserStore<T>({ userKey = 'firebase_user', log = false }) {
-  const { subscribe, set } = writable<T>(null);
+export function createUserStore<T>(options: { userKey?: string; log?: boolean; startWith?: T }) {
+  const { userKey = `${firebaseConfig.projectId}_firebase_user`, log = false, startWith = null } = options;
+  
+  const { subscribe, set } = writable<T>(startWith);
   let unsub: Unsubscriber;
 
   if (typeof window !== 'undefined') {
@@ -62,8 +65,9 @@ function cacheUser(user: IBaseUser, userKey: string) {
     displayName: user.displayName,
     email: user.email,
     photoURL: user.photoURL || null,
+    roles: user.roles || null,
   }; // Cookies are limited to 4kb, about 1,000-4000 characters
-  setCookie('user', JSON.stringify(minimalUser), { 'max-age': 31536000 });
+  setCookie('user', JSON.stringify(minimalUser), { maxAge: 365 * 24 * 60 * 60 });
 }
 
 function removeCachedUser(userKey: string) {

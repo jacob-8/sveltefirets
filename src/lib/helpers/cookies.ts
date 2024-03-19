@@ -16,18 +16,35 @@ export function getCookie(name: string, cookies?) {
   return decodeURIComponent(cookieValue.trim());
 }
 
-export function setCookie(name: string, value, options: any = {}) {
-  if (options.expires instanceof Date) {
-    options.expires = options.expires.toUTCString();
-  }
+export function setCookie(name: string, value: string, options: CookieOptions = {}) {
+  document.cookie = formatCookie(name, value, options)
+}
+
+interface CookieOptions {
+  domain?: string;
+  expires?: string | Date;
+  httpOnly?: boolean;
+  maxAge?: number;
+  path?: string;
+  sameSite?: 'strict' | 'lax' | 'none';
+  secure?: boolean;
+}
+
+function formatCookie(name: string, value: string, options: CookieOptions = {}) {
+  if (options.expires instanceof Date)
+    options.expires = options.expires.toUTCString()
 
   const updatedCookie = {
     [encodeURIComponent(name)]: encodeURIComponent(value),
     sameSite: 'strict',
+    path: '/',
     ...options,
-  };
+  }
 
-  document.cookie = Object.entries(updatedCookie)
+  const cookie = Object.entries(updatedCookie)
+    .filter(([key]) => key !== 'secure')
     .map((kv) => kv.join('='))
-    .join(';');
+    .join(';')
+
+  return options.secure === false ? cookie : `${cookie};secure`
 }

@@ -12,6 +12,7 @@ interface User {
   providerIds?: SignInMethods[]; // 'emailLink' method will still say 'password'
   emailVerified?: boolean;
   emailLink?: boolean; // set to true if they are both a new user and email is verified; this is the only way to distinguish apart from users who use email+pass and then later manually verify their email if the app provides that option.
+  roles?: { admin?: number }; // not from Firebase - used by 2 projects downstream - most users can ignore this
 }
 
 export type SignInMethods = 'google.com' | 'password' | 'emailLink' | 'facebook.com' | 'github.com' | 'phone' | 'twitter.com';
