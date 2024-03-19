@@ -2,7 +2,7 @@
   import { onDestroy, onMount, createEventDispatcher } from 'svelte';
   import type { Unsubscriber } from 'svelte/store';
   import type { CollectionReference, QueryConstraint } from 'firebase/firestore';
-  import { collectionStore } from './stores';
+  import { collectionStore } from './stores/collection-store';
 
   export let path: CollectionReference<T> | string;
   export let queryConstraints: QueryConstraint[] = []; // usage example: [where('role', '==', 'contributor'), orderBy("name")];

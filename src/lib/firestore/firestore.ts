@@ -4,9 +4,7 @@ import {
   type CollectionReference,
   type DocumentReference,
   type QueryConstraint,
-  type PartialWithFieldValue,
   type WithFieldValue,
-  type UpdateData,
   collection,
   doc,
   getDocs,
@@ -17,6 +15,7 @@ import {
   deleteDoc,
   updateDoc,
   serverTimestamp,
+  type DocumentData,
 } from 'firebase/firestore';
 
 import { getDb } from '../init';
@@ -35,7 +34,7 @@ export function docRef<T>(ref: DocPredicate<T>): DocumentReference<T> {
     const pathParts = ref.split('/');
     const documentId = pathParts.pop();
     const collectionString = pathParts.join('/');
-    return doc<T>(colRef(collectionString), documentId);
+    return doc(colRef<T>(collectionString), documentId);
   } else {
     return ref;
   }
@@ -75,7 +74,7 @@ export function add<T>(
 
 export async function set<T>(
   ref: DocPredicate<T>,
-  data: PartialWithFieldValue<T>,
+  data: Partial<T>,
   opts: {
     abbreviate?: boolean;
     merge?: boolean; // useless in a context where `update` is called for prior existing documents
@@ -94,14 +93,14 @@ export async function set<T>(
 
 export async function update<T>(
   ref: DocPredicate<T>,
-  data: PartialWithFieldValue<T>,
+  data: DocumentData,
   opts: {
     abbreviate?: boolean;
   } = {}
 ): Promise<void> {
   data[opts.abbreviate ? 'ua' : 'updatedAt'] = serverTimestamp();
   data[opts.abbreviate ? 'ub' : 'updatedBy'] = getUid();
-  return updateDoc(docRef(ref), data as UpdateData<T>);
+  return updateDoc(docRef(ref), data);
 }
 
 export function deleteDocument<T>(ref: DocPredicate<T>): Promise<void> {

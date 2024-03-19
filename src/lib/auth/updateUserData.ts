@@ -44,7 +44,7 @@ export async function saveUserData(authResult: AuthResult) {
 
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000)); // wait for authentication to complete for new users before trying to save to the database
-    await setDoc<IBaseUser>(docRef(`users/${user.uid}`), userData, { merge: true });
+    await setDoc(docRef(`users/${user.uid}`), userData, { merge: true });
   } catch (err) {
     console.error(err);
   }

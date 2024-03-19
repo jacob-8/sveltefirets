@@ -38,13 +38,9 @@ export function getFirebaseApp() {
   return firebaseApp;
 }
 
-/**
- * Note: Won't work for Firestore Lite as it returns normal Firestore */
+/** Won't work for Firestore Lite as it returns normal Firestore */
 export function getDb() {
-  if (db) {
-    return db;
-  }
-
-  db = getFirestore(getFirebaseApp());
+  if (!db)
+    db = getFirestore(getFirebaseApp());
   return db;
 }

@@ -2,7 +2,7 @@
   import { onDestroy, onMount, createEventDispatcher } from 'svelte';
   import type { Unsubscriber } from 'svelte/store';
   import type { DocumentReference } from 'firebase/firestore';
-  import { docStore } from './stores';
+  import { docStore } from './stores/doc-store';
 
   export let path: DocumentReference<T> | string;
   export let log = false;

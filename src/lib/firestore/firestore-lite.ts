@@ -3,9 +3,8 @@
 import {
   type CollectionReference,
   type DocumentReference,
-  type PartialWithFieldValue,
+  type DocumentData,
   type WithFieldValue,
-  type UpdateData,
   getFirestore,
   collection,
   doc,
@@ -32,7 +31,7 @@ function docRef<T>(ref: DocPredicate<T>): DocumentReference<T> {
     const pathParts = ref.split('/');
     const documentId = pathParts.pop();
     const collectionString = pathParts.join('/');
-    return doc<T>(colRef(collectionString), documentId);
+    return doc(colRef<T>(collectionString), documentId);
   } else {
     return ref;
   }
@@ -67,7 +66,7 @@ async function getDocument<T>(ref: DocPredicate<T>): Promise<T> {
  * Be sure to import firestore methods such as serverTimestamp() from firebase/firestore/lite otherwise you will receive errors */
  export async function setOnline<T>(
   ref: DocPredicate<T>,
-  data: PartialWithFieldValue<T>,
+  data: Partial<T>,
   opts: {
     abbreviate?: boolean;
     merge?: boolean;
@@ -89,14 +88,15 @@ async function getDocument<T>(ref: DocPredicate<T>): Promise<T> {
  * Be sure to import firestore methods such as serverTimestamp() from firebase/firestore/lite otherwise you will receive errors */
  export async function updateOnline<T>(
   ref: DocPredicate<T>,
-  data: PartialWithFieldValue<T>,
+  data: DocumentData,
   opts: {
     abbreviate?: boolean;
   } = {}
 ): Promise<void> {
   data[opts.abbreviate ? 'ua' : 'updatedAt'] = serverTimestamp();
   data[opts.abbreviate ? 'ub' : 'updatedBy'] = getUid();
-  return updateDoc(docRef(ref), data as UpdateData<T>);
+  // return updateDoc(docRef(ref), data as UpdateData<T>);
+  return updateDoc(docRef(ref), data);
 }
 
 /**
