@@ -1,12 +1,19 @@
+// @ts-check
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import adapter from '@sveltejs/adapter-auto';
-import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	preprocess: preprocess(),
+  extensions: ['.svelte', '.composition'],
+  preprocess: [
+    vitePreprocess(),
+  ],
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		alias: {
+      'sveltefirets': 'src/lib',
+    },
 	},
 
 	onwarn: (warning, handler) => {
@@ -17,17 +24,10 @@ const config = {
   },
 
 	vitePlugin: {
-		experimental: {
 			inspector: {
 				holdMode: true,
-			}
 		}
 	},
 };
 
-import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite'; 
-export default augmentSvelteConfigForKitbook(config, {
-	kit: {
-		outDir: '.svelte-kit'
-	}
-});
+export default config;

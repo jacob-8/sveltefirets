@@ -1,18 +1,12 @@
 import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig} from 'vite';
 import { kitbook } from 'kitbook/plugins/vite';
-import path from 'path';
+import kitbookConfig from './kitbook.config';
 
-/** @type {import('vite').UserConfig} */
-const config = {
+export default defineConfig({
 	plugins: [
-		kitbook(),
+		kitbook(kitbookConfig),
 		sveltekit(),
 	],
-	resolve: {
-		alias: {
-			'sveltefirets': path.resolve('./src/lib'),
-		}
-	},
-};
+});
 
-export default config;

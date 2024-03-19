@@ -8,7 +8,7 @@ As I've progressed in my understanding of how to use SvelteKit well, I've learne
 
 [![NPM](https://img.shields.io/npm/v/sveltefirets?color=yellow&label=NPM)](https://www.npmjs.com/package/sveltefirets)
 
-Easily use [Firebase](https://firebase.google.com/docs) in a declarative manner. Built for **[SvelteKit 2.0+](https://kit.svelte.dev/)** but it could be used with any Svelte framework.
+Easily use [Firebase](https://firebase.google.com/docs) in Svelte. Built for **[SvelteKit 2.0+](https://kit.svelte.dev/)** but it could be used with any Svelte framework.
 
 - SvelteKit (tested on 2.5.1)
 - Typescript

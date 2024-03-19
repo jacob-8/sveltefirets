@@ -1,38 +1,41 @@
 {
   "name": "sveltefirets",
   "version": "0.0.36",
-  "description": "Use Firebase in a declarative manner in Svelte",
+  "description": "Easily Use Firebase in Svelte",
   "scripts": {
     "dev": "vite dev --mode kitbook",
     "build": "vite build --mode kitbook",
     "preview": "vite preview --mode kitbook",
     "package": "svelte-kit sync && svelte-package && publint",
     "package:watch": "svelte-kit sync && svelte-package --watch",
+    "prepublishOnly": "svelte-kit sync && npm run package",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
-    "check-packages": "pnpm update --interactive --recursive --latest"
+    "check-packages": "pnpm update --interactive --recursive --latest",
+    "release": "bumpp"
   },
   "dependencies": {
-    "firebase": "^9.21.0"
+    "firebase": "^10.9.0"
   },
   "peerDependencies": {
     "firebase": "^9.21.0 || ^10.0.0",
     "svelte": "^3.58.0 || ^4.0.0 || ^5.0.0"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "2.0.1",
-    "@sveltejs/kit": "1.15.10",
-    "@sveltejs/package": "2.0.2",
-    "kitbook": "1.0.0-alpha.32",
-    "svelte": "^3.58.0",
-    "svelte-check": "^3.2.0",
-    "svelte-pieces": "^1.0.62",
-    "svelte-preprocess": "^5.0.3",
-    "svelte2tsx": "^0.6.11",
-    "publint": "^0.1.9",
-    "tslib": "^2.5.0",
-    "typescript": "~4.9.4",
-    "vite": "^4.3.4"
+    "@sveltejs/adapter-auto": "3.1.1",
+    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/package": "2.3.0",
+    "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "bumpp": "^9.2.0",
+    "kitbook": "1.0.0-beta.23",
+    "publint": "^0.2.2",
+    "svelte": "^4.0.0",
+    "svelte-check": "^3.5.1",
+    "svelte-pieces": "^2.0.0-next.10",
+    "svelte2tsx": "^0.7.4",
+    "tslib": "^2.6.2",
+    "typescript": "~5.4.2",
+    "vite": "^5.1.6"
   },
   "type": "module",
   "svelte": "./dist/index.js",
