@@ -9,9 +9,15 @@ import { startTrace, stopTrace } from '../perf';
 
 export function docStore<T>(
   path: DocumentReference<T> | string,
-  opts: { log?: boolean; traceId?: string; startWith?: T; maxWait?: number; once?: boolean } = {}
+  options: { 
+    log?: boolean; 
+    traceId?: string; 
+    startWith?: T; 
+    maxWait?: number; 
+    once?: boolean 
+  } = {}
 ) {
-  const { startWith, log, traceId, maxWait, once } = opts;
+  const { startWith, log, traceId, maxWait, once } = options;
 
   if (typeof window === 'undefined') {
     const store = writable<T>(startWith);
@@ -28,13 +34,14 @@ export function docStore<T>(
     };
   }
 
+  const { subscribe, set } = writable(startWith, start);
+
   const ref = typeof path === 'string' ? docRef<T>(path) : path;
   const trace = traceId && startTrace(traceId);
 
   let _loading = typeof startWith !== undefined;
   let _firstValue = true;
   let _error = null;
-  let _teardown;
   let _waitForIt;
 
   // State should never change without emitting a new value
@@ -48,27 +55,21 @@ export function docStore<T>(
     trace && stopTrace(trace);
   };
 
-  // Timeout
-  // Runs of first subscription
-  const start = () => {
-    // Timeout for fallback slot
+  function start() {
     _waitForIt =
       maxWait &&
       setTimeout(
-        () => _loading && next(null, new Error(`Timeout at ${maxWait}. Using fallback slot.`)),
+        () => _loading && next(null, new Error(`Timeout at ${maxWait}.`)),
         maxWait
       );
 
-    // Realtime firebase subscription
-    _teardown = onSnapshot(
+    const teardown = onSnapshot(
       ref,
       (snapshot) => {
-        const data = snapshot.data() || (_firstValue && startWith) || null;
-        if (data) {
-          // @ts-ignore
+        const data: T & { id?: string } = snapshot.data() || (_firstValue && startWith) || null;
+        if (data)
           data.id = snapshot.id;
-        }
-        // Optional logging
+        
         if (log) {
           console.groupCollapsed(`Doc ${snapshot.id}`);
           console.log(`Path: ${ref.path}`);
@@ -76,27 +77,18 @@ export function docStore<T>(
           console.groupEnd();
         }
 
-        // Emit next value
         next(data);
 
-        // Teardown after first emitted value if once
-        once && _teardown();
+        once && teardown();
       },
-
-      // Handle firebase thrown errors
       (error) => {
         console.error(error);
         next(null, error);
       }
     );
 
-    // Removes firebase listener when store completes
-    return () => _teardown();
+    return () => teardown();
   };
-
-  // Svelte store
-  const store = writable(startWith, start);
-  const { subscribe, set } = store;
 
   return {
     subscribe,

@@ -12,21 +12,16 @@ import { startTrace, stopTrace } from '../perf';
 export function collectionStore<T>(
   path: CollectionReference<T> | string,
   queryConstraints: QueryConstraint[] = [],
-  opts: {
+  options: {
     log?: boolean;
     traceId?: string;
     startWith?: T[];
     maxWait?: number;
     once?: boolean;
+    idField?: string;
     refField?: string;
-  } = {
-    maxWait: 10000,
-  }
-) {
-  const { startWith, log, traceId, maxWait, once, idField, refField } = {
-    idField: 'id',
-    ...opts,
-  };
+  } = {}) {
+  const { startWith, log, traceId, maxWait = 10000, once, idField = 'id', refField } = options;
 
   if (typeof window === 'undefined') {
     const store = writable(startWith);
@@ -46,6 +41,8 @@ export function collectionStore<T>(
     };
   }
 
+  const { subscribe, set } = writable(startWith, start);
+
   const ref = typeof path === 'string' ? colRef<T>(path) : path;
   const q = query(ref, ...queryConstraints);
   const trace = traceId && startTrace(traceId);
@@ -53,7 +50,6 @@ export function collectionStore<T>(
   let _loading = typeof startWith !== undefined;
   let _error = null;
   let _meta = { first: null, last: null };
-  let _teardown;
   let _waitForIt;
 
   // Metadata for result
@@ -72,15 +68,15 @@ export function collectionStore<T>(
     trace && stopTrace(trace);
   };
 
-  const start = () => {
+  function start() {
     _waitForIt =
       maxWait &&
       setTimeout(
-        () => _loading && next(null, new Error(`Timeout at ${maxWait}. Using fallback slot.`)),
+        () => _loading && next(null, new Error(`Timeout at ${maxWait}.`)),
         maxWait
       );
 
-    _teardown = onSnapshot(
+    const teardown = onSnapshot(
       q,
       (snapshot) => {
         // Will always return an array
@@ -99,20 +95,16 @@ export function collectionStore<T>(
           console.groupEnd();
         }
         next(data);
-        once && _teardown();
+        once && teardown();
       },
-
       (error) => {
         console.error(error);
         next(null, error);
       }
     );
 
-    return () => _teardown();
+    return () => teardown();
   };
-
-  const store = writable(startWith, start);
-  const { subscribe, set } = store;
 
   return {
     subscribe,

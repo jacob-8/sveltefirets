@@ -21,7 +21,7 @@ export const authState = writable<User>(undefined, (set) => {
 
 /**
  * Subscribes to current Firebase user, pulls their data from the users collection, caches it to local storage as well as sets a cookie to allow for server-side rendering (not authenticated routes, just basic UI stuff like a name in a header). It also denotes their visit as a `lastVisit` timestamp in Firestore. */
-export function createUserStore<T>(options: { userKey?: string; log?: boolean; startWith?: T }) {
+export function createUserStore<T>(options: { userKey?: string; log?: boolean; startWith?: T } = {}) {
   const { userKey = `${firebaseConfig.projectId}_firebase_user`, log = false, startWith = null } = options;
   
   const { subscribe, set } = writable<T>(startWith);
