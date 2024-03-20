@@ -1,0 +1,21 @@
+<script lang="ts">
+  import { onMount } from "svelte";
+  import { awaitableDocStore } from "./awaitable-doc-store";
+  import type { Message } from "$lib/message.interface";
+  import { browser } from "$app/environment";
+
+  let store: Awaited<ReturnType<typeof awaitableDocStore<Message>>>;
+  let initial_doc: Message;
+  let error;
+
+  onMount(async () => {
+    store = await awaitableDocStore<Message>("messages/anFPKvYCJ0F82JQPGw3S");
+    ({ initial_doc, error } = store);
+  });
+</script>
+
+{#if browser}
+  <pre>{JSON.stringify($store, null, 2)}</pre>
+  <pre>{JSON.stringify(initial_doc, null, 2)}</pre>
+  <pre>{JSON.stringify(error, null, 2)}</pre>
+{/if}

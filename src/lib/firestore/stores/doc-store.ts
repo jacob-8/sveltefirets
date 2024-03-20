@@ -1,14 +1,13 @@
 import { writable } from 'svelte/store';
 import {
   onSnapshot,
-  type DocumentReference,
 } from 'firebase/firestore';
 
-import { docRef } from '../firestore';
+import { docRef, type DocPredicate } from '../firestore';
 import { startTrace, stopTrace } from '../perf';
 
 export function docStore<T>(
-  path: DocumentReference<T> | string,
+  path: DocPredicate<T>,
   options: { 
     log?: boolean; 
     traceId?: string; 

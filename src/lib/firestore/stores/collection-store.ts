@@ -2,15 +2,14 @@ import { writable } from 'svelte/store';
 import {
   onSnapshot,
   query,
-  type CollectionReference,
   type QueryConstraint,
 } from 'firebase/firestore';
 
-import { colRef } from '../firestore';
+import { colRef, type CollectionPredicate } from '../firestore';
 import { startTrace, stopTrace } from '../perf';
 
 export function collectionStore<T>(
-  path: CollectionReference<T> | string,
+  path: CollectionPredicate<T>,
   queryConstraints: QueryConstraint[] = [],
   options: {
     log?: boolean;

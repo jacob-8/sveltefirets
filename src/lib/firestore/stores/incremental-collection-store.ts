@@ -2,26 +2,23 @@ import { readable, writable } from 'svelte/store';
 import {
   onSnapshot,
   query,
-  type CollectionReference,
   type QueryConstraint,
 } from 'firebase/firestore';
 
-import { colRef, getCollection } from '../firestore';
+import { colRef, getCollection, type CollectionPredicate } from '../firestore';
 import { startTrace, stopTrace } from '../perf';
 
 export async function incrementalCollectionStore<T>(
-  path: CollectionReference<T> | string,
+  path: CollectionPredicate<T>,
   options: {
     initialQueryConstraints: QueryConstraint[],
     realtimeQueryConstraints?: QueryConstraint[],
     log?: boolean;
     traceId?: string;
-    maxWait?: number;
-    once?: boolean;
     idField?: string;
     refField?: string;
   }) {
-  const { initialQueryConstraints = [], realtimeQueryConstraints = [], log, traceId, maxWait = 10000, once, idField = 'id', refField } = options;
+  const { initialQueryConstraints = [], realtimeQueryConstraints = [], log, traceId, idField = 'id', refField } = options;
 
   const ref = typeof path === 'string' ? colRef<T>(path) : path;
   const initial_collection = await getCollection<T>(ref, initialQueryConstraints);
@@ -60,8 +57,11 @@ export async function incrementalCollectionStore<T>(
           console.table(data);
           console.groupEnd();
         }
+
+        if (initial_collection.length === data.length && Date.now() - start_realtime_ms < 100) 
+          return log && console.log('ignoring next because it is the same as initial');
+
         next(data);
-        once && teardown();
       },
       (error) => {
         console.error(error);
@@ -74,8 +74,6 @@ export async function incrementalCollectionStore<T>(
 
   function next(val: T[], err?: Error) {
     _error = err || null;
-    if (initial_collection.length === val.length && Date.now() - start_realtime_ms < 100) 
-      return console.log('ignoring next');
     set(val);
     trace && stopTrace(trace);
   };

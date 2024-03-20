@@ -25,6 +25,7 @@ export { default as FirebaseUiAuth } from './auth/FirebaseUiAuth.svelte';
 // Stores & Auth
 export { docStore } from './firestore/stores/doc-store';
 export { collectionStore } from './firestore/stores/collection-store';
+export { awaitableDocStore } from './firestore/stores/awaitable-doc-store';
 export { incrementalCollectionStore } from './firestore/stores/incremental-collection-store';
 export { authState, createUserStore, logOut } from './auth/user';
 export { updateUserData, saveUserData } from './auth/updateUserData';

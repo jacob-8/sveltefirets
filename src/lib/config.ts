@@ -10,5 +10,5 @@ if (!PUBLIC_FIREBASE_CONFIG) {
 export const firebaseConfig: FirebaseOptions = JSON.parse(PUBLIC_FIREBASE_CONFIG);
 
 if (!firebaseConfig.projectId) {
-  throw Error('PUBLIC_FIREBASE_CONFIG is not set properly in your env variables.');
+  throw Error('No projectId found in your PUBLIC_FIREBASE_CONFIG env variable.');
 }

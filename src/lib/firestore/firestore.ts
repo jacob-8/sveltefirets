@@ -22,8 +22,8 @@ import {
 import { getDb } from '../init';
 import { getUid } from '../auth/uid';
 
-type CollectionPredicate<T> = string | CollectionReference<T>;
-type DocPredicate<T> = string | DocumentReference<T>;
+export type CollectionPredicate<T> = string | CollectionReference<T>;
+export type DocPredicate<T> = string | DocumentReference<T>;
 
 export function colRef<T>(ref: CollectionPredicate<T>): CollectionReference<T> {
   const db = getDb();
@@ -57,6 +57,19 @@ export async function getCollection<T>(
 export async function getDocument<T>(ref: DocPredicate<T>): Promise<T> {
   const docSnap = await getDoc(docRef(ref));
   return docSnap.exists() ? { ...(docSnap.data() as T), id: docSnap.id } : null;
+}
+
+export async function getDocumentOrError<T>(ref: DocPredicate<T>): Promise<{ data?: T, ref?: DocumentReference<T>, error?: { code: string, name: string}}> {
+  try {
+    const _ref = docRef<T>(ref);
+    const docSnap = await getDoc(_ref);
+    return { 
+      data: docSnap.exists() ? { ...(docSnap.data() as T), id: docSnap.id } : null,
+      ref: _ref,
+    };
+  } catch (error) {
+    return { data: null, ref: null, error };
+  }
 }
 
 export function add<T>(

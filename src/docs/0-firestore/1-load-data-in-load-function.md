@@ -14,10 +14,10 @@ Place this code in your corresponding `+page.ts` file:
 ```ts
 import { getCollection } from 'sveltefirets';
 import { limit, orderBy } from 'firebase/firestore';
-import type { IMessage } from '$lib/message.interface';
+import type { Message } from '$lib/message.interface';
 import type { PageLoad } from './$types';
 export const load: PageLoad = async () => {
-  const messages = await getCollection<IMessage>(`messages`, [
+  const messages = await getCollection<Message>(`messages`, [
     limit(5),
     orderBy('updatedAt', 'desc'),
   ]);
@@ -49,12 +49,12 @@ Works the same way except you import `getDocument` in your `+page.ts` file:
 
 ```ts
 import { getDocument } from 'sveltefirets';
-import type { IMessage } from '$lib/message.interface';
+import type { Message } from '$lib/message.interface';
 import type { PageLoad } from './$types';
 export const load: PageLoad = async () => {
-  const message = await getDocument<IMessage>(`messages/fooId`);
+  const message = await getDocument<Message>(`messages/fooId`);
   return { message };
 }
 ```
 
-The `IMessage` type is optional in both instances but highly recommended as it will give you proper types for your returned data.
+The `Message` type is optional in both instances but highly recommended as it will give you proper types for your returned data.
