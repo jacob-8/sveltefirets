@@ -14,6 +14,7 @@ import {
   deleteDoc,
   updateDoc,
   serverTimestamp,
+  type PartialWithFieldValue,
 } from 'firebase/firestore/lite';
 
 import { getUid } from '../auth/uid';
@@ -88,7 +89,7 @@ async function getDocument<T>(ref: DocPredicate<T>): Promise<T> {
  * Be sure to import firestore methods such as serverTimestamp() from firebase/firestore/lite otherwise you will receive errors */
  export async function updateOnline<T>(
   ref: DocPredicate<T>,
-  data: DocumentData,
+  data: PartialWithFieldValue<T>,
   opts: {
     abbreviate?: boolean;
   } = {}
@@ -96,7 +97,7 @@ async function getDocument<T>(ref: DocPredicate<T>): Promise<T> {
   data[opts.abbreviate ? 'ua' : 'updatedAt'] = serverTimestamp();
   data[opts.abbreviate ? 'ub' : 'updatedBy'] = getUid();
   // return updateDoc(docRef(ref), data as UpdateData<T>);
-  return updateDoc(docRef(ref), data);
+  return updateDoc(docRef(ref), data as DocumentData);
 }
 
 /**
