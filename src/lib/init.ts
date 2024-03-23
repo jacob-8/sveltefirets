@@ -1,5 +1,5 @@
 import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
-import { getFirestore, enableIndexedDbPersistence, type Firestore } from 'firebase/firestore';
+import { initializeFirestore, CACHE_SIZE_UNLIMITED, type Firestore, persistentLocalCache, persistentMultipleTabManager, enablePersistentCacheIndexAutoCreation, getPersistentCacheIndexManager } from 'firebase/firestore';
 import { firebaseConfig } from './config';
 
 let firebaseApp: FirebaseApp = null;
@@ -21,26 +21,23 @@ export function getFirebaseApp() {
   firebaseApp = initializeApp(firebaseConfig);
   console.log(`${firebaseConfig.projectId} initialized on ${browser ? 'client' : 'server'}`);
 
-  if (browser) {
-    const db = getFirestore();
-    enableIndexedDbPersistence(db).catch((err) => {
-      if (err.code == 'failed-precondition') {
-        console.warn(
-          'When multiple tabs open, Firestore persistence can only be enabled in one tab at a time.'
-        );
-      } else if (err.code == 'unimplemented') {
-        console.warn(
-          'The current browser does not support all of the features required to enable Firestore persistence.'
-        );
-      }
-    });
-  }
+  db = initializeFirestore(firebaseApp, {
+    ...browser ? {
+      localCache: persistentLocalCache({
+        cacheSizeBytes: CACHE_SIZE_UNLIMITED,
+        tabManager: persistentMultipleTabManager()
+      }),
+    } : {}
+  });
+
+  const indexManager = getPersistentCacheIndexManager(db)
+  enablePersistentCacheIndexAutoCreation(indexManager); // https://www.youtube.com/watch?v=iQOTjUko9WM
   return firebaseApp;
 }
 
 /** Won't work for Firestore Lite as it returns normal Firestore */
 export function getDb() {
   if (!db)
-    db = getFirestore(getFirebaseApp());
+    getFirebaseApp()
   return db;
 }

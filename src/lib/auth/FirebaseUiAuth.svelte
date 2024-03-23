@@ -47,10 +47,10 @@
   let container: HTMLDivElement;
 
   onMount(async () => {
-    await loadScriptOnce('https://www.gstatic.com/firebasejs/9.8.2/firebase-app-compat.js');
-    await loadScriptOnce('https://www.gstatic.com/firebasejs/9.8.2/firebase-auth-compat.js');
+    await loadScriptOnce('https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js');
+    await loadScriptOnce('https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js');
     await loadScriptOnce(
-      `https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth__${languageCode}.js`
+      `https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth__${languageCode}.js`
     );
     firebaseUiLoaded = true;
   });
@@ -126,11 +126,11 @@
 <svelte:head>
   {#if languageCode === 'iw' || languageCode === 'ar'}
     <link
-      href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth-rtl.css"
+      href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth-rtl.css"
       rel="stylesheet" />
   {:else}
     <link
-      href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css"
+      href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css"
       rel="stylesheet" />
   {/if}
 </svelte:head>

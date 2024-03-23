@@ -8,6 +8,8 @@ import {
   collection,
   doc,
   getDocs,
+  getDocsFromCache,
+  // getDocsFromServer,
   getDoc,
   query,
   addDoc,
@@ -17,6 +19,7 @@ import {
   serverTimestamp,
   type DocumentData,
   type PartialWithFieldValue,
+  FirestoreError,
 } from 'firebase/firestore';
 
 import { getDb } from '../init';
@@ -54,21 +57,42 @@ export async function getCollection<T>(
   }));
 }
 
+export async function getCollectionOrError<T>(
+  path: CollectionPredicate<T>,
+  queryConstraints: QueryConstraint[] = [],
+  { fromCache } = { fromCache: false },
+): Promise<{ data?: T[], ref?: CollectionReference<T>, error?: FirestoreError }> {
+  try {
+    const _ref = typeof path === 'string' ? colRef<T>(path) : path;
+    const q = query(_ref, ...queryConstraints);
+    const collectionSnap = fromCache ? await getDocsFromCache(q) : await getDocs(q);
+    return {
+      data: collectionSnap.docs.map((docSnap) => ({
+        ...docSnap.data(),
+        id: docSnap.id,
+      })),
+      ref: _ref,
+    } 
+  } catch (error) {
+    return { error };
+  }
+}
+
 export async function getDocument<T>(ref: DocPredicate<T>): Promise<T> {
   const docSnap = await getDoc(docRef(ref));
   return docSnap.exists() ? { ...(docSnap.data() as T), id: docSnap.id } : null;
 }
 
-export async function getDocumentOrError<T>(ref: DocPredicate<T>): Promise<{ data?: T, ref?: DocumentReference<T>, error?: { code: string, name: string}}> {
+export async function getDocumentOrError<T>(ref: DocPredicate<T>): Promise<{ data?: T, ref?: DocumentReference<T>, error?: FirestoreError }> {
   try {
     const _ref = docRef<T>(ref);
     const docSnap = await getDoc(_ref);
-    return { 
+    return {
       data: docSnap.exists() ? { ...(docSnap.data() as T), id: docSnap.id } : null,
       ref: _ref,
     };
   } catch (error) {
-    return { data: null, ref: null, error };
+    return { error };
   }
 }
 

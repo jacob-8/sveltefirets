@@ -15,8 +15,8 @@ Easily use [Firebase](https://firebase.google.com/docs) in Svelte. Built for **[
 - Firestore convenience helpers
 - Auth store
 - SSR ready (for unauthenticated data fetching)
-- Firebase (tested on 10.7.2)
-- *includes an optional FirebaseAuthUi component that brings in [FirebaseUI web](https://github.com/firebase/firebaseui-web) + Firebase 9 compat via CDN only when component shown - FirebaseUI web allows for easy authentication in dozens of languages and many providers without you needing to manage the authentication forms*
+- Firebase (tested on 10.9.0)
+- *includes an optional FirebaseAuthUi component that brings in [FirebaseUI web](https://github.com/firebase/firebaseui-web) + Firebase 10 compat via CDN only when component shown - FirebaseUI web allows for easy authentication in dozens of languages and many providers without you needing to manage the authentication forms*
 
 ## Usage Instructions
 
