@@ -12,7 +12,8 @@
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
     "check-packages": "pnpm update --interactive --recursive --latest",
-    "release": "bumpp"
+    "release": "bumpp",
+		"local-kitbook": "link:../kitbook/packages/kitbook"
   },
   "dependencies": {
     "firebase": "^10.9.0"
