@@ -19,7 +19,7 @@ import {
   serverTimestamp,
   type DocumentData,
   type PartialWithFieldValue,
-  FirestoreError,
+  type FirestoreError,
 } from 'firebase/firestore';
 
 import { getDb } from '../init';
