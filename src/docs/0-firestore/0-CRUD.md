@@ -1,34 +1,34 @@
 # Create, Read, Update, Delete
 
-## Create using `add` helper method
+## Read 
 
-`add` has the same behavior as Firestore's `addDoc` method but simplifies the setup by automatically creating a collection reference from a path string. It also adds 4 metadata fields: `createdAt`, `createdBy`, `updatedAt`, `updatedBy`.
+### Collection
 
-```ts
-import { add } from 'sveltefirets';
-import type { Message } from '$lib/message.interface';
-function sayHello(name: string) {
-  add<Message>('messages', { text: 'Hello from ' + name });
-}
-```
+You can use the `collectionStore` or `getCollection` methods to retrieve a collection of documents. The `collectionStore` method is reactive and will update the data in real-time. The `getCollection` method is not reactive and will only fetch the data once. Here's an example of the `collectionStore` method (click the `Code` button to see the code):
 
-Say hello to add your greeting to the list of greetings (seen in the next section):
+[[0-CRUD.read.composition]]
 
-TODO - add back in here (see below)
+See [[1-load-data-in-load-function]] for a SSR + realtime-updating client side experience.
 
-## List (Collection), Update, Delete
+*I used to document how to use the `<Collection>` component as well, but for archicture reasons, I encourage you to pass data in through the page `data` prop. See Fireship's [`<Collection>`](https://sveltefire.fireship.io/firestore/collection-component) or read the code if you want it.*
 
-The easiest way to list data is to use the `<Collection />` component which operates very similarly to the original [Sveltefire one](https://github.com/codediodeio/sveltefire#collection) with the addition of the `traceId`, `log`, `maxWait`, `once`, `refField` props being reactive as can be seen in the example below.
+### Document
 
-TODO - add back in here (see below)
+There are a few ways to read a document:
+- `getDocument` loads the current state
+- `docStore` returns a store that updates in real-time. It starts with a null value but you can pass in a value to `startWith`.
+- `awaitableDocStore` is a combination of the above two methods. It is useful in page load functions where you want to wait for the data to load before rendering the page, but you also want that data to continue updating in the client. 
+- `getDocumentOrError` is a better version of `getDocument` that includes error handling.
 
-The `<Collection />` component works asynchronously and so can't handle SSR loading. That can only be done in a page load file, but you should consider pairing the `<Collection />` component with the isomorphic (client/server) `getCollection()` method discussed in [[1-load-data-in-load-function]] for a SSR + realtime-updating client side experience. Just pass the data retrieved on page load into the `startWith` prop of the `<Collection />` and everything will just work. It will also provide with you type completion assuming that you've properly typed your data fetched using `getCollection()`.
+*I used to document how to use the `<Doc>` component as well, but for archicture reasons, I encourage you to pass data in through the page `data` prop. See Fireship's [`<Doc>`](https://sveltefire.fireship.io/firestore/doc-component) or read the code if you want it.*
 
-After reading [[1-load-data-in-load-function#Load Document]], feel free to test out page loaded data for the above messages using the following links:
+## Create using `add`
 
-- <a href={`/demo/messages`}>Hover to preload firestore data for all messages on client (see console log)</a>
-- <a href={`/demo/messages`} target="_blank">Load firestore data for all messages server-side (opens new tab)</a>
-- <a href={`/demo/api/messages`} target="_blank">Messages API endpoint</a>
+The `add` method has the same behavior as Firestore's `addDoc` method but simplifies the setup by automatically creating a collection reference from a path string. It also adds 4 metadata fields: `createdAt`, `createdBy`, `updatedAt`, `updatedBy`.
+
+Say hello to add your greeting to the list of greetings seen above:
+
+[[0-CRUD.add.composition]]
 
 ## Update
 
@@ -53,23 +53,6 @@ function deleteGreeting(id: string) {
 }
 ```
 
-## Read (Document)
-
-Same as using the `<Collection />` component, the easiest way to show live data for a document is to use the `<Doc />` component which operates very similarly to the original [Sveltefire one](https://github.com/codediodeio/sveltefire#doc) with the addition of the `traceId`, `log`, `maxWait`, `once` props being reactive. Go ahead and update the id (in the controls to the right), pulling from the list above.
-
-
-<Story showCode name="read" knobs={{id: 'testMessage'}} let:props={{id}}>
-  <Doc path="messages/{id}" let:data={message}>
-    <Button href="/demo/message/{message.id}">Preload firestore data on client</Button>
-    <Button href="/demo/message/{message.id}" target="_blank">Load firestore data server-side</Button>
-    <Button href="/demo/api/{message.id}" target="_blank">Message API endpoint</Button>
-    <pre>{JSON.stringify(message, null, 2)}</pre>
-    <div slot="fallback">
-      No document found with this id. Choose an ID from the above list of greetings.
-    </div>
-  </Doc>
-</Story>
-
 ## Set
 
 `set` operates a little different than Firebase's `setDoc` method. It will first check if the document you are setting already exists. If so, it will use the `update` method. If not, it will use `setDoc` but with the same 4 metadata additions added by the `add` method described above.
@@ -85,6 +68,7 @@ function setName(id: string, name: string) {
 There may be a case for renaming this as `upsert` in the future and creating a new `set` method that more closely resembles the Firebase `setDoc`.
 
 [//begin]: # "Autogenerated link references for markdown compatibility"
+[0-CRUD.read.composition]: 0-CRUD.read.composition "0-CRUD.read"
 [1-load-data-in-load-function]: 1-load-data-in-load-function.md "Load Data in Load function"
-[1-load-data-in-load-function#Load Document]: 1-load-data-in-load-function.md "Load Data in Load function"
+[0-CRUD.add.composition]: 0-CRUD.add.composition "0-CRUD.add"
 [//end]: # "Autogenerated link references"

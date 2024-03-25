@@ -1,0 +1,25 @@
+<script context="module" lang="ts">
+  import type { Viewport } from 'kitbook'
+  
+  const null_defaults_to_full_width = null
+  export const viewports: Viewport[] = [
+    { width: null_defaults_to_full_width, height: 100 },
+  ]
+</script>
+
+<script lang="ts">
+  import { Button, Store } from 'svelte-pieces';
+  import { addOnline } from 'sveltefirets';
+</script>
+
+<Store
+  startWith={'nothing added yet - click to add and display message id'}
+  let:set
+  let:store={addedId}>
+  <Button
+    onclick={async () => {
+      const { id } = await addOnline('messages', { text: 'Message added via addOnline' });
+      set(id);
+    }}>addOnline</Button>
+  {addedId}
+</Store>

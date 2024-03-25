@@ -1,0 +1,26 @@
+<script context="module" lang="ts">
+  import type { Viewport } from 'kitbook'
+  
+  const null_defaults_to_full_width = null
+  export const viewports: Viewport[] = [
+    { width: null_defaults_to_full_width, height: 100 },
+  ]
+</script>
+
+<script lang="ts">
+  import { Button } from 'svelte-pieces';
+  import { Doc, setOnline } from 'sveltefirets';
+
+  const testMessagePath = "messages/testMessage";
+</script>
+
+<Button
+  onclick={async () => {
+    await setOnline(testMessagePath, { text: 'Just a test' });
+  }}>setOnline</Button>
+<Doc path={testMessagePath} let:data={message}>
+  <pre>{JSON.stringify(message, null, 2)}</pre>
+  <div slot="fallback">
+    No document found with 'testMessage' id - please use the button above to "setOnline"
+  </div>
+</Doc>

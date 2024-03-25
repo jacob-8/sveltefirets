@@ -1,0 +1,16 @@
+<script context="module" lang="ts">
+  import type { Viewport } from 'kitbook'
+  
+  const null_defaults_to_full_width = null
+  export const viewports: Viewport[] = [
+    { width: null_defaults_to_full_width, height: 200 },
+  ]
+</script>
+
+<script lang="ts">
+
+</script>
+
+Advanced
+<!-- <iframe src="/demo/messages" style="width: 100%; height: 100%;"></iframe> -->
+<!-- Refresh to see the flash of objects rearranging as the client side Firestore fetched, updated the content (and also cached). (needs refresh button placed on iframe) -->

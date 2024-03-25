@@ -1,0 +1,30 @@
+<script context="module" lang="ts">
+  import type { Viewport } from 'kitbook'
+  
+  export const viewports: Viewport[] = [
+    { width: null, height: 50 },
+  ]
+</script>
+
+<script lang="ts">
+  import { add } from "sveltefirets";
+  import { Button } from 'svelte-pieces'
+  import type { Message } from "$lib/message.interface";
+
+  let text = "John";
+
+  function sayHello() {
+    add<Message>("messages", { text: "Hello from " + text });
+  }
+</script>
+
+<form on:submit|preventDefault={sayHello}>
+  <input
+  style="border: 1px solid gray; border-radius: 4px; padding: 2px"
+  type="text"
+  bind:value={text}
+  maxlength="10"
+  placeholder="Enter name"
+  />
+  <Button type="submit" size="sm">Add</Button>
+</form>

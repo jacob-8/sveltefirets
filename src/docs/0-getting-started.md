@@ -19,7 +19,7 @@ PUBLIC_FIREBASE_CONFIG={"apiKey":"...","authDomain":"YOURPROJECTID.firebaseapp.c
 
   - When using SvelteFireTS in non-SvelteKit environments, a file that exports `PUBLIC_FIREBASE_CONFIG` as a string will need to be aliased to `$env/static/public` as this library expects that to be available. *If this is not workable in your use case, feel free to submit a PR that updates `config.ts` to `process.env.PUBLIC_FIREBASE_CONFIG` server-side or `window.PUBLIC_FIREBASE_CONFIG` client side.*
 
-- *If wanting to share config between projects in a monorepo set the [`envDir`](https://vitejs.dev/config/#envdir) property in your `vite.config.js` to `../../` and place the `.env` file in the repo root.*
+- *If wanting to share config between projects in a monorepo set the [`envDir`](https://vitejs.dev/config/#envdir) property in your `vite.config.js` to `../` or `../../` as applicable and place the `.env` file in the repo root.*
 
 
 ## 3. Use

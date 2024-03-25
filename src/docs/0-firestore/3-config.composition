@@ -1,0 +1,20 @@
+<script context="module" lang="ts">
+  import type { Viewport } from 'kitbook'
+  
+  const null_defaults_to_full_width = null
+  export const viewports: Viewport[] = [
+    { width: null_defaults_to_full_width, height: 250 },
+  ]
+</script>
+
+<script lang="ts">
+  import { firebaseConfig } from 'sveltefirets';
+</script>
+
+{#if firebaseConfig.projectId}
+  <pre>{JSON.stringify(firebaseConfig, null, 1)}</pre>
+{:else}
+  You need to create a
+  <a href="https://firebase.google.com/">Firebase Project</a>
+  and add it to your .env variables as described in "Getting Started".
+{/if}

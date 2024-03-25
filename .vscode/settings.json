@@ -5,16 +5,21 @@
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
+
+  // Kitbook
   "files.associations": {
     "*.composition": "svelte"
   },
+  "foam.completion.label": "title",
   "foam.edit.linkReferenceDefinitions": "withExtensions",
   "foam.files.ignore": [
     "**/node_modules/**/*",
     "**/.svelte-kit/**/*",
     "**/dist/**/*"
   ],
-  "foam.completion.label": "title",
+  "foam.files.notesExtensions": "composition",
+
+  // ESLint
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "prettier.enable": false,
   "editor.formatOnSave": false,
@@ -46,6 +51,7 @@
     "yaml"
   ],
   "eslint.experimental.useFlatConfig": true,
+  
   "svelte.plugin.svelte.compilerWarnings": {
     "a11y-click-events-have-key-events": "ignore",
     "a11y-aria-attributes": "ignore",
