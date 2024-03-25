@@ -1,6 +1,6 @@
 {
   "name": "sveltefirets",
-  "version": "0.0.42",
+  "version": "0.0.43",
   "description": "Easily Use Firebase in Svelte",
   "scripts": {
     "dev": "vite dev --mode kitbook",
@@ -13,7 +13,7 @@
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
     "check-packages": "pnpm update --interactive --recursive --latest",
     "release": "bumpp",
-		"local-kitbook": "link:../kitbook/packages/kitbook"
+    "local-kitbook": "link:../kitbook/packages/kitbook"
   },
   "dependencies": {
     "firebase": "^10.9.0"
