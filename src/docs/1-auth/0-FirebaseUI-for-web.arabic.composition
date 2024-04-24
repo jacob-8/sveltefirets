@@ -1,0 +1,30 @@
+<script context="module" lang="ts">
+  import type { Viewport } from 'kitbook'
+  
+  const null_defaults_to_full_width = null
+  export const viewports: Viewport[] = [
+    { width: null_defaults_to_full_width, height: 200 },
+  ]
+</script>
+
+<script lang="ts">
+  import { createUserStore, firebaseConfig, type IBaseUser, logOut, FirebaseUiAuth, saveUserData } from 'sveltefirets';
+  import Button from 'svelte-pieces/ui/Button.svelte';
+
+  const user = createUserStore<IBaseUser>({
+    userKey: `${firebaseConfig.projectId}_firebase_user`,
+    log: true,
+  });
+</script>
+
+{#if $user}
+  You are logged in and here is your User document from Firestore:
+
+  <pre>{JSON.stringify($user, null, 1)}</pre>
+  <Button form="filled" onclick={logOut}>Log Out</Button>
+{:else}
+<FirebaseUiAuth
+  languageCode={'ar'}
+  signInWith={{ google: true, emailPasswordless: true }}
+  on:authresult={(e) => saveUserData(e.detail)} />
+{/if}

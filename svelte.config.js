@@ -22,12 +22,6 @@ const config = {
     }
     handler(warning);
   },
-
-	vitePlugin: {
-			inspector: {
-				holdMode: true,
-		}
-	},
 };
 
 export default config;

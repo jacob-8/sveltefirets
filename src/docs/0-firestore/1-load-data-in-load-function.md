@@ -34,6 +34,8 @@ Then in your `+page.svelte` file:
 
 [[1-load-data-in-load-function.composition]]
 
+Refresh to see the flash of objects rearranging as the client side Firestore fetched, updated the content (and also cached).
+
 ## Load Document
 
 Works the same way except you import `getDocument` in your `+page.ts` file:
@@ -50,11 +52,11 @@ export const load: PageLoad = async () => {
 
 The `Message` type is optional in both instances but highly recommended as it will give you proper types for your returned data.  If you want real-time updates, check out the `docStore` and `awaitableDocStore` functions.
 
-<!-- feel free to test out page loaded data for the above messages using the following links:
+Test out page loaded data for the above messages using the following links:
 
 - <a href="/demo/messages">Hover to preload firestore data for all messages on client (see console log)</a>
 - <a href="/demo/messages" target="_blank">Load firestore data for all messages server-side (opens new tab)</a>
-- <a href="/demo/api/messages" target="_blank">Messages API endpoint</a> -->
+- <a href="/demo/api/messages" target="_blank">Messages API endpoint</a>
 
 
 

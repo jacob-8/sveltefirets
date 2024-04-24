@@ -1,16 +1,16 @@
 <script context="module" lang="ts">
-  import type { Viewport } from 'kitbook'
-  
-  export const viewports: Viewport[] = [
-    { width: null, height: 200 },
-  ]
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ height: 200 }],
+  })
 </script>
 
 <script lang="ts">
   import type { Message } from '$lib/message.interface';
   import { limit, orderBy } from 'firebase/firestore';
   import { collectionStore } from 'sveltefirets';
-  import MessageComponent from './Message.svelte';
+  import MessageComponent from '../../routes/demo/Message.svelte';
   
   const messages = collectionStore<Message>('messages', [
     limit(5), 

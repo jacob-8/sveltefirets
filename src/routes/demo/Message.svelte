@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Message } from "$lib/message.interface";
+  import type { Message } from "./message.interface";
   import { Button } from "svelte-pieces";
   import { deleteDocument, update } from 'sveltefirets';
 

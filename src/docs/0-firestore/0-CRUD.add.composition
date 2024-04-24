@@ -1,15 +1,15 @@
 <script context="module" lang="ts">
-  import type { Viewport } from 'kitbook'
-  
-  export const viewports: Viewport[] = [
-    { width: null, height: 50 },
-  ]
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ height: 50 }],
+  })
 </script>
 
 <script lang="ts">
   import { add } from "sveltefirets";
   import { Button } from 'svelte-pieces'
-  import type { Message } from "$lib/message.interface";
+  import type { Message } from "../../routes/demo/message.interface";
 
   let text = "John";
 
